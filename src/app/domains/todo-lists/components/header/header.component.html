@@ -1,1 +1,25 @@
-Header work
+<div class="calendar">
+    <div class="calendar-icon">
+        <div class="calendar-icon-month">sep</div>
+        <div class="calendar-icon-date">9</div>
+    </div>
+    <div class="calendar-label">
+        Today
+    </div>
+</div>
+<div class="list-navigation">
+    <div class="list-navigation-ellipsis">
+        <div class="list-navigation-ellipsis" (click)="onClick()">
+            <svg width="19" height="5" viewBox="0 0 19 5" fill="none">
+                <circle cx="2.8" cy="2.5" r="2.5" fill="#C4C4C4" />
+                <circle cx="9.5" cy="2.5" r="2.5" fill="#C4C4C4" />
+                <circle cx="16.1" cy="2.5" r="2.5" fill="#C4C4C4" />
+            </svg>
+        </div>
+    </div>
+    <ul class="list-navigation-list" [ngStyle]="{display: checkClick()}">
+        <li class="list-navigation-items">Completed</li>
+        <li class="list-navigation-items">In Progress</li>
+        <li class="list-navigation-items">Removed</li>
+    </ul>
+</div>
