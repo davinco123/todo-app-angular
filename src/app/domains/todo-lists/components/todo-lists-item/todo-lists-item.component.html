@@ -1,1 +1,7 @@
-<p>todo-lists-item works!</p>
+<div class="row">
+    <div class="col-12">
+        <ul class="list group">
+            <a class="list-group-item" *ngFor="let todoItem of todoItems">{{todoItem.todo}}</a>
+        </ul>
+    </div>
+</div>
