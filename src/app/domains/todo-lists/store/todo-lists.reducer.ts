@@ -1,22 +1,22 @@
-import { TodoListItem } from '../models/todo-lists.model';
+import { TodoListModel } from '../models/todo-lists.model';
 
 import * as TodoListActions from './todo-lists.actions';
 
 export interface State {
-  todoList: TodoListItem[];
+  todoList: TodoListModel[];
 }
 
 const initialState: State = {
   todoList: [
-    new TodoListItem('Workout for 30 minutes at the gym', true, false, false),
-    new TodoListItem(
+    new TodoListModel('Workout for 30 minutes at the gym', true, false, false),
+    new TodoListModel(
       'Buy groceries (milk, vegetable, fruits, fish)',
       true,
       false,
       false
     ),
-    new TodoListItem('Clean the house and backyard', false, true, false),
-    new TodoListItem(
+    new TodoListModel('Clean the house and backyard', false, true, false),
+    new TodoListModel(
       'Take the car to the auto shop for an oil change',
       false,
       false,

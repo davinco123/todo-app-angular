@@ -1,4 +1,4 @@
-export class TodoListItem {
+export class TodoListModel {
   public todo: string;
   public isInProgress: boolean;
   public isCompleted: boolean;

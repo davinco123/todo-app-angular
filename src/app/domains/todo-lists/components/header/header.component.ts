@@ -12,15 +12,15 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  toCompleted() {
+  toCompletedMode() {
     this.modeChange.emit('Completed');
   }
 
-  toInProgress() {
+  toInProgressMode() {
     this.modeChange.emit('In Progress');
   }
 
-  toRemoved() {
+  toRemovedMode() {
     this.modeChange.emit('Removed');
   }
 }
