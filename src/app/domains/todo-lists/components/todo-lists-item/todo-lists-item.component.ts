@@ -1,7 +1,13 @@
-import { Component, OnInit, Input, DoCheck } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Input,
+  OnChanges,
+  SimpleChanges,
+} from '@angular/core';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { tap } from 'rxjs';
 import { Store } from '@ngrx/store';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 import { TodoListModel } from '../../models/todo-lists.model';
 import * as fromApp from '../../../../store/app.reducer';
@@ -12,7 +18,7 @@ import * as TodoListActions from '../../store/todo-lists.actions';
   templateUrl: './todo-lists-item.component.html',
   styleUrls: ['./todo-lists-item.component.css'],
 })
-export class TodoListsItemComponent implements OnInit, DoCheck {
+export class TodoListsItemComponent implements OnInit, OnChanges {
   @Input() currentModeChange: string;
 
   todoListForm: FormGroup;
@@ -33,6 +39,7 @@ export class TodoListsItemComponent implements OnInit, DoCheck {
         })
       )
       .subscribe();
+    this.currentModeChange = 'inProgress';
   }
 
   getCurrentList(currentModeChange): TodoListModel[] {
@@ -41,19 +48,17 @@ export class TodoListsItemComponent implements OnInit, DoCheck {
     });
   }
 
-  getCurrentMode(): string {
-    return this.currentModeChange;
-  }
-
-  onSubmit() {
+  onSubmit(): void {
     const newTodo = new TodoListModel(this.todoListForm.get('todo').value);
     this.store.dispatch(new TodoListActions.AddTodo(newTodo));
     this.todoListForm.reset();
   }
 
-  onRemove(value: TodoListModel) {
+  onRemove(value: TodoListModel): void {
     this.store.dispatch(new TodoListActions.RemoveTodo(value));
   }
 
-  ngDoCheck(): void {}
+  ngOnChanges(changes: SimpleChanges): void {
+    return (this.currentModeChange = changes.currentModeChange.currentValue);
+  }
 }
