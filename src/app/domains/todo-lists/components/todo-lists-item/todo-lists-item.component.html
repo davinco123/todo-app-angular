@@ -1,7 +1,16 @@
 <div class="row">
     <div class="col-12">
-        <ul class="list group">
-            <a class="list-group-item" *ngFor="let todoItem of todoItems">{{todoItem.todo}}</a>
+        <ul class="list-group" *ngIf="inProgressMode">
+            <li class="list-group-item" *ngFor="let todoItem of todoItemsInProgress">
+                {{todoItem.todo}}</li>
+        </ul>
+        <ul class="list-group" *ngIf="removedMode">
+            <li class="list-group-item" *ngFor="let todoItem of todoItemsRemoved">
+                {{todoItem.todo}}</li>
+        </ul>
+        <ul class="list-group" *ngIf="completedMode">
+            <li class="list-group-item" *ngFor="let todoItem of todoItemsCompleted">
+                {{todoItem.todo}}</li>
         </ul>
     </div>
 </div>

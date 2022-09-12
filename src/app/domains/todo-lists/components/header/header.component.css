@@ -37,9 +37,6 @@
     top: 40px;
     right: 40px;
 }
- .list-navigation--open {
-    display: none;  
- }
  .list-navigation-ellipsis{
     position: absolute;
     right: 0;
@@ -51,7 +48,6 @@
  }
 
  .list-navigation-list {
-    display: none;
     position: relative;
     z-index: 1;
     list-style-type: none;

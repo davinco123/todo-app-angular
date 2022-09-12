@@ -11,7 +11,12 @@ import * as fromApp from '../../../../store/app.reducer';
   styleUrls: ['./todo-lists-item.component.css'],
 })
 export class TodoListsItemComponent implements OnInit {
-  todoItems: TodoListItem[];
+  todoItemsInProgress: TodoListItem[] = [];
+  todoItemsRemoved: TodoListItem[] = [];
+  todoItemsCompleted: TodoListItem[] = [];
+  inProgressMode: boolean = true;
+  removedMode: boolean = false;
+  completedMode: boolean = false;
 
   constructor(private store: Store<fromApp.AppState>) {}
 
@@ -20,10 +25,16 @@ export class TodoListsItemComponent implements OnInit {
       .select('todoList')
       .pipe(
         map((todoListState) => {
+          console.log(todoListState);
           return todoListState.todoList;
         })
       )
-      .subscribe((todoList) => (this.todoItems = todoList));
-    console.log(this.todoItems);
+      .subscribe((todoList) => {
+        todoList.filter((todoItem) => {
+          if (todoItem.isInProgress) this.todoItemsInProgress.push(todoItem);
+          else if (todoItem.isCompleted) this.todoItemsCompleted.push(todoItem);
+          else if (todoItem.isRemoved) this.todoItemsRemoved.push(todoItem);
+        });
+      });
   }
 }

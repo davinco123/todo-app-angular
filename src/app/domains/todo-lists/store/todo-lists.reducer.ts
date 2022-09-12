@@ -4,20 +4,25 @@ import * as TodoListActions from './todo-lists.actions';
 
 export interface State {
   todoList: TodoListItem[];
-  isCompleted: boolean;
-  isRemoved: boolean;
-  isInProgress: boolean;
 }
 
 const initialState: State = {
   todoList: [
-    new TodoListItem('Do something'),
-    new TodoListItem('Make dinner'),
-    new TodoListItem('Do house chores'),
+    new TodoListItem('Workout for 30 minutes at the gym', true, false, false),
+    new TodoListItem(
+      'Buy groceries (milk, vegetable, fruits, fish)',
+      true,
+      false,
+      false
+    ),
+    new TodoListItem('Clean the house and backyard', false, true, false),
+    new TodoListItem(
+      'Take the car to the auto shop for an oil change',
+      false,
+      false,
+      true
+    ),
   ],
-  isCompleted: false,
-  isInProgress: true,
-  isRemoved: false,
 };
 
 export function todoListReducer(
@@ -28,7 +33,7 @@ export function todoListReducer(
     case TodoListActions.ADD_TODO:
       return {
         ...state,
-        todoItem: [...state.todoList, action.payload],
+        todoList: [...state.todoList, action.payload],
       };
 
     default:
