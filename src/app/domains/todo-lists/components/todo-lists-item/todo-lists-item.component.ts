@@ -1,5 +1,12 @@
-import { Component, OnInit } from '@angular/core';
-import { map, Observable } from 'rxjs';
+import {
+  Component,
+  OnInit,
+  Input,
+  OnChanges,
+  SimpleChanges,
+  DoCheck,
+} from '@angular/core';
+import { tap } from 'rxjs';
 import { Store } from '@ngrx/store';
 
 import { TodoListItem } from '../../models/todo-lists.model';
@@ -10,7 +17,13 @@ import * as fromApp from '../../../../store/app.reducer';
   templateUrl: './todo-lists-item.component.html',
   styleUrls: ['./todo-lists-item.component.css'],
 })
-export class TodoListsItemComponent implements OnInit {
+export class TodoListsItemComponent implements OnInit, DoCheck {
+  @Input() listModeChange: {
+    inProgressMode: boolean;
+    removedMode: boolean;
+    completedMode: boolean;
+  };
+
   todoItemsInProgress: TodoListItem[] = [];
   todoItemsRemoved: TodoListItem[] = [];
   todoItemsCompleted: TodoListItem[] = [];
@@ -24,17 +37,22 @@ export class TodoListsItemComponent implements OnInit {
     this.store
       .select('todoList')
       .pipe(
-        map((todoListState) => {
-          console.log(todoListState);
+        tap((todoListState) => {
+          todoListState.todoList.filter((todoItem) => {
+            if (todoItem.isInProgress) this.todoItemsInProgress.push(todoItem);
+            else if (todoItem.isCompleted)
+              this.todoItemsCompleted.push(todoItem);
+            else if (todoItem.isRemoved) this.todoItemsRemoved.push(todoItem);
+          });
           return todoListState.todoList;
         })
       )
-      .subscribe((todoList) => {
-        todoList.filter((todoItem) => {
-          if (todoItem.isInProgress) this.todoItemsInProgress.push(todoItem);
-          else if (todoItem.isCompleted) this.todoItemsCompleted.push(todoItem);
-          else if (todoItem.isRemoved) this.todoItemsRemoved.push(todoItem);
-        });
-      });
+      .subscribe();
+  }
+
+  ngDoCheck(): void {
+    this.completedMode = this.listModeChange.completedMode;
+    this.inProgressMode = this.listModeChange.inProgressMode;
+    this.removedMode = this.listModeChange.removedMode;
   }
 }

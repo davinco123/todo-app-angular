@@ -1,3 +1,4 @@
-<app-todo-lists-header></app-todo-lists-header>
+<app-todo-lists-header (modeChange)="changeListMode($event)">
+</app-todo-lists-header>
 <hr>
-<app-todo-lists-item></app-todo-lists-item>
+<app-todo-lists-item [listModeChange]="listMode"></app-todo-lists-item>
