@@ -8,19 +8,15 @@ export interface State {
 
 const initialState: State = {
   todoList: [
-    new TodoListModel('Workout for 30 minutes at the gym', true, false, false),
+    new TodoListModel('Workout for 30 minutes at the gym', 'inProgress'),
     new TodoListModel(
       'Buy groceries (milk, vegetable, fruits, fish)',
-      true,
-      false,
-      false
+      'inProgress'
     ),
-    new TodoListModel('Clean the house and backyard', false, true, false),
+    new TodoListModel('Clean the house and backyard', 'completed'),
     new TodoListModel(
       'Take the car to the auto shop for an oil change',
-      false,
-      false,
-      true
+      'removed'
     ),
   ],
 };
@@ -31,11 +27,29 @@ export function todoListReducer(
 ) {
   switch (action.type) {
     case TodoListActions.ADD_TODO:
+      console.log(state.todoList);
       return {
         ...state,
-        todoList: [action.payload],
+        todoList: [...state.todoList, action.payload],
       };
+    case TodoListActions.REMOVE_TODO:
+      const todoLists = [...state.todoList];
+      const index = todoLists.indexOf(action.payload);
 
+      const oldTodo = state.todoList[index];
+      const newTodo = { ...action.payload };
+
+      const updatedTodo = {
+        ...oldTodo,
+        ...newTodo,
+      };
+      todoLists[index] = updatedTodo;
+
+      console.log(todoLists);
+      return {
+        ...state,
+        todoList: todoLists,
+      };
     default:
       return state;
   }

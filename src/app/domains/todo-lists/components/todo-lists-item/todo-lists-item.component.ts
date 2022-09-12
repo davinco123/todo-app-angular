@@ -13,19 +13,10 @@ import * as TodoListActions from '../../store/todo-lists.actions';
   styleUrls: ['./todo-lists-item.component.css'],
 })
 export class TodoListsItemComponent implements OnInit, DoCheck {
-  @Input() currentModeChange: {
-    inProgressMode: boolean;
-    removedMode: boolean;
-    completedMode: boolean;
-  };
+  @Input() currentModeChange: string;
 
   todoListForm: FormGroup;
-  inProgressList: TodoListModel[] = [];
-  removedList: TodoListModel[] = [];
-  completedList: TodoListModel[] = [];
-  inProgressMode: boolean = true;
-  removedMode: boolean = false;
-  completedMode: boolean = false;
+  todoLists: TodoListModel[] = [];
 
   constructor(private store: Store<fromApp.AppState>) {}
 
@@ -38,17 +29,20 @@ export class TodoListsItemComponent implements OnInit, DoCheck {
       .select('todoList')
       .pipe(
         tap((todoListState) => {
-          todoListState.todoList.filter((todoListItem) => {
-            if (todoListItem.isInProgress)
-              this.inProgressList.push(todoListItem);
-            else if (todoListItem.isCompleted)
-              this.completedList.push(todoListItem);
-            else if (todoListItem.isRemoved)
-              this.removedList.push(todoListItem);
-          });
+          this.todoLists = todoListState.todoList;
         })
       )
       .subscribe();
+  }
+
+  getCurrentList(currentModeChange): TodoListModel[] {
+    return this.todoLists.filter((value) => {
+      return value.mode === currentModeChange;
+    });
+  }
+
+  getCurrentMode(): string {
+    return this.currentModeChange;
   }
 
   onSubmit() {
@@ -57,9 +51,9 @@ export class TodoListsItemComponent implements OnInit, DoCheck {
     this.todoListForm.reset();
   }
 
-  ngDoCheck(): void {
-    this.completedMode = this.currentModeChange.completedMode;
-    this.inProgressMode = this.currentModeChange.inProgressMode;
-    this.removedMode = this.currentModeChange.removedMode;
+  onRemove(value: TodoListModel) {
+    this.store.dispatch(new TodoListActions.RemoveTodo(value));
   }
+
+  ngDoCheck(): void {}
 }

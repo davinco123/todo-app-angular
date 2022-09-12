@@ -1,5 +1,11 @@
 import { Component, Output, EventEmitter, OnInit } from '@angular/core';
 
+export enum TodoListMode {
+  INPROGRESS = 'inProgress',
+  COMPLETED = 'completed',
+  REMOVED = 'removed',
+}
+
 @Component({
   selector: 'app-todo-lists-header',
   templateUrl: './header.component.html',
@@ -9,18 +15,11 @@ export class HeaderComponent implements OnInit {
   @Output() modeChange = new EventEmitter<string>();
   today: number = new Date().getDate();
   month: string = new Date().toLocaleString('default', { month: 'long' });
+  TodoEnum = TodoListMode;
 
   ngOnInit(): void {}
 
-  toCompletedMode() {
-    this.modeChange.emit('Completed');
-  }
-
-  toInProgressMode() {
-    this.modeChange.emit('In Progress');
-  }
-
-  toRemovedMode() {
-    this.modeChange.emit('Removed');
+  public onModeChange(value: string): void {
+    this.modeChange.emit(this.TodoEnum[value]);
   }
 }
