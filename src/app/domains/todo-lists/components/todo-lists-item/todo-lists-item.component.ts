@@ -1,16 +1,11 @@
-import {
-  Component,
-  OnInit,
-  Input,
-  OnChanges,
-  SimpleChanges,
-  DoCheck,
-} from '@angular/core';
+import { Component, OnInit, Input, DoCheck } from '@angular/core';
 import { tap } from 'rxjs';
 import { Store } from '@ngrx/store';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 import { TodoListModel } from '../../models/todo-lists.model';
 import * as fromApp from '../../../../store/app.reducer';
+import * as TodoListActions from '../../store/todo-lists.actions';
 
 @Component({
   selector: 'app-todo-lists-item',
@@ -24,6 +19,7 @@ export class TodoListsItemComponent implements OnInit, DoCheck {
     completedMode: boolean;
   };
 
+  todoListForm: FormGroup;
   inProgressList: TodoListModel[] = [];
   removedList: TodoListModel[] = [];
   completedList: TodoListModel[] = [];
@@ -34,6 +30,10 @@ export class TodoListsItemComponent implements OnInit, DoCheck {
   constructor(private store: Store<fromApp.AppState>) {}
 
   ngOnInit(): void {
+    this.todoListForm = new FormGroup({
+      todo: new FormControl('', Validators.required),
+    });
+
     this.store
       .select('todoList')
       .pipe(
@@ -46,10 +46,15 @@ export class TodoListsItemComponent implements OnInit, DoCheck {
             else if (todoListItem.isRemoved)
               this.removedList.push(todoListItem);
           });
-          return todoListState.todoList;
         })
       )
       .subscribe();
+  }
+
+  onSubmit() {
+    const newTodo = new TodoListModel(this.todoListForm.get('todo').value);
+    this.store.dispatch(new TodoListActions.AddTodo(newTodo));
+    this.todoListForm.reset();
   }
 
   ngDoCheck(): void {

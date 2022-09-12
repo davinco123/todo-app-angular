@@ -1,16 +1,25 @@
 <div class="row">
-    <div class="col-12">
+    <div class="col">
         <ul class="list-group" *ngIf="inProgressMode">
-            <li class="list-group-item" *ngFor="let todoItem of todoItemsInProgress">
+            <li class="list-group-item" *ngFor="let todoItem of inProgressList">
                 {{todoItem.todo}}</li>
         </ul>
         <ul class="list-group" *ngIf="removedMode">
-            <li class="list-group-item" *ngFor="let todoItem of todoItemsRemoved">
+            <li class="list-group-item" *ngFor="let todoItem of removedList">
                 {{todoItem.todo}}</li>
         </ul>
         <ul class="list-group" *ngIf="completedMode">
-            <li class="list-group-item" *ngFor="let todoItem of todoItemsCompleted">
+            <li class="list-group-item" *ngFor="let todoItem of completedList">
                 {{todoItem.todo}}</li>
         </ul>
+        <form [formGroup]="todoListForm" (ngSubmit)="onSubmit()">
+            <div class="row form-group">
+                <div class="col-1"><button class="btn btn-primary" type="submit">+</button></div>
+                <div class="col-10">
+                    <input type="text" id="todo" class="form-control" formControlName="todo">
+                </div>
+                <div class="col-1"><button class="btn btn-danger" type="button">x</button></div>
+            </div>
+        </form>
     </div>
 </div>

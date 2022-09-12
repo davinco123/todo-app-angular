@@ -2,7 +2,7 @@ export class TodoListModel {
   public todo: string;
   public isInProgress: boolean;
   public isCompleted: boolean;
-  public isRemoved?: boolean;
+  public isRemoved: boolean;
 
   constructor(
     todo: string,

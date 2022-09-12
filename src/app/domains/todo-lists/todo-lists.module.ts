@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { HeaderComponent } from './components/header/header.component';
 import { TodoListsItemComponent } from './components/todo-lists-item/todo-lists-item.component';
@@ -9,6 +10,11 @@ import { TodoListsRoutingModule } from './todo-lists-routing.module';
 
 @NgModule({
   declarations: [TodoListsComponent, TodoListsItemComponent, HeaderComponent],
-  imports: [CommonModule, RouterModule, TodoListsRoutingModule],
+  imports: [
+    CommonModule,
+    RouterModule,
+    ReactiveFormsModule,
+    TodoListsRoutingModule,
+  ],
 })
 export class TodoListModule {}

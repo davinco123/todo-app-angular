@@ -33,7 +33,7 @@ export function todoListReducer(
     case TodoListActions.ADD_TODO:
       return {
         ...state,
-        todoList: [...state.todoList, action.payload],
+        todoList: [action.payload],
       };
 
     default:
