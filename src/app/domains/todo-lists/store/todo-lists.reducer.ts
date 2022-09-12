@@ -38,14 +38,13 @@ export function todoListReducer(
 
       const oldTodo = state.todoList[index];
       const newTodo = { ...action.payload };
-
+      newTodo.mode = 'removed';
       const updatedTodo = {
         ...oldTodo,
         ...newTodo,
       };
       todoLists[index] = updatedTodo;
 
-      console.log(todoLists);
       return {
         ...state,
         todoList: todoLists,
