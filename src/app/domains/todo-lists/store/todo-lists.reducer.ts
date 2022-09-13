@@ -8,10 +8,10 @@ export interface State {
 
 const initialState: State = {
   todoList: [
-    new TodoListModel('Workout for 30 minutes at the gym', 'inProgress'),
+    new TodoListModel('Workout for 30 minutes at the gym', 'inprogress'),
     new TodoListModel(
       'Buy groceries (milk, vegetable, fruits, fish)',
-      'inProgress'
+      'inprogress'
     ),
     new TodoListModel('Clean the house and backyard', 'completed'),
     new TodoListModel(
@@ -40,8 +40,8 @@ export function todoListReducer(
       const oldTodo = state.todoList[index];
       const newTodo = { ...action.payload };
 
-      if (newTodo.mode === 'inProgress') newTodo.mode = 'removed';
-      else if (newTodo.mode === 'removed') newTodo.mode = 'inProgress';
+      if (newTodo.mode === 'inprogress') newTodo.mode = 'removed';
+      else if (newTodo.mode === 'removed') newTodo.mode = 'inprogress';
 
       const updatedTodo = {
         ...oldTodo,

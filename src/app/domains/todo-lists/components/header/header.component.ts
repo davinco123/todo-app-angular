@@ -1,7 +1,7 @@
 import { Component, Output, EventEmitter, OnInit } from '@angular/core';
 
 export enum TodoListMode {
-  INPROGRESS = 'inProgress',
+  INPROGRESS = 'inprogress',
   COMPLETED = 'completed',
   REMOVED = 'removed',
 }
@@ -9,7 +9,7 @@ export enum TodoListMode {
 @Component({
   selector: 'app-todo-lists-header',
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.css'],
+  styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent implements OnInit {
   @Output() modeChange = new EventEmitter<string>();

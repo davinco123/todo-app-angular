@@ -10,7 +10,7 @@ import * as TodoListActions from '../../store/todo-lists.actions';
 @Component({
   selector: 'app-todo-lists-item',
   templateUrl: './todo-lists-item.component.html',
-  styleUrls: ['./todo-lists-item.component.css'],
+  styleUrls: ['./todo-lists-item.component.scss'],
 })
 export class TodoListsItemComponent implements OnInit {
   @Input() currentModeChange: string;
@@ -33,7 +33,7 @@ export class TodoListsItemComponent implements OnInit {
         })
       )
       .subscribe();
-    this.currentModeChange = 'inProgress';
+    this.currentModeChange = 'inprogress';
   }
 
   getCurrentList(): TodoListModel[] {
