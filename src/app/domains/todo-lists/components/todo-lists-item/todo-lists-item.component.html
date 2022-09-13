@@ -1,11 +1,41 @@
 <div class="list">
-    <ul class="list-{{currentModeChange}}">
-        <li class="list-{{currentModeChange}}-item" *ngFor="let todoItem of getCurrentList()">
+    <ul class="list-todo">
+        <li class="list-todo-item" *ngFor="let todoItem of getCurrentList()">
+            <div class="list-todo-item-inprogress" *ngIf="currentModeChange == todoEnum.INPROGRESS">
+                <div class="list-todo-item-inprogress-complete">
+                    <button class="btn btn-secondary" type="button"
+                        (click)="onComplete(todoItem,inputtext.value)">#</button>
+                </div>
+                <div class="list-todo-item-inprogress-edit">
+                    <input type="text" value="{{todoItem.todo}}" #inputtext>
+                </div>
+                <div class="list-todo-item-inprogress-remove">
+                    <button class="btn btn-danger" type="button" (click)="onUpdate(todoItem,inputtext.value)">x</button>
+                </div>
+            </div>
+            <div class="list-todo-item-completed" *ngIf="currentModeChange == todoEnum.COMPLETED">
+
+                <div class="list-todo-item-completed-complete">
+                    <button class="btn btn-secondary">#</button>
+                </div>
+                <div class="list-todo-item-completed-label">
+                    <p>{{todoItem.todo}}</p>
+                </div>
 
 
+            </div>
+            <div class="list-todo-item-removed" *ngIf="currentModeChange == todoEnum.REMOVED">
+                <div class="list-todo-item-removed-restore">
+                    <button class="btn btn-primary" type="button"
+                        (click)="onUpdate(todoItem,inputtext.value)">+</button>
+                </div>
+                <div class="list-todo-item-removed-label">
+                    <p>{{todoItem.todo}}</p>
+                </div>
+            </div>
         </li>
     </ul>
-    <form *ngIf="currentModeChange == 'inprogress'" [formGroup]="todoListForm" (ngSubmit)="onSubmit()">
+    <form *ngIf="currentModeChange == todoEnum.INPROGRESS" [formGroup]="todoListForm" (ngSubmit)="onSubmit()">
         <div class="row form-group">
             <div class="col-1"><button class="btn btn-primary" type="submit" [disabled]="!todoListForm.valid">+</button>
             </div>
@@ -15,23 +45,3 @@
         </div>
     </form>
 </div>
-
-<!-- 
-<div class="list-{{currentModeChange}}-item-complete">
-    <button class="btn btn-secondary" type="button" *ngIf="currentModeChange == 'inprogress'"
-        (click)="onComplete(todoItem,inputtext.value)">#</button>
-</div>
-<div class="col-auto ms-auto" style="display: inline-block">
-    <button class="btn btn-primary" type="button" *ngIf="currentModeChange == 'removed'"
-        (click)="onUpdate(todoItem,inputtext.value)">+</button>
-</div>
-<div class="col-auto ms-auto" style="display: inline-block">
-    <button class="btn btn-secondary" *ngIf="currentModeChange == 'completed'">#</button>
-</div>
-<div class="list-{{currentModeChange}}-item-edit">
-    <input type="text" value="{{todoItem.todo}}" #inputtext>
-</div>
-<div class="list-{{currentModeChange}}-item-complete" style="display: inline-block">
-    <button class="btn btn-danger" type="button" (click)="onUpdate(todoItem,inputtext.value)"
-        *ngIf="currentModeChange == 'inprogress'">x</button>
-</div> -->

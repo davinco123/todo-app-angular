@@ -11,105 +11,93 @@ ul {
     padding: 0;
     position: relative;
 
-    &-inprogress{
+    &-todo{
         margin: 0 -20px;
         padding: 0;
         width: 100%;
         list-style-type: none;
+
         &-item{
             padding: 15px 20px 5px;
             width: 100%;
             display: flex;
             flex-direction: row;
             border-bottom: 1px solid #ededed;
-            
-            &-complete{
-                padding: 0 5px;
-            }
 
-            &-edit {
-                flex: 2 1;
-                padding-left: 20px;
-
-                input {
-                    font-size: 18px;
-                    width: 100%;
-                    border: none;
-                    padding: 3px 0;
-                    color: #323232;
-                    outline: none;
+            &-inprogress {
+               
+                &-complete{
+                    display: inline-block;
+                    justify-content: flex-start;
+                    padding: 0 5px;
+                }
+    
+                &-edit {
+                    display: inline-block;
+                    flex: 2 1;
+                    padding-left: 20px;
+                    
+                    input {
+                        font-size: 18px;
+                        width: 100%;
+                        border: none;
+                        padding: 3px 0;
+                        color: #323232;
+                        outline: none;
+                    }
+                }
+    
+                &-remove {
+                    display: inline;
+                    justify-content: flex-end;
+                    padding: 0;
+                    margin: -5px 0 0 10px;
                 }
             }
 
-            &-remove {
-                padding: 0;
-                margin: -5px 0 0 10px;
-            }
-
-        }
-
-    }
-
-    &-completed{
-        margin: 0 -20px;
-        padding: 0;
-        width: 100%;
-        list-style-type: none; 
-        &-item{
-            padding: 15px 20px 5px;
-            width: 100%;
-            display: flex;
-            flex-direction: row;
-            border-bottom: 1px solid #ededed;
-            
-            &-complete{
-                padding: 0 5px;
-            }
-
-            &-edit {
-                flex: 2 1;
-                padding-left: 20px;
-
-                input {
-                    font-size: 18px;
-                    width: 100%;
-                    border: none;
-                    padding: 3px 0;
-                    color: #323232;
-                    outline: none;
+            &-completed{
+        
+                &-complete{
+                    display: inline-block;
+                    padding: 0 5px;
+                }
+    
+                &-label {
+                    display: inline-block;
+                    flex: 2 1;
+                    padding-left: 20px;
+                    
+                    p{
+                        font-size: 18px;
+                        width: 100%;
+                        border: none;
+                        padding: 3px 0;
+                        color: #323232;
+                        outline: none;
+                    }
                 }
             }
-        }
-    }   
 
-    &-removed{
-        margin: 0 -20px;
-        padding: 0;
-        width: 100%;
-        list-style-type: none; 
+            &-removed{
+        
+                &-restore{
+                    display: inline-block;
+                    padding: 0 5px;
+                }
+    
+                &-label {
+                    display: inline-block;
+                    flex: 2 1;
+                    padding-left: 20px;
 
-        &-item{
-            padding: 15px 20px 5px;
-            width: 100%;
-            display: flex;
-            flex-direction: row;
-            border-bottom: 1px solid #ededed;
-            
-            &-complete{
-                padding: 0 5px;
-            }
-
-            &-edit {
-                flex: 2 1;
-                padding-left: 20px;
-
-                input {
-                    font-size: 18px;
-                    width: 100%;
-                    border: none;
-                    padding: 3px 0;
-                    color: #323232;
-                    outline: none;
+                    p{
+                        font-size: 18px;
+                        width: 100%;
+                        border: none;
+                        padding: 3px 0;
+                        color: #323232;
+                        outline: none;
+                    }
                 }
             }
         }

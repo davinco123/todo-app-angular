@@ -17,7 +17,7 @@ export class TodoListsItemComponent implements OnInit {
 
   todoListForm: FormGroup;
   todoLists: TodoListModel[] = [];
-  todoListMode: TodoListMode;
+  todoEnum = TodoListMode;
 
   constructor(private store: Store<fromApp.AppState>) {}
 
