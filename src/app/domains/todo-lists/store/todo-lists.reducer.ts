@@ -32,22 +32,47 @@ export function todoListReducer(
         ...state,
         todoList: [...state.todoList, action.payload],
       };
-    case TodoListActions.REMOVE_TODO:
-      const todoLists = [...state.todoList];
-      const index = todoLists.indexOf(action.payload);
+
+    case TodoListActions.UPDATE_TODO:
+      const newTodoLists = [...state.todoList];
+      const index = newTodoLists.indexOf(action.payload);
 
       const oldTodo = state.todoList[index];
       const newTodo = { ...action.payload };
-      newTodo.mode = 'removed';
+
+      if (newTodo.mode === 'inProgress') newTodo.mode = 'removed';
+      else if (newTodo.mode === 'removed') newTodo.mode = 'inProgress';
+
       const updatedTodo = {
         ...oldTodo,
         ...newTodo,
       };
-      todoLists[index] = updatedTodo;
+
+      newTodoLists[index] = updatedTodo;
 
       return {
         ...state,
-        todoList: todoLists,
+        todoList: newTodoLists,
+      };
+
+    case TodoListActions.COMPLETE_TODO:
+      const completeTodoList = [...state.todoList];
+      const stateIndex = completeTodoList.indexOf(action.payload);
+
+      const todo = state.todoList[stateIndex];
+      const completeTodo = { ...action.payload };
+
+      completeTodo.mode = 'completed';
+      const completedTodo = {
+        ...todo,
+        ...completeTodo,
+      };
+
+      completeTodoList[stateIndex] = completedTodo;
+
+      return {
+        ...state,
+        todoList: completeTodoList,
       };
     default:
       return state;

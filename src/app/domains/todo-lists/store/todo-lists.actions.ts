@@ -3,7 +3,8 @@ import { Action } from '@ngrx/store';
 import { TodoListModel } from '../models/todo-lists.model';
 
 export const ADD_TODO = '[Todo List] Add Todo';
-export const REMOVE_TODO = '[Todo List] Remove Todo';
+export const UPDATE_TODO = '[Todo List] Update Todo';
+export const COMPLETE_TODO = '[Todo List] Complete Todo';
 
 export class AddTodo implements Action {
   readonly type = ADD_TODO;
@@ -11,10 +12,16 @@ export class AddTodo implements Action {
   constructor(public payload: TodoListModel) {}
 }
 
-export class RemoveTodo implements Action {
-  readonly type = REMOVE_TODO;
+export class UpdateTodo implements Action {
+  readonly type = UPDATE_TODO;
 
   constructor(public payload: TodoListModel) {}
 }
 
-export type TodoListActionsType = AddTodo | RemoveTodo;
+export class CompleteTodo implements Action {
+  readonly type = COMPLETE_TODO;
+
+  constructor(public payload: TodoListModel) {}
+}
+
+export type TodoListActionsType = AddTodo | UpdateTodo | CompleteTodo;

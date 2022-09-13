@@ -18,8 +18,9 @@
         </div>
     </div>
     <ul class="list-navigation-list">
-        <li class="list-navigation-items"><a role="button" (click)="onModeChange('COMPLETED')">Completed</a></li>
-        <li class="list-navigation-items"><a role="button" (click)="onModeChange('INPROGRESS')">In Progress</a></li>
-        <li class="list-navigation-items"><a role="button" (click)="onModeChange('REMOVED')">Removed</a></li>
+        <li class="list-navigation-items"><a role="button" (click)="onModeChange(TodoEnum.COMPLETED)">Completed</a></li>
+        <li class="list-navigation-items"><a role="button" (click)="onModeChange(TodoEnum.INPROGRESS)">In Progress</a>
+        </li>
+        <li class="list-navigation-items"><a role="button" (click)="onModeChange(TodoEnum.REMOVED)">Removed</a></li>
     </ul>
 </div>

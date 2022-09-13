@@ -19,7 +19,7 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  public onModeChange(value: string): void {
-    this.modeChange.emit(this.TodoEnum[value]);
+  public onModeChange(value: TodoListMode): void {
+    this.modeChange.emit(value);
   }
 }

@@ -1,14 +1,23 @@
 <div class="row">
     <div class="col">
         <ul class="list-group">
-            <li class="list-group-item col-12" *ngFor="let todoItem of getCurrentList(currentModeChange)">
-                <div class="col-11" style="display: inline-block">{{todoItem.todo}}</div>
-                <div class="col-1" style="display: inline-block"><button class="btn btn-danger" type="button"
-                        (click)="onRemove(todoItem)">x</button>
+            <li class="list-group-item col-12" *ngFor="let todoItem of getCurrentList()">
+                <div class="col-auto ms-auto" style="display: inline-block">
+                    <button class="btn btn-secondary" type="button" *ngIf="currentModeChange == 'inProgress'"
+                        (click)="onComplete(todoItem)">#</button>
+                </div>
+                <div class="col-auto ms-auto" style="display: inline-block">
+                    <button class="btn btn-primary" type="button" *ngIf="currentModeChange == 'removed'"
+                        (click)="onUpdate(todoItem)">+</button>
+                </div>
+                <div class="col-auto" style="display: inline-block">{{todoItem.todo}}</div>
+                <div class="col-auto offset-8" style="display: inline-block">
+                    <button class="btn btn-danger" type="button" (click)="onUpdate(todoItem)"
+                        *ngIf="currentModeChange == 'inProgress'">x</button>
                 </div>
             </li>
         </ul>
-        <form *ngIf="['inProgess']" [formGroup]="todoListForm" (ngSubmit)="onSubmit()">
+        <form *ngIf="currentModeChange == 'inProgress'" [formGroup]="todoListForm" (ngSubmit)="onSubmit()">
             <div class="row form-group">
                 <div class="col-1"><button class="btn btn-primary" type="submit"
                         [disabled]="!todoListForm.valid">+</button></div>
