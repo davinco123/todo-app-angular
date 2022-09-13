@@ -12,7 +12,7 @@ export class TodoListsComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  changeCurrentMode(mode: string) {
+  changeCurrentMode(mode: string): void {
     this.currentMode = mode;
   }
 }

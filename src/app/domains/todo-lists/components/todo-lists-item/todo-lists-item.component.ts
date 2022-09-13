@@ -53,8 +53,8 @@ export class TodoListsItemComponent implements OnInit {
     this.todoListForm.reset();
   }
 
-  onUpdate(value: TodoListModel, inputvalue: string): void {
-    if (value.todo !== inputvalue) {
+  onUpdate(value: TodoListModel, inputvalue?: string): void {
+    if (inputvalue !== undefined && value.todo !== inputvalue) {
       const newTodo = { ...value };
       newTodo.todo = inputvalue;
       this.store.dispatch(new TodoListActions.UpdateTodo(newTodo));

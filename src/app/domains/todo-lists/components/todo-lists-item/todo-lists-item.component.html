@@ -26,8 +26,7 @@
             </div>
             <div class="list-todo-item-removed" *ngIf="currentModeChange == todoEnum.REMOVED">
                 <div class="list-todo-item-removed-restore">
-                    <button class="btn btn-primary" type="button"
-                        (click)="onUpdate(todoItem,inputtext.value)">+</button>
+                    <button class="btn btn-primary" type="button" (click)="onUpdate(todoItem)">+</button>
                 </div>
                 <div class="list-todo-item-removed-label">
                     <p>{{todoItem.todo}}</p>
