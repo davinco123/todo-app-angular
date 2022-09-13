@@ -9,3 +9,9 @@ export class TodoListModel {
     this.id = id;
   }
 }
+
+export enum TodoListMode {
+  INPROGRESS = 'inprogress',
+  COMPLETED = 'completed',
+  REMOVED = 'removed',
+}

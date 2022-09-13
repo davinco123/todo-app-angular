@@ -1,10 +1,5 @@
 import { Component, Output, EventEmitter, OnInit } from '@angular/core';
-
-export enum TodoListMode {
-  INPROGRESS = 'inprogress',
-  COMPLETED = 'completed',
-  REMOVED = 'removed',
-}
+import { TodoListMode } from '../../models/todo-lists.model';
 
 @Component({
   selector: 'app-todo-lists-header',

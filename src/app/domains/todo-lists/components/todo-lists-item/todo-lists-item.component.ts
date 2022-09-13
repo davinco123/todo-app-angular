@@ -3,7 +3,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { tap } from 'rxjs';
 import { Store } from '@ngrx/store';
 
-import { TodoListModel } from '../../models/todo-lists.model';
+import { TodoListModel, TodoListMode } from '../../models/todo-lists.model';
 import * as fromApp from '../../../../store/app.reducer';
 import * as TodoListActions from '../../store/todo-lists.actions';
 
@@ -17,6 +17,7 @@ export class TodoListsItemComponent implements OnInit {
 
   todoListForm: FormGroup;
   todoLists: TodoListModel[] = [];
+  todoListMode: TodoListMode;
 
   constructor(private store: Store<fromApp.AppState>) {}
 
@@ -33,19 +34,19 @@ export class TodoListsItemComponent implements OnInit {
         })
       )
       .subscribe();
-    this.currentModeChange = 'inprogress';
+    this.currentModeChange = TodoListMode.INPROGRESS;
   }
 
   getCurrentList(): TodoListModel[] {
-    return this.todoLists.filter((value) => {
-      return value.mode === this.currentModeChange;
-    });
+    return this.todoLists.filter(
+      (value) => value.mode === this.currentModeChange
+    );
   }
 
   onSubmit(): void {
     const newTodo = new TodoListModel(
       this.todoListForm.get('todo').value,
-      'inprogress',
+      TodoListMode.INPROGRESS,
       this.todoLists.length
     );
     this.store.dispatch(new TodoListActions.AddTodo(newTodo));
@@ -56,15 +57,15 @@ export class TodoListsItemComponent implements OnInit {
     if (value.todo !== inputvalue) {
       const newTodo = { ...value };
       newTodo.todo = inputvalue;
-      return this.store.dispatch(new TodoListActions.UpdateTodo(newTodo));
-    } else return this.store.dispatch(new TodoListActions.UpdateTodo(value));
+      this.store.dispatch(new TodoListActions.UpdateTodo(newTodo));
+    } else this.store.dispatch(new TodoListActions.UpdateTodo(value));
   }
 
   onComplete(value: TodoListModel, inputvalue: string): void {
     if (value.todo !== inputvalue) {
       const newTodo = { ...value };
       newTodo.todo = inputvalue;
-      return this.store.dispatch(new TodoListActions.UpdateTodo(newTodo));
-    } else return this.store.dispatch(new TodoListActions.UpdateTodo(value));
+      this.store.dispatch(new TodoListActions.CompleteTodo(newTodo));
+    } else this.store.dispatch(new TodoListActions.CompleteTodo(value));
   }
 }
