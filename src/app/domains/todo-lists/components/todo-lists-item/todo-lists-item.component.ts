@@ -43,16 +43,28 @@ export class TodoListsItemComponent implements OnInit {
   }
 
   onSubmit(): void {
-    const newTodo = new TodoListModel(this.todoListForm.get('todo').value);
+    const newTodo = new TodoListModel(
+      this.todoListForm.get('todo').value,
+      'inprogress',
+      this.todoLists.length
+    );
     this.store.dispatch(new TodoListActions.AddTodo(newTodo));
     this.todoListForm.reset();
   }
 
-  onUpdate(value: TodoListModel): void {
-    this.store.dispatch(new TodoListActions.UpdateTodo(value));
+  onUpdate(value: TodoListModel, inputvalue: string): void {
+    if (value.todo !== inputvalue) {
+      const newTodo = { ...value };
+      newTodo.todo = inputvalue;
+      return this.store.dispatch(new TodoListActions.UpdateTodo(newTodo));
+    } else return this.store.dispatch(new TodoListActions.UpdateTodo(value));
   }
 
-  onComplete(value: TodoListModel): void {
-    this.store.dispatch(new TodoListActions.CompleteTodo(value));
+  onComplete(value: TodoListModel, inputvalue: string): void {
+    if (value.todo !== inputvalue) {
+      const newTodo = { ...value };
+      newTodo.todo = inputvalue;
+      return this.store.dispatch(new TodoListActions.UpdateTodo(newTodo));
+    } else return this.store.dispatch(new TodoListActions.UpdateTodo(value));
   }
 }

@@ -3,20 +3,20 @@
         <li class="list-{{currentModeChange}}-item" *ngFor="let todoItem of getCurrentList()">
             <div class="list-{{currentModeChange}}-item-complete">
                 <button class="btn btn-secondary" type="button" *ngIf="currentModeChange == 'inprogress'"
-                    (click)="onComplete(todoItem)">#</button>
+                    (click)="onComplete(todoItem,inputtext.value)">#</button>
             </div>
             <div class="col-auto ms-auto" style="display: inline-block">
                 <button class="btn btn-primary" type="button" *ngIf="currentModeChange == 'removed'"
-                    (click)="onUpdate(todoItem)">+</button>
+                    (click)="onUpdate(todoItem,inputtext.value)">+</button>
             </div>
             <div class="col-auto ms-auto" style="display: inline-block">
                 <button class="btn btn-secondary" *ngIf="currentModeChange == 'completed'">#</button>
             </div>
             <div class="list-{{currentModeChange}}-item-edit">
-                <input type="text" value="{{todoItem.todo}}">
+                <input type="text" value="{{todoItem.todo}}" #inputtext>
             </div>
             <div class="list-{{currentModeChange}}-item-complete" style="display: inline-block">
-                <button class="btn btn-danger" type="button" (click)="onUpdate(todoItem)"
+                <button class="btn btn-danger" type="button" (click)="onUpdate(todoItem,inputtext.value)"
                     *ngIf="currentModeChange == 'inprogress'">x</button>
             </div>
         </li>

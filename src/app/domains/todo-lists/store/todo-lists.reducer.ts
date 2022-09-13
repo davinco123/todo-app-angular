@@ -8,15 +8,17 @@ export interface State {
 
 const initialState: State = {
   todoList: [
-    new TodoListModel('Workout for 30 minutes at the gym', 'inprogress'),
+    new TodoListModel('Workout for 30 minutes at the gym', 'inprogress', 0),
     new TodoListModel(
       'Buy groceries (milk, vegetable, fruits, fish)',
-      'inprogress'
+      'inprogress',
+      1
     ),
-    new TodoListModel('Clean the house and backyard', 'completed'),
+    new TodoListModel('Clean the house and backyard', 'completed', 2),
     new TodoListModel(
       'Take the car to the auto shop for an oil change',
-      'removed'
+      'removed',
+      3
     ),
   ],
 };
@@ -34,10 +36,9 @@ export function todoListReducer(
       };
 
     case TodoListActions.UPDATE_TODO:
-      const newTodoLists = [...state.todoList];
-      const index = newTodoLists.indexOf(action.payload);
+      const updatedTodoLists = [...state.todoList];
 
-      const oldTodo = state.todoList[index];
+      const oldTodo = state.todoList[action.payload.id];
       const newTodo = { ...action.payload };
 
       if (newTodo.mode === 'inprogress') newTodo.mode = 'removed';
@@ -47,19 +48,16 @@ export function todoListReducer(
         ...oldTodo,
         ...newTodo,
       };
-
-      newTodoLists[index] = updatedTodo;
-
+      updatedTodoLists[action.payload.id] = updatedTodo;
       return {
         ...state,
-        todoList: newTodoLists,
+        todoList: updatedTodoLists,
       };
 
     case TodoListActions.COMPLETE_TODO:
       const completeTodoList = [...state.todoList];
-      const stateIndex = completeTodoList.indexOf(action.payload);
 
-      const todo = state.todoList[stateIndex];
+      const todo = state.todoList[action.payload.id];
       const completeTodo = { ...action.payload };
 
       completeTodo.mode = 'completed';
@@ -68,7 +66,7 @@ export function todoListReducer(
         ...completeTodo,
       };
 
-      completeTodoList[stateIndex] = completedTodo;
+      completeTodoList[action.payload.id] = completedTodo;
 
       return {
         ...state,
