@@ -3,20 +3,39 @@
         <li class="list-todo-item" *ngFor="let todoItem of getCurrentList()">
             <div class="list-todo-item-inprogress" *ngIf="currentModeChange == todoEnum.INPROGRESS">
                 <div class="list-todo-item-inprogress-complete">
-                    <button class="btn btn-secondary" type="button"
-                        (click)="onComplete(todoItem,inputtext.value)">#</button>
+                    <div class="complete-button" (click)="onComplete(todoItem,inputtext.value)">
+                        <svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="12.5" cy="12.5" r="11.5" stroke="#CBCBCB" stroke-width="2"></circle>
+                        </svg>
+                    </div>
                 </div>
                 <div class="list-todo-item-inprogress-edit">
                     <input type="text" value="{{todoItem.todo}}" #inputtext>
                 </div>
                 <div class="list-todo-item-inprogress-remove">
-                    <button class="btn btn-danger" type="button" (click)="onUpdate(todoItem,inputtext.value)">x</button>
+                    <div class="remove-button" (click)="onUpdate(todoItem)">
+                        <svg width="37" height="36" viewBox="0 0 37 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="18.4852" cy="17.6777" r="11.5" transform="rotate(45 18.4852 17.6777)"
+                                stroke="#EB3D3D" stroke-width="2">
+                            </circle>
+                            <rect x="22.0208" y="12.9636" width="1.66667" height="11.6667" rx="0.833333"
+                                transform="rotate(45 22.0208 12.9636)" fill="#EB3D3D"></rect>
+                            <rect x="13.7712" y="14.1422" width="1.66667" height="11.6667" rx="0.833333"
+                                transform="rotate(-45 13.7712 14.1422)" fill="#EB3D3D"></rect>
+                        </svg>
+                    </div>
                 </div>
             </div>
             <div class="list-todo-item-completed" *ngIf="currentModeChange == todoEnum.COMPLETED">
 
                 <div class="list-todo-item-completed-complete">
-                    <button class="btn btn-secondary">#</button>
+                    <svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="12.5" cy="12.5" r="12" fill="#4E4E4E" stroke="#4E4E4E"></circle>
+                        <path d="M6.25 12.4999L10.4167 16.6666" stroke="white" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round"></path>
+                        <path d="M10.4166 16.6667L18.75 8.33334" stroke="white" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round"></path>
+                    </svg>
                 </div>
                 <div class="list-todo-item-completed-label">
                     <p>{{todoItem.todo}}</p>
@@ -26,7 +45,15 @@
             </div>
             <div class="list-todo-item-removed" *ngIf="currentModeChange == todoEnum.REMOVED">
                 <div class="list-todo-item-removed-restore">
-                    <button class="btn btn-primary" type="button" (click)="onUpdate(todoItem)">+</button>
+                    <div class="add-button" (click)="onUpdate(todoItem)">
+                        <svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="12.5" cy="12.5" r="11.5" stroke="#3D82EB" stroke-width="2"></circle>
+                            <rect x="11.6666" y="6.66667" width="1.66667" height="11.6667" rx="0.833333" fill="#3D82EB">
+                            </rect>
+                            <rect x="6.66663" y="13.3333" width="1.66667" height="11.6667" rx="0.833333"
+                                transform="rotate(-90 6.66663 13.3333)" fill="#3D82EB"></rect>
+                        </svg>
+                    </div>
                 </div>
                 <div class="list-todo-item-removed-label">
                     <p>{{todoItem.todo}}</p>
@@ -34,13 +61,27 @@
             </div>
         </li>
     </ul>
-    <form *ngIf="currentModeChange == todoEnum.INPROGRESS" [formGroup]="todoListForm" (ngSubmit)="onSubmit()">
-        <div class="row form-group">
-            <div class="col-1"><button class="btn btn-primary" type="submit" [disabled]="!todoListForm.valid">+</button>
-            </div>
-            <div class="col-11">
-                <input type="text" id="todo" class="form-control" formControlName="todo">
-            </div>
+
+    <div class="list-todo">
+        <div class="list-todo-newitem">
+            <form *ngIf="currentModeChange==todoEnum.INPROGRESS" [formGroup]="todoListForm" (ngSubmit)="onSubmit()">
+                <div class="list-todo-newitem-create">
+                    <div class="add-button list-todo-newitem-create-icon" (click)="onSubmit()">
+                        <svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="12.5" cy="12.5" r="11.5" stroke="#3D82EB" stroke-width="2"></circle>
+                            <rect x="11.6666" y="6.66667" width="1.66667" height="11.6667" rx="0.833333" fill="#3D82EB">
+                            </rect>
+                            <rect x="6.66663" y="13.3333" width="1.66667" height="11.6667" rx="0.833333"
+                                transform="rotate(-90 6.66663 13.3333)" fill="#3D82EB"></rect>
+                        </svg>
+                    </div>
+                    <div class="list-todo-newitem-create-input">
+                        <input type="text" id="todo" class="form-control" formControlName="todo">
+                    </div>
+                </div>
+
+            </form>
         </div>
-    </form>
+    </div>
+
 </div>

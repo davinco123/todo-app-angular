@@ -44,12 +44,15 @@ export class TodoListsItemComponent implements OnInit {
   }
 
   onSubmit(): void {
-    const newTodo = new TodoListModel(
-      this.todoListForm.get('todo').value,
-      TodoListMode.INPROGRESS,
-      this.todoLists.length
-    );
-    this.store.dispatch(new TodoListActions.AddTodo(newTodo));
+    if (this.todoListForm.get('todo').value) {
+      const newTodo = new TodoListModel(
+        this.todoListForm.get('todo').value,
+        TodoListMode.INPROGRESS,
+        this.todoLists.length
+      );
+      this.store.dispatch(new TodoListActions.AddTodo(newTodo));
+    }
+
     this.todoListForm.reset();
   }
 
