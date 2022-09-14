@@ -7,17 +7,17 @@ ul {
 }
 
 .list {
-    margin: 20px 0; 
+    margin: 20px 0;
     padding: 0;
     position: relative;
 
-    &-todo{
+    &-todo {
         margin: 0 -20px;
         padding: 0;
         width: 100%;
         list-style-type: none;
 
-        &-item{
+        &-item {
             padding: 15px 20px 5px;
             width: 100%;
             flex-direction: row;
@@ -26,17 +26,17 @@ ul {
             &-inprogress {
                 display: flex;
 
-                &-complete{
+                &-complete {
                     display: inline-block;
                     justify-content: flex-start;
                     padding: 0 5px;
                 }
-    
+
                 &-edit {
                     display: inline-block;
                     flex: 2 1;
                     padding-left: 20px;
-                    
+
                     input {
                         font-size: 18px;
                         width: 100%;
@@ -46,7 +46,7 @@ ul {
                         outline: none;
                     }
                 }
-    
+
                 &-remove {
                     display: inline;
                     justify-content: flex-end;
@@ -55,20 +55,20 @@ ul {
                 }
             }
 
-            &-completed{
+            &-completed {
                 display: flex;
-                
-                &-complete{
+
+                &-complete {
                     display: inline-block;
                     padding: 0 5px;
                 }
-    
+
                 &-label {
                     display: inline-block;
                     flex: 2 1;
                     padding-left: 20px;
-                    
-                    p{
+
+                    p {
                         font-size: 18px;
                         width: 100%;
                         border: none;
@@ -79,20 +79,20 @@ ul {
                 }
             }
 
-            &-removed{
+            &-removed {
                 display: flex;
-                
-                &-restore{
+
+                &-restore {
                     display: inline-block;
                     padding: 0 5px;
                 }
-    
+
                 &-label {
                     display: inline-block;
                     flex: 2 1;
                     padding-left: 20px;
 
-                    p{
+                    p {
                         font-size: 18px;
                         width: 100%;
                         border: none;
@@ -109,20 +109,20 @@ ul {
             width: 100%;
             flex-direction: row;
             border-bottom: 1px solid #ededed;
-        
-            &-create{
+
+            &-create {
                 display: flex;
-                
-                &-icon{
+
+                &-icon {
                     display: inline-block;
                     padding: 0 5px;
                 }
 
-                &-input{
+                &-input {
                     display: inline-block;
                     flex: 2 1;
                     padding-left: 20px;
-                    
+
                     input {
                         font-size: 18px;
                         width: 100%;
@@ -133,40 +133,33 @@ ul {
                     }
                 }
             }
-            
-            
         }
     }
 }
 
-
-
-
-.remove-button:hover{
+.remove-button:hover {
     cursor: pointer;
-    circle{
-        fill:red
+    circle {
+        fill: red;
     }
-    rect{
+    rect {
         fill: white;
     }
-
 }
 
-.add-button:hover{
+.add-button:hover {
     cursor: pointer;
-    circle{
-        fill:#3D82EB
+    circle {
+        fill: #3d82eb;
     }
-    rect{
+    rect {
         fill: white;
     }
-
 }
 
-.complete-button:hover{
+.complete-button:hover {
     cursor: pointer;
-    circle{
-        fill:#7C7C7C
+    circle {
+        fill: #7c7c7c;
     }
 }
