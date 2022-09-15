@@ -4,8 +4,7 @@
             <div class="list-todo-item-inprogress" *ngIf="currentModeChange == todoEnum.INPROGRESS">
                 <div class="list-todo-item-inprogress-complete">
                     <div class="complete-button" (click)="onComplete(todoItem,inputtext.value)">
-                        <svg-icon src="../../../../../assets/svg/complete-todo.svg"
-                            [svgStyle]="{ 'height.px':25 ,'width.px':25 }">
+                        <svg-icon src="/assets/svg/complete-todo.svg" [svgStyle]="{ 'height.px':25 ,'width.px':25 }">
                         </svg-icon>
                     </div>
                 </div>
@@ -14,8 +13,7 @@
                 </div>
                 <div class="list-todo-item-inprogress-remove">
                     <div class="remove-button" (click)="onUpdate(todoItem)">
-                        <svg-icon src="../../../../../assets/svg/remove-todo.svg"
-                            [svgStyle]="{ 'height.px':37 ,'width.px':36 }">
+                        <svg-icon src="/assets/svg/remove-todo.svg" [svgStyle]="{ 'height.px':37 ,'width.px':36 }">
                         </svg-icon>
                     </div>
                 </div>
@@ -23,8 +21,7 @@
             <div class="list-todo-item-completed" *ngIf="currentModeChange == todoEnum.COMPLETED">
 
                 <div class="list-todo-item-completed-complete">
-                    <svg-icon src="../../../../../assets/svg/completed-todo.svg"
-                        [svgStyle]="{ 'height.px':25 ,'width.px':25 }">
+                    <svg-icon src="/assets/svg/completed-todo.svg" [svgStyle]="{ 'height.px':25 ,'width.px':25 }">
                     </svg-icon>
                 </div>
                 <div class="list-todo-item-completed-label">
@@ -36,8 +33,7 @@
             <div class="list-todo-item-removed" *ngIf="currentModeChange == todoEnum.REMOVED">
                 <div class="list-todo-item-removed-restore">
                     <div class="add-button" (click)="onUpdate(todoItem)">
-                        <svg-icon src="../../../../../assets/svg/add-todo.svg"
-                            [svgStyle]="{ 'height.px':25 ,'width.px':25 }">
+                        <svg-icon src="/assets/svg/add-todo.svg" [svgStyle]="{ 'height.px':25 ,'width.px':25 }">
                         </svg-icon>
                     </div>
                 </div>
@@ -48,13 +44,12 @@
         </li>
     </ul>
 
-    <div class="list-todo">
+    <div class="list-todo" *ngIf="currentModeChange==todoEnum.INPROGRESS">
         <div class="list-todo-newitem">
-            <form *ngIf="currentModeChange==todoEnum.INPROGRESS" [formGroup]="todoListForm" (ngSubmit)="onSubmit()">
+            <form [formGroup]="todoListForm" (ngSubmit)="onSubmit()">
                 <div class="list-todo-newitem-create">
                     <div class="add-button list-todo-newitem-create-icon" (click)="onSubmit()">
-                        <svg-icon src="../../../../../assets/svg/add-todo.svg"
-                            [svgStyle]="{ 'height.px':25 ,'width.px':25 }">
+                        <svg-icon src="/assets/svg/add-todo.svg" [svgStyle]="{ 'height.px':25 ,'width.px':25 }">
                         </svg-icon>
                     </div>
                     <div class="list-todo-newitem-create-input">

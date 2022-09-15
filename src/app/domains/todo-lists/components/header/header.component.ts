@@ -11,10 +11,22 @@ export class HeaderComponent implements OnInit {
   today: number = new Date().getDate();
   month: string = new Date().toLocaleString('default', { month: 'long' });
   TodoEnum = TodoListMode;
+  isMenuOpen: boolean = false;
+  currentMode: string = TodoListMode.INPROGRESS;
 
   ngOnInit(): void {}
 
+  menuToggle(): void {
+    this.isMenuOpen = true;
+  }
+
+  clickedOutside(): void {
+    this.isMenuOpen = false;
+  }
+
   public onModeChange(value: TodoListMode): void {
+    this.currentMode = value;
     this.modeChange.emit(value);
+    this.isMenuOpen = false;
   }
 }
