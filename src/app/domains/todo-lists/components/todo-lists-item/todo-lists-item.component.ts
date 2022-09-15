@@ -1,4 +1,11 @@
-import { Component, OnInit, Input, ViewChild, ElementRef } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Input,
+  ViewChild,
+  ElementRef,
+  OnDestroy,
+} from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { tap } from 'rxjs';
 import { Store } from '@ngrx/store';
@@ -12,9 +19,8 @@ import * as TodoListActions from '../../store/todo-lists.actions';
   templateUrl: './todo-lists-item.component.html',
   styleUrls: ['./todo-lists-item.component.scss'],
 })
-export class TodoListsItemComponent implements OnInit {
+export class TodoListsItemComponent implements OnInit, OnDestroy {
   @Input() currentModeChange: string;
-  @ViewChild('inputtext', { static: false }) inputText: ElementRef;
   todoListForm: FormGroup;
   todoLists: TodoListModel[] = [];
   todoEnum = TodoListMode;
@@ -71,4 +77,15 @@ export class TodoListsItemComponent implements OnInit {
       this.store.dispatch(new TodoListActions.CompleteTodo(newTodo));
     } else this.store.dispatch(new TodoListActions.CompleteTodo(value));
   }
+
+  onEdit(value: TodoListModel, inputvalue?: string): void {
+    if (value.todo === inputvalue) return;
+    else if (value.todo !== inputvalue) {
+      const newTodo = { ...value };
+      newTodo.todo = inputvalue;
+      this.store.dispatch(new TodoListActions.EditTodo(newTodo));
+    }
+  }
+
+  ngOnDestroy(): void {}
 }

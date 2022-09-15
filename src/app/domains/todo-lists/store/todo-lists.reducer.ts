@@ -83,6 +83,23 @@ export function todoListReducer(
         ...state,
         todoList: completeTodoList,
       };
+
+    case TodoListActions.EDIT_TODO:
+      const editTodoList = [...state.todoList];
+
+      const todos = state.todoList[action.payload.id];
+      const editTodo = { ...action.payload };
+
+      const editedTodo = {
+        ...todos,
+        ...editTodo,
+      };
+
+      editTodoList[action.payload.id] = editedTodo;
+      return {
+        ...state,
+        todoList: editTodoList,
+      };
     default:
       return state;
   }
