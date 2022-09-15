@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, ElementRef } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { tap } from 'rxjs';
 import { Store } from '@ngrx/store';
@@ -14,7 +14,7 @@ import * as TodoListActions from '../../store/todo-lists.actions';
 })
 export class TodoListsItemComponent implements OnInit {
   @Input() currentModeChange: string;
-
+  @ViewChild('inputtext', { static: false }) inputText: ElementRef;
   todoListForm: FormGroup;
   todoLists: TodoListModel[] = [];
   todoEnum = TodoListMode;

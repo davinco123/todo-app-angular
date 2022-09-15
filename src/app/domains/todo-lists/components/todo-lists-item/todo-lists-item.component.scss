@@ -25,7 +25,7 @@ ul {
 
             &-inprogress {
                 display: flex;
-
+            
                 &-complete {
                     display: inline-block;
                     justify-content: flex-start;
@@ -105,6 +105,7 @@ ul {
         }
 
         &-newitem {
+            margin: 0;
             padding: 15px 20px 5px;
             width: 100%;
             flex-direction: row;
@@ -124,6 +125,7 @@ ul {
                     padding-left: 20px;
 
                     input {
+                        padding: 0;
                         font-size: 18px;
                         width: 100%;
                         border: none;
@@ -131,6 +133,7 @@ ul {
                         color: #323232;
                         outline: none;
                     }
+                    
                 }
             }
         }

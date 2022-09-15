@@ -1,6 +1,7 @@
 <div class="list">
     <ul class="list-todo">
         <li class="list-todo-item" *ngFor="let todoItem of getCurrentList()">
+            <!-- INPROGRESS LIST -->
             <div class="list-todo-item-inprogress" *ngIf="currentModeChange == todoEnum.INPROGRESS">
                 <div class="list-todo-item-inprogress-complete">
                     <div class="complete-button" (click)="onComplete(todoItem,inputtext.value)">
@@ -18,6 +19,7 @@
                     </div>
                 </div>
             </div>
+            <!-- COMPLETE LIST -->
             <div class="list-todo-item-completed" *ngIf="currentModeChange == todoEnum.COMPLETED">
 
                 <div class="list-todo-item-completed-complete">
@@ -27,9 +29,8 @@
                 <div class="list-todo-item-completed-label">
                     <p>{{todoItem.todo}}</p>
                 </div>
-
-
             </div>
+            <!-- REMOVE LIST -->
             <div class="list-todo-item-removed" *ngIf="currentModeChange == todoEnum.REMOVED">
                 <div class="list-todo-item-removed-restore">
                     <div class="add-button" (click)="onUpdate(todoItem)">
@@ -41,9 +42,10 @@
                     <p>{{todoItem.todo}}</p>
                 </div>
             </div>
+
         </li>
     </ul>
-
+    <!-- ADD FORM -->
     <div class="list-todo" *ngIf="currentModeChange==todoEnum.INPROGRESS">
         <div class="list-todo-newitem">
             <form [formGroup]="todoListForm" (ngSubmit)="onSubmit()">
@@ -53,10 +55,9 @@
                         </svg-icon>
                     </div>
                     <div class="list-todo-newitem-create-input">
-                        <input type="text" id="todo" class="form-control" formControlName="todo">
+                        <input type="text" id="todo" formControlName="todo">
                     </div>
                 </div>
-
             </form>
         </div>
     </div>
