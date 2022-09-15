@@ -1,9 +1,9 @@
 <div class="list">
     <ul class="list-todo">
-        <li class="list-todo-item" *ngFor="let todoItem of getCurrentList()">
+        <li *ngFor="let todoItem of getCurrentList()">
 
             <!-- INPROGRESS LIST -->
-            <div class="list-todo-item-inprogress" *ngIf="currentModeChange == todoEnum.INPROGRESS">
+            <div class="list-todo-item list-todo-item-inprogress" *ngIf="currentModeChange == todoEnum.INPROGRESS">
                 <div class="list-todo-item-inprogress-complete" (clickOutside)="onEdit(todoItem,inputtext.value)">
                     <div class="complete-button" (click)="onComplete(todoItem,inputtext.value)">
                         <svg-icon src="/assets/svg/complete-todo.svg" [svgStyle]="{ 'height.px':25 ,'width.px':25 }">
@@ -22,7 +22,7 @@
             </div>
 
             <!-- COMPLETE LIST -->
-            <div class="list-todo-items-completed" *ngIf="currentModeChange == todoEnum.COMPLETED">
+            <div class="list-todo-items list-todo-items-completed" *ngIf="currentModeChange == todoEnum.COMPLETED">
 
                 <div class="list-todo-items-completed-complete">
                     <svg-icon src="/assets/svg/completed-todo.svg" [svgStyle]="{ 'height.px':25 ,'width.px':25 }">
@@ -34,7 +34,7 @@
             </div>
 
             <!-- REMOVE LIST -->
-            <div class="list-todo-items-removed" *ngIf="currentModeChange == todoEnum.REMOVED">
+            <div class="list-todo-items list-todo-items-removed" *ngIf="currentModeChange == todoEnum.REMOVED">
                 <div class="list-todo-items-removed-restore">
                     <div class="add-button" (click)="onUpdate(todoItem)">
                         <svg-icon src="/assets/svg/add-todo.svg" [svgStyle]="{ 'height.px':25 ,'width.px':25 }">
@@ -45,7 +45,6 @@
                     <p>{{todoItem.todo}}</p>
                 </div>
             </div>
-
         </li>
     </ul>
 
