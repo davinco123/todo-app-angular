@@ -22,26 +22,26 @@
             </div>
 
             <!-- COMPLETE LIST -->
-            <div class="list-todo-item-completed" *ngIf="currentModeChange == todoEnum.COMPLETED">
+            <div class="list-todo-items-completed" *ngIf="currentModeChange == todoEnum.COMPLETED">
 
-                <div class="list-todo-item-completed-complete">
+                <div class="list-todo-items-completed-complete">
                     <svg-icon src="/assets/svg/completed-todo.svg" [svgStyle]="{ 'height.px':25 ,'width.px':25 }">
                     </svg-icon>
                 </div>
-                <div class="list-todo-item-completed-label">
+                <div class="list-todo-items-completed-label">
                     <p>{{todoItem.todo}}</p>
                 </div>
             </div>
 
             <!-- REMOVE LIST -->
-            <div class="list-todo-item-removed" *ngIf="currentModeChange == todoEnum.REMOVED">
-                <div class="list-todo-item-removed-restore">
+            <div class="list-todo-items-removed" *ngIf="currentModeChange == todoEnum.REMOVED">
+                <div class="list-todo-items-removed-restore">
                     <div class="add-button" (click)="onUpdate(todoItem)">
                         <svg-icon src="/assets/svg/add-todo.svg" [svgStyle]="{ 'height.px':25 ,'width.px':25 }">
                         </svg-icon>
                     </div>
                 </div>
-                <div class="list-todo-item-removed-label">
+                <div class="list-todo-items-removed-label">
                     <p>{{todoItem.todo}}</p>
                 </div>
             </div>
@@ -59,7 +59,7 @@
                         </svg-icon>
                     </div>
                     <div class="list-todo-newitem-create-input">
-                        <input type="text" id="todo" formControlName="todo">
+                        <input type="text" id="todo" formControlName="todo" placeholder="Create New Item">
                     </div>
                 </div>
             </form>

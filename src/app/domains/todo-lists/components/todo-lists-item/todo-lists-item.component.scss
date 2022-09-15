@@ -21,11 +21,17 @@ ul {
             padding: 15px 20px 5px;
             width: 100%;
             flex-direction: row;
-            border-bottom: 1px solid #ededed;
+
+            &:hover {
+                cursor: pointer;
+                background: #ffffff;
+                box-shadow: 0px 3px 6px 1px rgba(0, 0, 0, 0.15);
+                border-radius: 5px;
+            }
 
             &-inprogress {
                 display: flex;
-            
+
                 &-complete {
                     display: inline-block;
                     justify-content: flex-start;
@@ -54,6 +60,12 @@ ul {
                     margin: -5px 0 0 10px;
                 }
             }
+        }
+
+        &-items {
+            padding: 15px 20px 5px;
+            width: 100%;
+            flex-direction: row;
 
             &-completed {
                 display: flex;
@@ -75,6 +87,7 @@ ul {
                         padding: 3px 0;
                         color: #323232;
                         outline: none;
+                        text-decoration: line-through;
                     }
                 }
             }
@@ -109,7 +122,6 @@ ul {
             padding: 15px 20px 5px;
             width: 100%;
             flex-direction: row;
-            border-bottom: 1px solid #ededed;
 
             &-create {
                 display: flex;
@@ -133,7 +145,6 @@ ul {
                         color: #323232;
                         outline: none;
                     }
-                    
                 }
             }
         }
