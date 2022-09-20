@@ -7,9 +7,10 @@ import { HttpClientModule } from '@angular/common/http';
 import { AuthRoutingModule } from './auth-routing.module';
 import { AuthComponent } from './pages/auth/auth.component';
 import { AuthListComponent } from './components/auth-list/auth-list.component';
+import { AlertComponent } from './components/alert-modal/alert-modal.component';
 
 @NgModule({
-  declarations: [AuthComponent, AuthListComponent],
+  declarations: [AuthComponent, AuthListComponent, AlertComponent],
   imports: [
     CommonModule,
     RouterModule,

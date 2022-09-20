@@ -57,17 +57,11 @@ const handleAuthentication = (
 
 const handleError = (errorRes: any) => {
   let errorMessage = 'An unknown error has occured!!';
-  if (!errorRes.error || !errorRes.error.error) {
+  if (!errorRes.error || !errorRes.message) {
     return of(new AuthActions.AuthenticationFail(errorMessage));
   }
-  switch (errorRes.error.error.message) {
-    case 'EMAIL_EXISTS':
-      errorMessage = 'The email address is already in use by another account!';
-      break;
-    case 'EMAIL_NOT_FOUND':
-      errorMessage = 'Email or password was incorrect.';
-      break;
-    case 'INVALID_PASSWORD':
+  switch (errorRes.error) {
+    case 'Unable to login':
       errorMessage = 'Email or password was incorrect.';
       break;
   }

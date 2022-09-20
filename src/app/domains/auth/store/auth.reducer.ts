@@ -4,10 +4,12 @@ import * as AuthActions from './auth.actions';
 
 export interface State {
   user: User;
+  authError: string;
 }
 
 const initialState: State = {
   user: null,
+  authError: null,
 };
 
 export function authReducer(
@@ -39,6 +41,7 @@ export function authReducer(
     case AuthActions.AUTHENTICATION_FAIL:
       return {
         ...state,
+        authError: action.payload,
       };
 
     case AuthActions.LOGOUT:
@@ -46,7 +49,11 @@ export function authReducer(
         ...state,
         user: null,
       };
-
+    case AuthActions.CLEAR_ERROR:
+      return {
+        ...state,
+        authError: null,
+      };
     default:
       return state;
   }
