@@ -1,5 +1,9 @@
 import { Component, Output, EventEmitter, OnInit } from '@angular/core';
-import { TodoListMode } from '../../models/todo-lists.model';
+import { Store } from '@ngrx/store';
+
+import * as fromApp from '../../../../store/app.reducer';
+import * as AuthActions from '../../../auth/store/auth.actions';
+import { TodoListStatus } from '../../models/todo-lists.model';
 
 @Component({
   selector: 'app-todo-lists-header',
@@ -7,12 +11,12 @@ import { TodoListMode } from '../../models/todo-lists.model';
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent implements OnInit {
-  @Output() modeChange = new EventEmitter<string>();
+  @Output() statusChange = new EventEmitter<string>();
   today: number = new Date().getDate();
   month: string = new Date().toLocaleString('default', { month: 'long' });
-  TodoEnum = TodoListMode;
+  TodoEnum = TodoListStatus;
   isMenuOpen: boolean = false;
-  currentMode: string = TodoListMode.INPROGRESS;
+  currentStatus: string = TodoListStatus.INPROGRESS;
 
   ngOnInit(): void {}
 
@@ -24,9 +28,15 @@ export class HeaderComponent implements OnInit {
     this.isMenuOpen = false;
   }
 
-  public onModeChange(value: TodoListMode): void {
-    this.currentMode = value;
-    this.modeChange.emit(value);
+  onLogout() {
+    this.store.dispatch(new AuthActions.Logout());
+  }
+
+  constructor(private store: Store<fromApp.AppState>) {}
+
+  public onStatusChange(value: TodoListStatus): void {
+    this.currentStatus = value;
+    this.statusChange.emit(value);
     this.isMenuOpen = false;
   }
 }

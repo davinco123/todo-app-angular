@@ -1,16 +1,9 @@
-import {
-  Component,
-  OnInit,
-  Input,
-  ViewChild,
-  ElementRef,
-  OnDestroy,
-} from '@angular/core';
+import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { tap } from 'rxjs';
 import { Store } from '@ngrx/store';
 
-import { TodoListModel, TodoListMode } from '../../models/todo-lists.model';
+import { TodoListModel, TodoListStatus } from '../../models/todo-lists.model';
 import * as fromApp from '../../../../store/app.reducer';
 import * as TodoListActions from '../../store/todo-lists.actions';
 
@@ -20,18 +13,19 @@ import * as TodoListActions from '../../store/todo-lists.actions';
   styleUrls: ['./todo-lists-item.component.scss'],
 })
 export class TodoListsItemComponent implements OnInit, OnDestroy {
-  @Input() currentModeChange: string;
+  @Input() currentStatusChange: string;
   todoListForm: FormGroup;
   todoLists: TodoListModel[] = [];
-  todoEnum = TodoListMode;
+  todoEnum = TodoListStatus;
 
-  constructor(private store: Store<fromApp.AppState>) {}
-
-  ngOnInit(): void {
+  constructor(private store: Store<fromApp.AppState>) {
+    this.currentStatusChange = TodoListStatus.INPROGRESS;
     this.todoListForm = new FormGroup({
       todo: new FormControl('', Validators.required),
     });
+  }
 
+  ngOnInit(): void {
     this.store
       .select('todoList')
       .pipe(
@@ -40,20 +34,20 @@ export class TodoListsItemComponent implements OnInit, OnDestroy {
         })
       )
       .subscribe();
-    this.currentModeChange = TodoListMode.INPROGRESS;
+    this.currentStatusChange = TodoListStatus.INPROGRESS;
   }
 
   getCurrentList(): TodoListModel[] {
     return this.todoLists.filter(
-      (value) => value.mode === this.currentModeChange
+      (value) => value.status === this.currentStatusChange
     );
   }
 
   onSubmit(): void {
-    if (this.todoListForm.get('todo').value) {
+    if (this.todoListForm.get('todo')?.value) {
       const newTodo = new TodoListModel(
-        this.todoListForm.get('todo').value,
-        TodoListMode.INPROGRESS,
+        this.todoListForm.get('todo')?.value,
+        TodoListStatus.INPROGRESS,
         this.todoLists.length
       );
       this.store.dispatch(new TodoListActions.AddTodo(newTodo));
@@ -78,7 +72,7 @@ export class TodoListsItemComponent implements OnInit, OnDestroy {
     } else this.store.dispatch(new TodoListActions.CompleteTodo(value));
   }
 
-  onEdit(value: TodoListModel, inputvalue?: string): void {
+  onEdit(value: TodoListModel, inputvalue: string): void {
     if (value.todo === inputvalue) return;
     else if (value.todo !== inputvalue) {
       const newTodo = { ...value };

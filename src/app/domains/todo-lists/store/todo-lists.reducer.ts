@@ -1,5 +1,5 @@
 import { TodoListModel } from '../models/todo-lists.model';
-import { TodoListMode } from '../models/todo-lists.model';
+import { TodoListStatus } from '../models/todo-lists.model';
 
 import * as TodoListActions from './todo-lists.actions';
 
@@ -11,22 +11,22 @@ const initialState: State = {
   todoList: [
     new TodoListModel(
       'Workout for 30 minutes at the gym',
-      TodoListMode.INPROGRESS,
+      TodoListStatus.INPROGRESS,
       0
     ),
     new TodoListModel(
       'Buy groceries (milk, vegetable, fruits, fish)',
-      TodoListMode.INPROGRESS,
+      TodoListStatus.INPROGRESS,
       1
     ),
     new TodoListModel(
       'Clean the house and backyard',
-      TodoListMode.COMPLETED,
+      TodoListStatus.COMPLETED,
       2
     ),
     new TodoListModel(
       'Take the car to the auto shop for an oil change',
-      TodoListMode.REMOVED,
+      TodoListStatus.REMOVED,
       3
     ),
   ],
@@ -50,10 +50,10 @@ export function todoListReducer(
       const oldTodo = state.todoList[action.payload.id];
       const newTodo = { ...action.payload };
 
-      if (newTodo.mode === TodoListMode.INPROGRESS)
-        newTodo.mode = TodoListMode.REMOVED;
-      else if (newTodo.mode === TodoListMode.REMOVED)
-        newTodo.mode = TodoListMode.INPROGRESS;
+      if (newTodo.status === TodoListStatus.INPROGRESS)
+        newTodo.status = TodoListStatus.REMOVED;
+      else if (newTodo.status === TodoListStatus.REMOVED)
+        newTodo.status = TodoListStatus.INPROGRESS;
 
       const updatedTodo = {
         ...oldTodo,
@@ -71,7 +71,7 @@ export function todoListReducer(
       const todo = state.todoList[action.payload.id];
       const completeTodo = { ...action.payload };
 
-      completeTodo.mode = TodoListMode.COMPLETED;
+      completeTodo.status = TodoListStatus.COMPLETED;
       const completedTodo = {
         ...todo,
         ...completeTodo,

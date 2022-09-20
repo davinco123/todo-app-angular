@@ -6,6 +6,8 @@
     <div class="calendar-label">
         Today
     </div>
+
+    <button class="calendar-button btn btn-primary" (click)="onLogout()">Logout</button>
 </div>
 <div class="list-navigation" clickOutside (clickOutside)="clickedOutside()">
     <div class="list-navigation-ellipsis" (click)="menuToggle()">
@@ -15,19 +17,18 @@
 
     <div class="list-navigation-ellipsis-after" *ngIf="isMenuOpen">
         <div class="list-navigation-ellipsis-afters"></div>
-        <svg-icon src="/assets/svg/ellipsis-normal.svg" [svgStyle]="{ 'height.px':19 ,'width.px':18 }">
+        <svg-icon src="/assets/svg/ellipsis-after.svg" [svgStyle]="{ 'height.px':19 ,'width.px':18 }">
         </svg-icon>
     </div>
 
 
     <div class="list-navigation-items" *ngIf="isMenuOpen">
-        <div class="list-navigation-items-name" (click)="onModeChange(TodoEnum.COMPLETED)"
+        <div class="list-navigation-items-name" (click)="onStatusChange(TodoEnum.COMPLETED)"
             [ngClass]="currentMode === TodoEnum.COMPLETED ? 'list-navigation-items-name-active': null">Completed</div>
-        <div class="list-navigation-items-name" (click)="onModeChange(TodoEnum.INPROGRESS)"
+        <div class="list-navigation-items-name" (click)="onStatusChange(TodoEnum.INPROGRESS)"
             [ngClass]="currentMode === TodoEnum.INPROGRESS ? 'list-navigation-items-name-active': null">In Progress
-
         </div>
-        <div class="list-navigation-items-name" (click)="onModeChange(TodoEnum.REMOVED)"
+        <div class="list-navigation-items-name" (click)="onStatusChange(TodoEnum.REMOVED)"
             [ngClass]="currentMode === TodoEnum.REMOVED ? 'list-navigation-items-name-active': null">Removed</div>
     </div>
 </div>

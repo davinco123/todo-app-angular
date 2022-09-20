@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { TodoListStatus } from '../../models/todo-lists.model';
 
 @Component({
   selector: 'app-todo-lists',
@@ -6,13 +7,15 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./todo-lists.component.scss'],
 })
 export class TodoListsComponent implements OnInit {
-  currentMode: string;
+  currentStatus: string;
 
-  constructor() {}
+  constructor() {
+    this.currentStatus = TodoListStatus.INPROGRESS;
+  }
 
   ngOnInit(): void {}
 
-  changeCurrentMode(mode: string): void {
-    this.currentMode = mode;
+  changeCurrentStatus(status: string): void {
+    this.currentStatus = status;
   }
 }

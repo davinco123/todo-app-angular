@@ -11,7 +11,7 @@ const appRoutes: Routes = [
     path: 'todoLists',
     loadChildren: () =>
       import('./domains/todo-lists/todo-lists.module').then(
-        (m) => m.TodoListModule
+        (m) => m.TodoListsModule
       ),
   },
   {

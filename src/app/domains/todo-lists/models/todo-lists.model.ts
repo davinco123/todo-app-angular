@@ -1,16 +1,16 @@
 export class TodoListModel {
   public todo: string;
-  public mode: string;
+  public status: string;
   public id: number;
 
-  constructor(todo: string, mode: string = 'inprogress', id: number) {
+  constructor(todo: string, status: string = 'inprogress', id: number) {
     this.todo = todo;
-    this.mode = mode;
+    this.status = status;
     this.id = id;
   }
 }
 
-export enum TodoListMode {
+export enum TodoListStatus {
   INPROGRESS = 'inprogress',
   COMPLETED = 'completed',
   REMOVED = 'removed',

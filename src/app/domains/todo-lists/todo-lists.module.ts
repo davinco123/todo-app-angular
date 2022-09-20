@@ -27,4 +27,4 @@ import { ClickOutSideDirective } from '../share/clickOutside.directive';
     HttpClientModule,
   ],
 })
-export class TodoListModule {}
+export class TodoListsModule {}

@@ -1,6 +1,10 @@
 .calendar {
    display: flex;
    flex-direction: row;
+   
+   &-button{
+      margin-left: 20px;
+   }
 
    &-icon {
       text-align: center;
