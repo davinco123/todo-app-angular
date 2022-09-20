@@ -17,6 +17,7 @@ export class TodoListsItemComponent implements OnInit, OnDestroy {
   todoListForm: FormGroup;
   todoLists: TodoListModel[] = [];
   todoEnum = TodoListStatus;
+  addMode: boolean = false;
 
   constructor(private store: Store<fromApp.AppState>) {
     this.currentStatusChange = TodoListStatus.INPROGRESS;
@@ -51,9 +52,14 @@ export class TodoListsItemComponent implements OnInit, OnDestroy {
         this.todoLists.length
       );
       this.store.dispatch(new TodoListActions.AddTodo(newTodo));
+      this.addMode = false;
     }
 
     this.todoListForm.reset();
+  }
+
+  onAddMode(): void {
+    this.addMode = true;
   }
 
   onUpdate(value: TodoListModel, inputvalue?: string): void {

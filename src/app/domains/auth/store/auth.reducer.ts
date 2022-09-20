@@ -31,14 +31,12 @@ export function authReducer(
         action.payload.user.updatedAt,
         action.payload.token
       );
-      console.log(action.payload);
       return {
         ...state,
         user: user,
       };
 
     case AuthActions.AUTHENTICATION_FAIL:
-      console.log(action.payload);
       return {
         ...state,
       };

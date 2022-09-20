@@ -57,8 +57,11 @@
                         <svg-icon src="/assets/svg/add-todo.svg" [svgStyle]="{ 'height.px':25 ,'width.px':25 }">
                         </svg-icon>
                     </div>
-                    <div class="list-todo-newitem-create-input">
-                        <input type="text" id="todo" formControlName="todo" placeholder="Create New Item">
+                    <div (click)="onAddMode()" *ngIf="!addMode" class="list-todo-newitem-create-label">
+                        <label>Create New Item</label>
+                    </div>
+                    <div class="list-todo-newitem-create-input" *ngIf="addMode">
+                        <input type="text" id="todo" formControlName="todo">
                     </div>
                 </div>
             </form>
