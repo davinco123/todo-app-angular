@@ -10,6 +10,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AuthInterceptorService } from './domains/auth/auth-interceptor.service';
 import { AuthEffects } from './domains/auth/store/auth.effects';
 import * as fromApp from './store/app.reducer';
+import { TodoListEffects } from './domains/todo-lists/store/todo-lists.effects';
 
 @NgModule({
   declarations: [AppComponent],
@@ -17,7 +18,7 @@ import * as fromApp from './store/app.reducer';
     BrowserModule,
     AppRoutingModule,
     StoreModule.forRoot(fromApp.appReducer),
-    EffectsModule.forRoot([AuthEffects]),
+    EffectsModule.forRoot([AuthEffects, TodoListEffects]),
     HttpClientModule,
   ],
   providers: [

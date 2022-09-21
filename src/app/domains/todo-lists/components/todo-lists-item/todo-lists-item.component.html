@@ -4,17 +4,17 @@
 
             <!-- INPROGRESS LIST -->
             <div class="list-todo-item list-todo-item-inprogress" *ngIf="currentStatusChange == todoEnum.INPROGRESS">
-                <div class="list-todo-item-inprogress-complete" (clickOutside)="onEdit(todoItem,inputtext.value)">
-                    <div class="complete-button" (click)="onComplete(todoItem,inputtext.value)">
+                <div class="list-todo-item-inprogress-complete" (clickOutside)="onEdit(todoItem, inputtext.value)">
+                    <div class="complete-button" (click)="onComplete(todoItem, inputtext.value)">
                         <svg-icon src="/assets/svg/complete-todo.svg" [svgStyle]="{ 'height.px':25 ,'width.px':25 }">
                         </svg-icon>
                     </div>
                 </div>
                 <div class="list-todo-item-inprogress-edit">
-                    <input type="text" value="{{todoItem.todo}}" #inputtext>
+                    <input type="text" value="{{todoItem.description}}" #inputtext>
                 </div>
                 <div class="list-todo-item-inprogress-remove">
-                    <div class="remove-button" (click)="onUpdate(todoItem, inputtext.value)">
+                    <div class="remove-button" (click)="onRemove(todoItem)">
                         <svg-icon src="/assets/svg/remove-todo.svg" [svgStyle]="{ 'height.px':37 ,'width.px':36 }">
                         </svg-icon>
                     </div>
@@ -29,20 +29,20 @@
                     </svg-icon>
                 </div>
                 <div class="list-todo-items-completed-label">
-                    <p>{{todoItem.todo}}</p>
+                    <p>{{todoItem.description}}</p>
                 </div>
             </div>
 
             <!-- REMOVE LIST -->
             <div class="list-todo-items list-todo-items-removed" *ngIf="currentStatusChange == todoEnum.REMOVED">
                 <div class="list-todo-items-removed-restore">
-                    <div class="add-button" (click)="onUpdate(todoItem)">
+                    <div class="add-button">
                         <svg-icon src="/assets/svg/add-todo.svg" [svgStyle]="{ 'height.px':25 ,'width.px':25 }">
                         </svg-icon>
                     </div>
                 </div>
                 <div class="list-todo-items-removed-label">
-                    <p>{{todoItem.todo}}</p>
+                    <p>{{todoItem.description}}</p>
                 </div>
             </div>
         </li>
@@ -61,7 +61,7 @@
                         <label>Create New Item</label>
                     </div>
                     <div class="list-todo-newitem-create-input" *ngIf="addMode">
-                        <input type="text" id="todo" formControlName="todo">
+                        <input type="text" id="todo" formControlName="description">
                     </div>
                 </div>
             </form>

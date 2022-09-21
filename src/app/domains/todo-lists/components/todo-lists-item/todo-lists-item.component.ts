@@ -1,11 +1,12 @@
 import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { tap } from 'rxjs';
+import { map, Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
 
 import { TodoListModel, TodoListStatus } from '../../models/todo-lists.model';
 import * as fromApp from '../../../../store/app.reducer';
 import * as TodoListActions from '../../store/todo-lists.actions';
+import { User } from 'src/app/domains/auth/model/user.model';
 
 @Component({
   selector: 'app-todo-lists-item',
@@ -14,78 +15,96 @@ import * as TodoListActions from '../../store/todo-lists.actions';
 })
 export class TodoListsItemComponent implements OnInit, OnDestroy {
   @Input() currentStatusChange: string;
+  private storeSubscription: Subscription;
   todoListForm: FormGroup;
   todoLists: TodoListModel[] = [];
   todoEnum = TodoListStatus;
   addMode: boolean = false;
+  user: User;
 
   constructor(private store: Store<fromApp.AppState>) {
     this.currentStatusChange = TodoListStatus.INPROGRESS;
     this.todoListForm = new FormGroup({
-      todo: new FormControl('', Validators.required),
+      description: new FormControl('', Validators.required),
     });
   }
 
   ngOnInit(): void {
+    this.currentStatusChange = TodoListStatus.INPROGRESS;
+
+    this.storeSubscription = this.store
+      .select('auth')
+      .subscribe((authState) => {
+        if (authState.user) {
+          this.user = authState.user;
+          this.store.dispatch(new TodoListActions.GetTodo(this.user.token));
+        }
+      });
+
     this.store
       .select('todoList')
       .pipe(
-        tap((todoListState) => {
-          this.todoLists = todoListState.todoList;
+        map((todoListState) => {
+          return todoListState.todoList;
         })
       )
-      .subscribe();
-    this.currentStatusChange = TodoListStatus.INPROGRESS;
+      .subscribe((todoList: TodoListModel[]) => {
+        this.todoLists = todoList;
+      });
   }
 
   getCurrentList(): TodoListModel[] {
     return this.todoLists.filter(
-      (value) => value.status === this.currentStatusChange
+      (value) =>
+        value.completed ===
+        (this.currentStatusChange === TodoListStatus.COMPLETED ? true : false)
     );
   }
 
   onSubmit(): void {
-    if (this.todoListForm.get('todo')?.value) {
-      const newTodo = new TodoListModel(
-        this.todoListForm.get('todo')?.value,
-        TodoListStatus.INPROGRESS,
-        this.todoLists.length
-      );
-      this.store.dispatch(new TodoListActions.AddTodo(newTodo));
-      this.addMode = false;
-    }
-
+    const description = this.todoListForm.get('description').value;
+    const token = this.user.token;
+    this.store.dispatch(new TodoListActions.AddTodo({ description, token }));
     this.todoListForm.reset();
+    this.addMode = false;
   }
 
   onAddMode(): void {
     this.addMode = true;
   }
 
-  onUpdate(value: TodoListModel, inputvalue?: string): void {
-    if (inputvalue !== undefined && value.todo !== inputvalue) {
-      const newTodo = { ...value };
-      newTodo.todo = inputvalue;
-      this.store.dispatch(new TodoListActions.UpdateTodo(newTodo));
-    } else this.store.dispatch(new TodoListActions.UpdateTodo(value));
+  onRemove(todoItem: TodoListModel): void {
+    const token = this.user.token;
+    const id = todoItem._id;
+    this.store.dispatch(new TodoListActions.RemoveTodo(todoItem));
+    this.store.dispatch(new TodoListActions.DeleteTodo({ id, token }));
   }
 
-  onComplete(value: TodoListModel, inputvalue: string): void {
-    if (value.todo !== inputvalue) {
-      const newTodo = { ...value };
-      newTodo.todo = inputvalue;
-      this.store.dispatch(new TodoListActions.CompleteTodo(newTodo));
-    } else this.store.dispatch(new TodoListActions.CompleteTodo(value));
+  onComplete(todoItem: TodoListModel, inputvalue: string): void {
+    const id = todoItem._id;
+    const token = this.user.token;
+    const description = inputvalue;
+    const completed = true;
+    this.store.dispatch(
+      new TodoListActions.EditTodo({ id, description, token, completed })
+    );
   }
 
-  onEdit(value: TodoListModel, inputvalue: string): void {
-    if (value.todo === inputvalue) return;
-    else if (value.todo !== inputvalue) {
-      const newTodo = { ...value };
-      newTodo.todo = inputvalue;
-      this.store.dispatch(new TodoListActions.EditTodo(newTodo));
+  onEdit(todoItem: TodoListModel, inputvalue: string): void {
+    const id = todoItem._id;
+    const token = this.user.token;
+    const description = inputvalue;
+    const completed = todoItem.completed;
+    if (inputvalue == todoItem.description) {
+      return null;
+    } else {
+      this.store.dispatch(
+        new TodoListActions.EditTodo({ id, description, token, completed })
+      );
     }
   }
 
-  ngOnDestroy(): void {}
+  ngOnDestroy(): void {
+    this.storeSubscription.unsubscribe();
+  }
 }

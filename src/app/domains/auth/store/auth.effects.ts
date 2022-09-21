@@ -201,9 +201,17 @@ export class AuthEffects {
     () =>
       this.action$.pipe(
         ofType(AuthActions.LOGOUT),
+        switchMap((logoutData: AuthActions.Logout) => {
+          return this.http.post(
+            'https://api-nodejs-todolist.herokuapp.com/user/logout',
+            {},
+            {
+              headers: { Authorization: 'Bearer ' + logoutData.payload },
+            }
+          );
+        }),
         tap(() => {
           localStorage.removeItem('userData');
-          console.log(localStorage.getItem('userData'));
           this.router.navigate(['/auth']);
         })
       ),

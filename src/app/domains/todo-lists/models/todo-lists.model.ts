@@ -1,12 +1,25 @@
 export class TodoListModel {
-  public todo: string;
-  public status: string;
-  public id: number;
+  public completed: boolean;
+  public _id: string;
+  public description: string;
+  public owner: string;
+  public createdAt: Date;
+  public updatedAt: Date;
 
-  constructor(todo: string, status: string = 'inprogress', id: number) {
-    this.todo = todo;
-    this.status = status;
-    this.id = id;
+  constructor(
+    description: string,
+    completed: boolean = false,
+    id: string,
+    owner: string,
+    createdAt: Date,
+    updatedAt: Date
+  ) {
+    this.completed = completed;
+    this._id = id;
+    this.description = description;
+    this.owner = owner;
+    this.createdAt = createdAt;
+    this.updatedAt = updatedAt;
   }
 }
 

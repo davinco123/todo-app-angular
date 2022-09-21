@@ -1,5 +1,4 @@
 import { TodoListModel } from '../models/todo-lists.model';
-import { TodoListStatus } from '../models/todo-lists.model';
 
 import * as TodoListActions from './todo-lists.actions';
 
@@ -8,28 +7,7 @@ export interface State {
 }
 
 const initialState: State = {
-  todoList: [
-    new TodoListModel(
-      'Workout for 30 minutes at the gym',
-      TodoListStatus.INPROGRESS,
-      0
-    ),
-    new TodoListModel(
-      'Buy groceries (milk, vegetable, fruits, fish)',
-      TodoListStatus.INPROGRESS,
-      1
-    ),
-    new TodoListModel(
-      'Clean the house and backyard',
-      TodoListStatus.COMPLETED,
-      2
-    ),
-    new TodoListModel(
-      'Take the car to the auto shop for an oil change',
-      TodoListStatus.REMOVED,
-      3
-    ),
-  ],
+  todoList: [],
 };
 
 export function todoListReducer(
@@ -37,69 +15,56 @@ export function todoListReducer(
   action: TodoListActions.TodoListActionsType
 ) {
   switch (action.type) {
-    case TodoListActions.ADD_TODO:
-      console.log(state.todoList);
+    case TodoListActions.SET_TODO:
+      return {
+        ...state,
+        todoList: action.payload,
+      };
+
+    case TodoListActions.ADD_TODO_AFTER:
       return {
         ...state,
         todoList: [...state.todoList, action.payload],
       };
 
-    case TodoListActions.UPDATE_TODO:
-      const updatedTodoLists = [...state.todoList];
-
-      const oldTodo = state.todoList[action.payload.id];
-      const newTodo = { ...action.payload };
-
-      if (newTodo.status === TodoListStatus.INPROGRESS)
-        newTodo.status = TodoListStatus.REMOVED;
-      else if (newTodo.status === TodoListStatus.REMOVED)
-        newTodo.status = TodoListStatus.INPROGRESS;
-
-      const updatedTodo = {
-        ...oldTodo,
-        ...newTodo,
-      };
-      updatedTodoLists[action.payload.id] = updatedTodo;
-      return {
-        ...state,
-        todoList: updatedTodoLists,
-      };
-
     case TodoListActions.COMPLETE_TODO:
-      const completeTodoList = [...state.todoList];
-
-      const todo = state.todoList[action.payload.id];
-      const completeTodo = { ...action.payload };
-
-      completeTodo.status = TodoListStatus.COMPLETED;
-      const completedTodo = {
-        ...todo,
-        ...completeTodo,
+      return {
+        ...state,
       };
 
-      completeTodoList[action.payload.id] = completedTodo;
+    case TodoListActions.EDIT_TODO_AFTER:
+      const oldTodoList = [...state.todoList];
+      const todo = { ...action.payload };
+      const index = oldTodoList.findIndex(
+        (oldTodo) => oldTodo._id === todo._id
+      );
+
+      const oldTodo = oldTodoList[index];
+      const newTodo = {
+        ...oldTodo,
+        ...action.payload,
+      };
+
+      oldTodoList[index] = newTodo;
+      return {
+        ...state,
+        todoList: oldTodoList,
+      };
+
+    case TodoListActions.REMOVE_TODO:
+      const todoLists = [...state.todoList];
+      const todos = { ...action.payload };
+      const ind = todoLists.findIndex((todo) => todo._id === todos._id);
+
+      todoLists.splice(ind, 1);
 
       return {
         ...state,
-        todoList: completeTodoList,
+        todoList: todoLists,
       };
 
-    case TodoListActions.EDIT_TODO:
-      const editTodoList = [...state.todoList];
-
-      const todos = state.todoList[action.payload.id];
-      const editTodo = { ...action.payload };
-
-      const editedTodo = {
-        ...todos,
-        ...editTodo,
-      };
-
-      editTodoList[action.payload.id] = editedTodo;
-      return {
-        ...state,
-        todoList: editTodoList,
-      };
+    case TodoListActions.REFRESH_TODO:
+      return state;
     default:
       return state;
   }
