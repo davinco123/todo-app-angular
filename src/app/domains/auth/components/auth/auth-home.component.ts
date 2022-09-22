@@ -19,12 +19,10 @@ export class AuthHomeComponent implements OnInit {
 
   toSignUp() {
     this.signUpMode = true;
-    this.signInMode = false;
   }
 
   toSignIn() {
     this.signInMode = true;
-    this.signUpMode = false;
   }
 
   ngOnInit(): void {}

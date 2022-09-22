@@ -121,6 +121,11 @@ ul {
                             white-space: nowrap;
                             overflow: hidden;
                             text-overflow: ellipsis;
+                            &:hover{
+                                white-space: normal;
+                                overflow: visible;
+                                text-overflow: none;
+                            }
                         }
                     }
 
@@ -136,6 +141,11 @@ ul {
                             white-space: nowrap;
                             overflow: hidden;
                             text-overflow: ellipsis;
+                            &:hover{
+                                white-space: normal;
+                                overflow: visible;
+                                text-overflow: none;
+                            }
                         }
                     }
 
@@ -151,6 +161,11 @@ ul {
                             white-space: nowrap;
                             overflow: hidden;
                             text-overflow: ellipsis;
+                            &:hover{
+                                white-space: normal;
+                                overflow: visible;
+                                text-overflow: none;
+                            }
                         }
                     }
 
