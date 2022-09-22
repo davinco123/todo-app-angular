@@ -5,11 +5,13 @@ import * as AuthActions from './auth.actions';
 export interface State {
   user: User;
   authError: string;
+  loading: boolean;
 }
 
 const initialState: State = {
   user: null,
   authError: null,
+  loading: false,
 };
 
 export function authReducer(
@@ -21,6 +23,7 @@ export function authReducer(
     case AuthActions.SIGNUP_START:
       return {
         ...state,
+        loading: true,
       };
 
     case AuthActions.AUTHENTICATION_SUCCESS:
@@ -36,12 +39,14 @@ export function authReducer(
       return {
         ...state,
         user: user,
+        loading: false,
       };
 
     case AuthActions.AUTHENTICATION_FAIL:
       return {
         ...state,
         authError: action.payload,
+        loading: false,
       };
 
     case AuthActions.LOGOUT:

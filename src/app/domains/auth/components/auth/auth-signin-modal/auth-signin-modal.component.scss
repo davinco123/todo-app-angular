@@ -1,0 +1,44 @@
+.backdrop{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0,0,0,0.75);
+    z-index: 50;
+    
+    backdrop-filter: blur(10px);
+}
+
+.alert-box{
+    border-radius: 15px;
+    position: fixed;
+    top: 10vh;
+    left: 25vw;
+    width: 50vw;
+    height: auto;
+    padding: 16px;
+    z-index: 100;
+    background: white;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.26);
+
+    &-button{
+        display: flex;
+        flex-direction: row;
+        margin-top: 10px;
+        justify-content: center;
+
+        button{
+            display: inline-block;
+        }
+        
+    }
+}
+
+.alert-box-action{
+    text-align: right;
+}
+
+@media screen {
+    
+}

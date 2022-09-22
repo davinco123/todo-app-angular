@@ -1,0 +1,16 @@
+<div class="authentication">
+    <div class="authentication-item">
+        <div class="authentication-label">
+            <h5>WELCOME TO ANGULAR TODO APP</h5>
+        </div>
+
+        <div class="authentication-button">
+            <label>Sign in or create a new account to use the app</label>
+            <button class="btn btn-primary" *ngIf="!signUpMode && !signInMode" (click)="toSignUp()">Sign Up</button>
+            <button class="btn btn-primary" *ngIf="!signUpMode && !signInMode" (click)="toSignIn()">Sign In</button>
+        </div>
+
+        <app-auth-signin-modal *ngIf="signInMode"></app-auth-signin-modal>
+        <app-auth-signup-modal *ngIf="signUpMode"></app-auth-signup-modal>
+    </div>
+</div>

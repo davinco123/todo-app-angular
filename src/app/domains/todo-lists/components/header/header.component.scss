@@ -3,7 +3,21 @@
    flex-direction: row;
    
    &-button{
-      margin-left: 20px;
+      font-size: 16px;
+      border-radius: 10px;
+      border: none;
+      color: #ffffff;
+      background-color: #3d80eb;
+      margin: 0 0 0 20px;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0px 2px 10px 1px rgba(0, 0, 0, 0.15);
+
+      &:hover {
+         color:#3d80eb;
+         background-color: #ffffff;
+         border: 1px solid #3d80eb
+      }
    }
 
    &-icon {

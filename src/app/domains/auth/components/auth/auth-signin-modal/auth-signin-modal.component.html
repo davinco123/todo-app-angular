@@ -1,0 +1,24 @@
+<div class="backdrop">
+    <div class="alert-box">
+        <div style="text-align:center;" *ngIf="isLoading">
+            <loading-spinner-app></loading-spinner-app>
+        </div>
+        <div *ngIf="!isLoading">
+            <label for="">Sign In to use the app</label>
+            <form [formGroup]=" signInForm" (ngSubmit)="onSubmit()">
+                <div class="form-control">
+
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" id="email" class="form-control" formControlName="email">
+
+                    <label for="password" class="form-label">Password</label>
+                    <input type="password" id="password" class="form-control" formControlName="password">
+
+                    <div class="alert-box-button">
+                        <button class="btn btn-primary" type="submit">Sign In</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

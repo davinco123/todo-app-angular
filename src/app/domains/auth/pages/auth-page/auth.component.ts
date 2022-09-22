@@ -6,11 +6,11 @@ import * as fromApp from '../../../../store/app.reducer';
 import * as AuthActions from '../../store/auth.actions';
 
 @Component({
-  selector: 'app-auth-page',
-  templateUrl: './auth-page.component.html',
-  styleUrls: ['./auth-page.component.css'],
+  selector: 'app-auth',
+  templateUrl: './auth.component.html',
+  styleUrls: ['./auth.component.scss'],
 })
-export class AuthPageComponent implements OnInit, OnDestroy {
+export class AuthComponent implements OnInit, OnDestroy {
   private storeSubscription: Subscription;
   error: string = null;
 

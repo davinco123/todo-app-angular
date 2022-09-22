@@ -5,18 +5,27 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
 import { AuthRoutingModule } from './auth-routing.module';
-import { AuthPageComponent } from './pages/auth-page/auth-page.component';
-import { AuthComponent } from './components/auth/auth.component';
+import { AuthComponent } from './pages/auth-page/auth.component';
+import { AuthHomeComponent } from './components/auth/auth-home.component';
 import { AlertComponent } from './components/alert-modal/alert-modal.component';
+import { AuthSigninComponent } from './components/auth/auth-signin-modal/auth-signin-modal.component';
+import { AuthSignupComponent } from './components/auth/auth-signup-modal/auth-signup-modal.component';
+import { ShareModule } from '../share/share.module';
 
 @NgModule({
-  declarations: [AuthPageComponent, AuthComponent, AlertComponent],
+  declarations: [
+    AuthHomeComponent,
+    AuthComponent,
+    AlertComponent,
+    AuthSigninComponent,
+    AuthSignupComponent,
+  ],
   imports: [
-    CommonModule,
     RouterModule,
     ReactiveFormsModule,
     HttpClientModule,
     AuthRoutingModule,
+    ShareModule,
   ],
 })
 export class AuthModule {}
