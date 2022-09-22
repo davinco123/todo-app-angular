@@ -40,7 +40,7 @@ export class HeaderComponent implements OnInit {
     this.isMenuOpen = false;
   }
 
-  onLogout() {
+  onLogout(): void {
     this.store.dispatch(new AuthActions.Logout(this.userToken));
   }
 

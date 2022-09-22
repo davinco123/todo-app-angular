@@ -109,13 +109,13 @@ export class AuthEffects {
   signinStart$ = createEffect(() =>
     this.action$.pipe(
       ofType(AuthActions.SIGNIN_START),
-      switchMap((authData: AuthActions.SigninStart) => {
+      switchMap((signinData: AuthActions.SigninStart) => {
         return this.http
           .post<AuthResponseData>(
             'https://api-nodejs-todolist.herokuapp.com/user/login',
             {
-              email: authData.payload.email,
-              password: authData.payload.password,
+              email: signinData.payload.email,
+              password: signinData.payload.password,
             }
           )
           .pipe(

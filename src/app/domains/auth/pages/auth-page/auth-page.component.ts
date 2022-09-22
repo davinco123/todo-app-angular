@@ -6,11 +6,11 @@ import * as fromApp from '../../../../store/app.reducer';
 import * as AuthActions from '../../store/auth.actions';
 
 @Component({
-  selector: 'app-auth',
-  templateUrl: './auth.component.html',
-  styleUrls: ['./auth.component.css'],
+  selector: 'app-auth-page',
+  templateUrl: './auth-page.component.html',
+  styleUrls: ['./auth-page.component.css'],
 })
-export class AuthComponent implements OnInit, OnDestroy {
+export class AuthPageComponent implements OnInit, OnDestroy {
   private storeSubscription: Subscription;
   error: string = null;
 
@@ -24,7 +24,7 @@ export class AuthComponent implements OnInit, OnDestroy {
       });
   }
 
-  closeAlert() {
+  closeAlert(): void {
     this.store.dispatch(new AuthActions.ClearError());
   }
 

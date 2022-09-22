@@ -7,9 +7,9 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 
+import * as fromApp from './store/app.reducer';
 import { AuthInterceptorService } from './domains/auth/auth-interceptor.service';
 import { AuthEffects } from './domains/auth/store/auth.effects';
-import * as fromApp from './store/app.reducer';
 import { TodoListEffects } from './domains/todo-lists/store/todo-lists.effects';
 
 @NgModule({

@@ -5,12 +5,12 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
 import { AuthRoutingModule } from './auth-routing.module';
-import { AuthComponent } from './pages/auth/auth.component';
-import { AuthListComponent } from './components/auth-list/auth-list.component';
+import { AuthPageComponent } from './pages/auth-page/auth-page.component';
+import { AuthComponent } from './components/auth/auth.component';
 import { AlertComponent } from './components/alert-modal/alert-modal.component';
 
 @NgModule({
-  declarations: [AuthComponent, AuthListComponent, AlertComponent],
+  declarations: [AuthPageComponent, AuthComponent, AlertComponent],
   imports: [
     CommonModule,
     RouterModule,

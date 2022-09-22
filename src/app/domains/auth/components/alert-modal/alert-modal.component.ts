@@ -9,7 +9,7 @@ export class AlertComponent {
   @Input() message: string;
   @Output() close = new EventEmitter<void>();
 
-  onClose() {
+  onClose(): void {
     this.close.emit();
   }
 }

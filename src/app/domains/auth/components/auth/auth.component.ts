@@ -6,11 +6,11 @@ import * as fromApp from '../../../../store/app.reducer';
 import * as AuthActions from '../../store/auth.actions';
 
 @Component({
-  selector: 'app-auth-list',
-  templateUrl: './auth-list.component.html',
-  styleUrls: ['./auth-list.component.scss'],
+  selector: 'app-auth',
+  templateUrl: './auth.component.html',
+  styleUrls: ['./auth.component.scss'],
 })
-export class AuthListComponent implements OnInit {
+export class AuthComponent implements OnInit {
   public signInMode: boolean;
   public signUpMode: boolean;
   signUpForm: FormGroup;
