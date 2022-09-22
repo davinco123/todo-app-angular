@@ -12,6 +12,7 @@ export const COMPLETE_TODO = '[Todo List] Complete Todo';
 export const EDIT_TODO = '[Todo List] Edit Todo';
 export const EDIT_TODO_AFTER = '[Todo List] Edit Todo After';
 export const REFRESH_TODO = '[Todo List] Refresh Todo';
+export const ERROR_TODO = '[Todo List] Todo Error';
 
 export class GetTodo implements Action {
   readonly type = GET_TODO;
@@ -78,6 +79,12 @@ export class RefreshTodo implements Action {
   readonly type = REFRESH_TODO;
 }
 
+export class ErrorTodo implements Action {
+  readonly type = ERROR_TODO;
+
+  constructor(public payload: string) {}
+}
+
 export type TodoListActionsType =
   | AddTodoAfter
   | GetTodo
@@ -88,4 +95,5 @@ export type TodoListActionsType =
   | EditTodo
   | EditTodoAfter
   | RefreshTodo
-  | RemoveTodo;
+  | RemoveTodo
+  | ErrorTodo;

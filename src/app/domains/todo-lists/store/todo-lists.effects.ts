@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { HttpClient } from '@angular/common/http';
-import { switchMap, map, tap } from 'rxjs/operators';
+import { switchMap, map, of, catchError } from 'rxjs';
 
 import * as TodoListActions from './todo-lists.actions';
 import { TodoListModel } from '../models/todo-lists.model';
@@ -15,6 +15,19 @@ export interface TodoListsResponseData {
   count: number;
   data: TodoListModel[];
 }
+
+const handleError = (errorRes: any) => {
+  let errorMessage = 'An unknown error has occured!!';
+  if (!errorRes.error.error || !errorRes.error.message) {
+    return of(new TodoListActions.ErrorTodo(errorMessage));
+  }
+  switch (errorRes.error.error) {
+    case 'Please authenticate.':
+      errorMessage = 'Unable to authenticate, please sign in again.';
+      break;
+  }
+  return of(new TodoListActions.ErrorTodo(errorMessage));
+};
 
 @Injectable()
 export class TodoListEffects {
@@ -32,6 +45,9 @@ export class TodoListEffects {
       map((todoLists) => {
         const todoList = todoLists.data;
         return new TodoListActions.SetTodo(todoList);
+      }),
+      catchError((errorRes) => {
+        return handleError(errorRes);
       })
     )
   );
@@ -58,6 +74,9 @@ export class TodoListEffects {
         map((todoList) => {
           const todo = todoList.data;
           return new TodoListActions.AddTodoAfter(todo);
+        }),
+        catchError((errorRes) => {
+          return handleError(errorRes);
         })
       )
   );
@@ -81,6 +100,9 @@ export class TodoListEffects {
       .pipe(
         map((data) => {
           return new TodoListActions.RefreshTodo();
+        }),
+        catchError((errorRes) => {
+          return handleError(errorRes);
         })
       )
   );
@@ -109,6 +131,9 @@ export class TodoListEffects {
         map((todoList) => {
           const todo = todoList.data;
           return new TodoListActions.EditTodoAfter(todo);
+        }),
+        catchError((errorRes) => {
+          return handleError(errorRes);
         })
       )
   );
