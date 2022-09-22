@@ -1,3 +1,5 @@
+@import '/src/assets/style/mixin';
+
 .calendar {
    display: flex;
    flex-direction: row;
@@ -52,9 +54,24 @@
    }
 }
 .list-navigation {
+
    position: absolute;
-   top: 40px;
-   right: 40px;
+   
+
+   @include Responsive(Mobile) {
+      top: 20px;
+      right: 20px;
+   }
+
+   @include Responsive(Tablet) {
+      top: 30px;
+      right: 30px;
+   }
+
+   @include Responsive(Laptop) {
+      top: 40px;
+      right: 40px;
+   }
 
    &-ellipsis {
       position: absolute;

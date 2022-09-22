@@ -1,21 +1,4 @@
-// devices' sizes
-
-$Mobile:     320px;   
-$Tablet:     768px;  
-$Laptop:    1024px;      
-// media queries
-
-@mixin Responsive($canvas) {
-  @if $canvas == Mobile {
-   @media only screen and (min-width: $Mobile) { @content; } 
-  }
-  @else if $canvas == Tablet {
-   @media only screen and (min-width: $Tablet) { @content; } 
-  }
-  @else if $canvas == Laptop {
-   @media only screen and (min-width: $Laptop) { @content; } 
-  }
-}
+@import '/src/assets/style/mixin';
 
 .authentication{
    
