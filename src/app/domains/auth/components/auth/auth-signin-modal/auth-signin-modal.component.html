@@ -1,10 +1,10 @@
 <div class="backdrop">
     <div class="alert-box">
-        <div style="text-align:center;" *ngIf="isLoading">
+        <div class="alert-box-spinner" *ngIf="isLoading">
             <loading-spinner-app></loading-spinner-app>
         </div>
         <div *ngIf="!isLoading">
-            <label for="">Sign In to use the app</label>
+            <label>Sign In to use the app</label>
             <form [formGroup]=" signInForm" (ngSubmit)="onSubmit()">
                 <div class="form-control">
 
@@ -17,6 +17,7 @@
                     <div class="alert-box-button">
                         <button class="btn btn-primary" type="submit">Sign In</button>
                     </div>
+
                 </div>
             </form>
         </div>

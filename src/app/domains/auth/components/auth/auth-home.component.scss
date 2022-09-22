@@ -1,19 +1,98 @@
-body{
-    background-color: gray;
+// devices' sizes
+
+$Mobile:     320px;   
+$Tablet:     768px;  
+$Laptop:    1024px;      
+// media queries
+
+@mixin Responsive($canvas) {
+  @if $canvas == Mobile {
+   @media only screen and (min-width: $Mobile) { @content; } 
+  }
+  @else if $canvas == Tablet {
+   @media only screen and (min-width: $Tablet) { @content; } 
+  }
+  @else if $canvas == Laptop {
+   @media only screen and (min-width: $Laptop) { @content; } 
+  }
 }
+
 .authentication{
+   
     display: flex;
     justify-content: center;
     border-radius: 20px;
-    box-shadow: 0px 4px 10px 4px rgba(0, 0, 0, 0.15);
+    box-shadow: 0px 5px 10px 5px rgba(0, 0, 0, 0.15);
+    @include Responsive(Mobile) {
+        margin: 10px -20px;
+        &-label{
+            text-align: center;
+            h5{
+                margin-top: 5px;
+                font-size: 14px;
+            };
+        }
+        &-button {
+            label{
+                font-size: 13px;
+                display: block;
+            }
+
+            button{
+                display: inline-block;
+            }
+        }
+    }
+
+    @include Responsive(Tablet){
+        margin: 30px;
+        &-label{
+            text-align: center;
+            h5{
+                margin-top: 5px;
+                font-size: 20px;
+            };
+        }
+        &-button {
+            label{
+                font-size: 18px;
+                display: block;
+            }
+
+            button{
+                display: inline-block;
+            }
+        }
+    }
+    
+    @include Responsive(Laptop) {
+        margin: 40px;
+        &-label{
+            h5{
+                margin-top: 5px;
+                font-size: 26px;
+            };
+        }
+        &-button {
+            label{
+                font-size: 22px;
+                display: block;
+            }
+
+            button{
+                display: inline-block;
+            }
+        }
+    }
+
     &-label{
         text-align: center;
     }
     &-button{
         text-align: center;
     }
-
 }
+    
 
 .btn-primary {
     margin: 10px;

@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 
@@ -10,7 +10,7 @@ import * as AuthActions from '../../store/auth.actions';
   templateUrl: './auth.component.html',
   styleUrls: ['./auth.component.scss'],
 })
-export class AuthComponent implements OnInit, OnDestroy {
+export class AuthComponent implements OnInit, OnDestroy, AfterViewInit {
   private storeSubscription: Subscription;
   error: string = null;
 
@@ -23,6 +23,8 @@ export class AuthComponent implements OnInit, OnDestroy {
         this.error = authState.authError;
       });
   }
+
+  ngAfterViewInit(): void {}
 
   closeAlert(): void {
     this.store.dispatch(new AuthActions.ClearError());
