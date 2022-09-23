@@ -1,8 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
 
 import { AuthRoutingModule } from './auth-routing.module';
 import { AuthComponent } from './pages/auth-page/auth.component';
@@ -20,12 +18,6 @@ import { ShareModule } from '../share/share.module';
     AuthSigninComponent,
     AuthSignupComponent,
   ],
-  imports: [
-    RouterModule,
-    ReactiveFormsModule,
-    HttpClientModule,
-    AuthRoutingModule,
-    ShareModule,
-  ],
+  imports: [RouterModule, ReactiveFormsModule, AuthRoutingModule, ShareModule],
 })
 export class AuthModule {}

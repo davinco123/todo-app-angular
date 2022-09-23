@@ -27,11 +27,6 @@ export function todoListReducer(
         todoList: [...state.todoList, action.payload],
       };
 
-    case TodoListActions.COMPLETE_TODO:
-      return {
-        ...state,
-      };
-
     case TodoListActions.EDIT_TODO_AFTER:
       const oldTodoList = [...state.todoList];
       const todo = { ...action.payload };
@@ -65,6 +60,7 @@ export function todoListReducer(
 
     case TodoListActions.REFRESH_TODO:
       return state;
+
     default:
       return state;
   }
