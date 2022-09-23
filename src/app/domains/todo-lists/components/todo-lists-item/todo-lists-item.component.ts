@@ -61,16 +61,15 @@ export class TodoListsItemComponent implements OnInit, OnDestroy {
     );
   }
 
+  onAddMode(): void {
+    this.addMode = true;
+  }
   onSubmit(): void {
     const description = this.todoListForm.get('description').value;
     const token = this.user.token;
     this.store.dispatch(new TodoListActions.AddTodo({ description, token }));
     this.todoListForm.reset();
     this.addMode = false;
-  }
-
-  onAddMode(): void {
-    this.addMode = true;
   }
 
   onRemove(todoItem: TodoListModel): void {
