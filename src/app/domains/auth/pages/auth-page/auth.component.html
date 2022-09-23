@@ -1,2 +1,4 @@
-<app-auth-home></app-auth-home>
+<div>
+    <router-outlet></router-outlet>
+</div>
 <app-alert-modal *ngIf="error" [message]="error" (close)="closeAlert()"></app-alert-modal>

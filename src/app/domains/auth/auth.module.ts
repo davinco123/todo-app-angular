@@ -6,8 +6,8 @@ import { AuthRoutingModule } from './auth-routing.module';
 import { AuthComponent } from './pages/auth-page/auth.component';
 import { AuthHomeComponent } from './components/auth/auth-home.component';
 import { AlertComponent } from './components/alert-modal/alert-modal.component';
-import { AuthSigninComponent } from './components/auth/auth-signin-modal/auth-signin-modal.component';
-import { AuthSignupComponent } from './components/auth/auth-signup-modal/auth-signup-modal.component';
+import { AuthSigninComponent } from './components/auth-signin-modal/auth-signin-modal.component';
+import { AuthSignupComponent } from './components/auth-signup-modal/auth-signup-modal.component';
 import { ShareModule } from '../share/share.module';
 
 @NgModule({

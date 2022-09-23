@@ -2,9 +2,10 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
+import { Router, ActivatedRoute } from '@angular/router';
 
-import * as fromApp from '../../../../../store/app.reducer';
-import * as AuthActions from '../../../store/auth.actions';
+import * as fromApp from '../../../../store/app.reducer';
+import * as AuthActions from '../../store/auth.actions';
 
 @Component({
   selector: 'app-auth-signup-modal',
@@ -15,7 +16,11 @@ export class AuthSignupComponent implements OnDestroy, OnInit {
   private storeSubscription: Subscription;
   isLoading: boolean = false;
   signUpForm: FormGroup;
-  constructor(private store: Store<fromApp.AppState>) {
+  constructor(
+    private store: Store<fromApp.AppState>,
+    private router: Router,
+    private route: ActivatedRoute
+  ) {
     this.signUpForm = new FormGroup({
       name: new FormControl(null, [Validators.required]),
       email: new FormControl(null, [Validators.email, Validators.required]),
@@ -50,6 +55,10 @@ export class AuthSignupComponent implements OnDestroy, OnInit {
         age: age,
       })
     );
+  }
+
+  onClick() {
+    this.router.navigate(['../'], { relativeTo: this.route });
   }
 
   ngOnDestroy(): void {

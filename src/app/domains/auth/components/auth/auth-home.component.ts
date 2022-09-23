@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Store } from '@ngrx/store';
-
-import * as fromApp from '../../../../store/app.reducer';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-auth-home',
@@ -9,20 +7,14 @@ import * as fromApp from '../../../../store/app.reducer';
   styleUrls: ['./auth-home.component.scss'],
 })
 export class AuthHomeComponent implements OnInit {
-  public signInMode: boolean;
-  public signUpMode: boolean;
-
-  constructor(private store: Store<fromApp.AppState>) {
-    this.signInMode = false;
-    this.signUpMode = false;
-  }
+  constructor(private router: Router, private route: ActivatedRoute) {}
 
   toSignUp() {
-    this.signUpMode = true;
+    this.router.navigate(['signup'], { relativeTo: this.route });
   }
 
   toSignIn() {
-    this.signInMode = true;
+    this.router.navigate(['signin'], { relativeTo: this.route });
   }
 
   ngOnInit(): void {}
