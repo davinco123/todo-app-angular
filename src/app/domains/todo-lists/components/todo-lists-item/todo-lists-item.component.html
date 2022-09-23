@@ -4,8 +4,9 @@
 
             <!-- INPROGRESS LIST -->
             <div class="list-todo-item list-todo-item-inprogress" *ngIf="currentStatusChange == todoEnum.INPROGRESS">
-                <div class="list-todo-item-inprogress-complete" (clickOutside)="onEdit(todoItem, inputtext.value)">
-                    <div class="complete-button" (click)="onComplete(todoItem, inputtext.value)">
+                <div class="list-todo-item-inprogress-complete"
+                    (clickOutside)="onEdit(todoItem, inputtext.value, 'edit')">
+                    <div class="complete-button" (click)="onEdit(todoItem, inputtext.value, 'complete')">
                         <svg-icon src="/assets/svg/complete-todo.svg" [svgStyle]="{ 'height.px':25 ,'width.px':25 }">
                         </svg-icon>
                     </div>

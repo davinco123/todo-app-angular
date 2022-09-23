@@ -80,24 +80,22 @@ export class TodoListsItemComponent implements OnInit, OnDestroy {
     this.store.dispatch(new TodoListActions.DeleteTodo({ id, token }));
   }
 
-  onComplete(todoItem: TodoListModel, inputvalue: string): void {
+  onEdit(todoItem: TodoListModel, inputvalue: string, status: string): void {
     const id = todoItem._id;
     const token = this.user.token;
     const description = inputvalue;
-    const completed = true;
-    this.store.dispatch(
-      new TodoListActions.EditTodo({ id, description, token, completed })
-    );
-  }
 
-  onEdit(todoItem: TodoListModel, inputvalue: string): void {
-    const id = todoItem._id;
-    const token = this.user.token;
-    const description = inputvalue;
-    const completed = todoItem.completed;
-    if (inputvalue == todoItem.description) {
-      return null;
-    } else {
+    if (status === 'edit') {
+      if (inputvalue == todoItem.description) {
+        return null;
+      } else {
+        const completed = todoItem.completed;
+        this.store.dispatch(
+          new TodoListActions.EditTodo({ id, description, token, completed })
+        );
+      }
+    } else if (status === 'complete') {
+      const completed = true;
       this.store.dispatch(
         new TodoListActions.EditTodo({ id, description, token, completed })
       );

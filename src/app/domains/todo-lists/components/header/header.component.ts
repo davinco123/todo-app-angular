@@ -46,7 +46,7 @@ export class HeaderComponent implements OnInit {
 
   constructor(private store: Store<fromApp.AppState>) {}
 
-  public onStatusChange(value: TodoListStatus): void {
+  onStatusChange(value: TodoListStatus): void {
     this.currentStatus = value;
     this.statusChange.emit(value);
     this.isMenuOpen = false;
