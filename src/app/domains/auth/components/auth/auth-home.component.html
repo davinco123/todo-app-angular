@@ -1,13 +1,13 @@
 <div class="authentication">
-    <div class="authentication-item">
-        <div class="authentication-label">
+    <div class="item">
+        <div class="label">
             <h5>WELCOME TO ANGULAR TODO APP</h5>
         </div>
 
-        <div class="authentication-button">
+        <div class="button">
             <label>Sign in or create a new account to use the app</label>
-            <button class="btn btn-primary" (click)="toSignUp()">Sign Up</button>
-            <button class="btn btn-primary" (click)="toSignIn()">Sign In</button>
+            <button class="btn btn-primary"><a class="nav-link" [routerLink]="['/auth/signup']">Sign Up</a></button>
+            <button class="btn btn-primary"><a class="nav-link" [routerLink]="['/auth/signin']">Sign In</a></button>
         </div>
 
     </div>

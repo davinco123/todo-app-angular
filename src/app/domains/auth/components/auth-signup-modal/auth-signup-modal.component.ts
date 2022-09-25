@@ -13,14 +13,11 @@ import * as AuthActions from '../../store/auth.actions';
   styleUrls: ['./auth-signup-modal.component.scss'],
 })
 export class AuthSignupComponent implements OnDestroy, OnInit {
+  public isLoading: boolean = false;
   private storeSubscription: Subscription;
-  isLoading: boolean = false;
-  signUpForm: FormGroup;
-  constructor(
-    private store: Store<fromApp.AppState>,
-    private router: Router,
-    private route: ActivatedRoute
-  ) {
+  private signUpForm: FormGroup;
+
+  constructor(private store: Store<fromApp.AppState>) {
     this.signUpForm = new FormGroup({
       name: new FormControl(null, [Validators.required]),
       email: new FormControl(null, [Validators.email, Validators.required]),
@@ -34,6 +31,7 @@ export class AuthSignupComponent implements OnDestroy, OnInit {
       ]),
     });
   }
+
   ngOnInit(): void {
     this.storeSubscription = this.store
       .select('auth')
@@ -43,22 +41,14 @@ export class AuthSignupComponent implements OnDestroy, OnInit {
   }
 
   onSubmit() {
-    const name = this.signUpForm.get('name').value;
-    const email = this.signUpForm.get('email').value;
-    const password = this.signUpForm.get('password').value;
-    const age = this.signUpForm.get('age').value;
     this.store.dispatch(
       new AuthActions.SignupStart({
-        name: name,
-        email: email,
-        password: password,
-        age: age,
+        name: this.signUpForm.get('name').value,
+        email: this.signUpForm.get('email').value,
+        password: this.signUpForm.get('password').value,
+        age: this.signUpForm.get('age').value,
       })
     );
-  }
-
-  onClick() {
-    this.router.navigate(['../'], { relativeTo: this.route });
   }
 
   ngOnDestroy(): void {

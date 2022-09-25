@@ -1,6 +1,6 @@
 <div class="backdrop">
     <div class="alert-box">
-        <div class="alert-box-spinner" *ngIf="isLoading">
+        <div class="spinner" *ngIf="isLoading">
             <loading-spinner-app></loading-spinner-app>
         </div>
         <div *ngIf="!isLoading">
@@ -18,9 +18,10 @@
 
                     <label for="age" class="form-label">Age</label>
                     <input type="number" id="age" class="form-control" formControlName="age">
-                    <div class="alert-box-button">
+                    <div class="button">
                         <button class="btn btn-primary" type="submit" [disabled]="!signUpForm.valid">Sign Up</button>
-                        <button class="btn btn-primary" type="button" (click)="onClick()">Home</button>
+                        <button class="btn btn-primary" type="button"><a class="nav-link"
+                                [routerLink]="['/auth']">Home</a></button>
                     </div>
                 </div>
             </form>

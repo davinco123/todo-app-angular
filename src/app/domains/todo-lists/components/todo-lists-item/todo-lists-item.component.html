@@ -1,67 +1,57 @@
 <div class="list">
-    <ul class="list-todo">
-        <li *ngFor="let todoItem of getCurrentList()">
+    <ul class="todo">
+        <ng-container *ngFor="let todoItem of todoLists">
 
             <!-- INPROGRESS LIST -->
-            <div class="list-todo-item list-todo-item-inprogress" *ngIf="currentStatusChange == todoEnum.INPROGRESS">
-                <div class="list-todo-item-inprogress-complete"
-                    (clickOutside)="onEdit(todoItem, inputtext.value, 'edit')">
-                    <div class="complete-button" (click)="onEdit(todoItem, inputtext.value, 'complete')">
-                        <svg-icon src="/assets/svg/complete-todo.svg" [svgStyle]="{ 'height.px':25 ,'width.px':25 }">
-                        </svg-icon>
+            <div class="item" *ngIf="currentStatusChange == todoEnum.INPROGRESS && todoItem.completed === false">
+                <div class="inprogress">
+                    <div class="complete" (clickOutside)="onEdit(todoItem, inputtext.value, true)">
+                        <div class="complete-button" (click)="onEdit(todoItem, inputtext.value, false)">
+                            <svg-icon src="/assets/svg/complete-todo.svg" [svgStyle]="{ 'height.px':25
+                             ,'width.px':25 }">
+                            </svg-icon>
+                        </div>
                     </div>
-                </div>
-                <div class="list-todo-item-inprogress-edit">
-                    <input type="text" value="{{todoItem.description}}" #inputtext>
-                </div>
-                <div class="list-todo-item-inprogress-remove">
-                    <div class="remove-button" (click)="onRemove(todoItem)">
-                        <svg-icon src="/assets/svg/remove-todo.svg" [svgStyle]="{ 'height.px':37 ,'width.px':36 }">
-                        </svg-icon>
+                    <div class="edit">
+                        <input type="text" value="{{todoItem.description}}" #inputtext>
+                    </div>
+                    <div class="remove">
+                        <div class="remove-button" (click)="onRemove(todoItem)">
+                            <svg-icon src="/assets/svg/remove-todo.svg" [svgStyle]="{ 'height.px':37 ,'width.px':36 }">
+                            </svg-icon>
+                        </div>
                     </div>
                 </div>
             </div>
 
             <!-- COMPLETE LIST -->
-            <div class="list-todo-items list-todo-items-completed" *ngIf="currentStatusChange == todoEnum.COMPLETED">
-
-                <div class="list-todo-items-completed-complete">
-                    <svg-icon src="/assets/svg/completed-todo.svg" [svgStyle]="{ 'height.px':25 ,'width.px':25 }">
-                    </svg-icon>
-                </div>
-                <div class="list-todo-items-completed-label">
-                    <p>{{todoItem.description}}</p>
-                </div>
-            </div>
-
-            <!-- REMOVE LIST/Unusable due to conflict with data recieve from server -->
-            <div class="list-todo-items list-todo-items-removed" *ngIf="currentStatusChange == todoEnum.REMOVED">
-                <div class="list-todo-items-removed-restore">
-                    <div class="add-button">
-                        <svg-icon src="/assets/svg/add-todo.svg" [svgStyle]="{ 'height.px':25 ,'width.px':25 }">
+            <div class="items" *ngIf="currentStatusChange == todoEnum.COMPLETED && todoItem.completed === true">
+                <div class="completed">
+                    <div class="complete">
+                        <svg-icon src="/assets/svg/completed-todo.svg" [svgStyle]="{ 'height.px':25 ,'width.px':25 }">
                         </svg-icon>
                     </div>
-                </div>
-                <div class="list-todo-items-removed-label">
-                    <p>{{todoItem.description}}</p>
+                    <div class="label">
+                        <p>{{todoItem.description}}</p>
+                    </div>
                 </div>
             </div>
-        </li>
+        </ng-container>
     </ul>
 
     <!-- ADD FORM -->
-    <div class="list-todo" *ngIf="currentStatusChange==todoEnum.INPROGRESS">
-        <div class="list-todo-newitem">
+    <div class="todo" *ngIf="currentStatusChange==todoEnum.INPROGRESS">
+        <div class="newitem">
             <form [formGroup]="todoListForm" (ngSubmit)="onSubmit()">
-                <div class="list-todo-newitem-create">
-                    <div class="add-button list-todo-newitem-create-icon" (click)="onSubmit()">
+                <div class="create">
+                    <div class="add-button icon" (click)="onSubmit()">
                         <svg-icon src="/assets/svg/add-todo.svg" [svgStyle]="{ 'height.px':25 ,'width.px':25 }">
                         </svg-icon>
                     </div>
-                    <div (click)="onAddMode()" *ngIf="!addMode" class="list-todo-newitem-create-label">
+                    <div (click)="onAddMode()" *ngIf="!addMode" class="label">
                         <label>Create New Item</label>
                     </div>
-                    <div class="list-todo-newitem-create-input" *ngIf="addMode">
+                    <div class="input" *ngIf="addMode">
                         <input type="text" id="todo" formControlName="description">
                     </div>
                 </div>

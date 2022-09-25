@@ -27,15 +27,7 @@ export function authReducer(
       };
 
     case AuthActions.AUTHENTICATION_SUCCESS:
-      const user = new User(
-        action.payload.user.name,
-        action.payload.user.email,
-        action.payload.user.age,
-        action.payload.user.id,
-        action.payload.user.createdAt,
-        action.payload.user.updatedAt,
-        action.payload.token
-      );
+      const user = new User(action.payload.user, action.payload.token);
       return {
         ...state,
         user: user,

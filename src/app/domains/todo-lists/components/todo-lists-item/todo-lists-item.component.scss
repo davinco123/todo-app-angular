@@ -13,16 +13,17 @@ ul {
     padding: 0;
     position: relative;
 
-    &-todo {
+    .todo {
         margin: 0 -20px;
         padding: 0;
         width: 100%;
         list-style-type: none;
 
-        &-item {
+        .item {
             padding: 15px 20px 5px;
             width: 100%;
             flex-direction: row;
+            border-bottom: 1px solid #ededed;
 
             &:hover {
                 cursor: pointer;
@@ -30,17 +31,16 @@ ul {
                 box-shadow: 0px 3px 6px 1px rgba(0, 0, 0, 0.15);
                 border-radius: 5px;
             }
-
-            &-inprogress {
+            .inprogress {
                 display: flex;
-                border-bottom: 1px solid #ededed;
-                &-complete {
+                
+                .complete {
                     display: inline-block;
                     justify-content: flex-start;
                     padding: 0 5px;
                 }
 
-                &-edit {
+                .edit {
                     display: inline-block;
                     flex: 2 1;
                     padding-left: 20px;
@@ -56,7 +56,7 @@ ul {
                     }
                 }
 
-                &-remove {
+                .remove {
                     
                     @include Responsive(Mobile) {
                         position: absolute;
@@ -77,20 +77,21 @@ ul {
             }
         }
 
-        &-items {
+        .items {
             padding: 15px 20px 5px;
             width: 100%;
             flex-direction: row;
+            border-bottom: 1px solid #ededed;
 
-            &-completed {
+            .completed {
                 display: flex;
-                border-bottom: 1px solid #ededed;
-                &-complete {
+                
+                .complete {
                     display: inline-block;
                     padding: 0 5px;
                 }
 
-                &-label {
+                .label {
                     display: inline-block;
                     flex: 2 1;
                     padding-left: 20px;
@@ -171,47 +172,23 @@ ul {
                     }
                 }
             }
-
-            &-removed {
-                display: flex;
-                border-bottom: 1px solid #ededed;
-                &-restore {
-                    display: inline-block;
-                    padding: 0 5px;
-                }
-
-                &-label {
-                    display: inline-block;
-                    flex: 2 1;
-                    padding-left: 20px;
-
-                    p {
-                        font-size: 18px;
-                        width: 100%;
-                        border: none;
-                        padding: 3px 0;
-                        color: #323232;
-                        outline: none;
-                    }
-                }
-            }
         }
 
-        &-newitem {
+        .newitem {
             margin: 0;
             padding: 15px 20px 5px;
             width: 100%;
             flex-direction: row;
 
-            &-create {
+            .create {
                 display: flex;
 
-                &-icon {
+                .icon {
                     display: inline-block;
                     padding: 0 5px;
                 }
 
-                &-label {
+                .label {
                     display: inline-block;
                     flex: 2 1;
                     padding-left: 20px;
@@ -228,7 +205,7 @@ ul {
                     }
                 }
 
-                &-input {
+                .input {
                     display: inline-block;
                     flex: 2 1;
                     padding-left: 20px;
@@ -246,31 +223,32 @@ ul {
             }
         }
     }
+    .remove-button:hover {
+        cursor: pointer;
+        circle {
+            fill: red;
+        }
+        rect {
+            fill: white;
+        }
+    }
+    
+    .add-button:hover {
+        cursor: pointer;
+        circle {
+            fill: #3d82eb;
+        }
+        rect {
+            fill: white;
+        }
+    }
+    
+    .complete-button:hover {
+        cursor: pointer;
+        circle {
+            fill: #7c7c7c;
+        }
+    }
 }
 
-.remove-button:hover {
-    cursor: pointer;
-    circle {
-        fill: red;
-    }
-    rect {
-        fill: white;
-    }
-}
 
-.add-button:hover {
-    cursor: pointer;
-    circle {
-        fill: #3d82eb;
-    }
-    rect {
-        fill: white;
-    }
-}
-
-.complete-button:hover {
-    cursor: pointer;
-    circle {
-        fill: #7c7c7c;
-    }
-}

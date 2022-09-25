@@ -13,7 +13,7 @@ import { fromEvent, filter, Subscription } from 'rxjs';
 @Directive({
   selector: '[clickOutside]',
 })
-export class ClickOutSideDirective implements AfterViewInit, OnDestroy {
+export class ClickOutSideDirective implements OnDestroy {
   @Output() clickOutside = new EventEmitter<void>();
   clickOutsideSubscription: Subscription;
   constructor(
@@ -30,8 +30,6 @@ export class ClickOutSideDirective implements AfterViewInit, OnDestroy {
         this.clickOutside.emit();
       });
   }
-
-  ngAfterViewInit(): void {}
 
   isInside(elementToCheck: HTMLElement): boolean {
     return (

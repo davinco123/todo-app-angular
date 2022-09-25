@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { HttpClient } from '@angular/common/http';
-import { switchMap, map, of, catchError } from 'rxjs';
+import { switchMap, map } from 'rxjs';
 
+import { environment } from 'src/environments/environment';
 import * as TodoListActions from './todo-lists.actions';
 import { TodoListModel } from '../models/todo-lists.model';
 
@@ -16,38 +17,25 @@ export interface TodoListsResponseData {
   data: TodoListModel[];
 }
 
-const handleError = (errorRes: any) => {
-  let errorMessage = 'An unknown error has occured!!';
-  if (!errorRes.error.error || !errorRes.error.message) {
-    return of(new TodoListActions.ErrorTodo(errorMessage));
-  }
-  switch (errorRes.error.error) {
-    case 'Please authenticate.':
-      errorMessage = 'Unable to authenticate, please sign in again.';
-      break;
-  }
-  return of(new TodoListActions.ErrorTodo(errorMessage));
-};
-
 @Injectable()
 export class TodoListEffects {
+  public user = JSON.parse(localStorage.getItem('userData'));
+
+  constructor(private action$: Actions, private http: HttpClient) {}
+
   getTodo$ = createEffect(() =>
     this.action$.pipe(
       ofType(TodoListActions.GET_TODO),
-      switchMap((todoListData: TodoListActions.GetTodo) => {
+      switchMap(() => {
         return this.http.get<TodoListsResponseData>(
-          'https://api-nodejs-todolist.herokuapp.com/task',
+          environment.postmanAPI + '/task',
           {
-            headers: { Authorization: 'Bearer ' + todoListData.payload },
+            headers: { Authorization: 'Bearer ' + this.user._token },
           }
         );
       }),
       map((todoLists) => {
-        const todoList = todoLists.data;
-        return new TodoListActions.SetTodo(todoList);
-      }),
-      catchError((errorRes) => {
-        return handleError(errorRes);
+        return new TodoListActions.SetTodo(todoLists.data);
       })
     )
   );
@@ -58,13 +46,13 @@ export class TodoListEffects {
         ofType(TodoListActions.ADD_TODO),
         switchMap((todoListData: TodoListActions.AddTodo) => {
           return this.http.post<TodoListResponseData>(
-            'https://api-nodejs-todolist.herokuapp.com/task',
+            environment.postmanAPI + '/task',
             {
-              description: todoListData.payload.description,
+              description: todoListData.payload,
             },
             {
               headers: {
-                Authorization: 'Bearer ' + todoListData.payload.token,
+                Authorization: 'Bearer ' + this.user._token,
               },
             }
           );
@@ -72,11 +60,7 @@ export class TodoListEffects {
       )
       .pipe(
         map((todoList) => {
-          const todo = todoList.data;
-          return new TodoListActions.AddTodoAfter(todo);
-        }),
-        catchError((errorRes) => {
-          return handleError(errorRes);
+          return new TodoListActions.AddTodoCompleted(todoList.data);
         })
       )
   );
@@ -87,11 +71,10 @@ export class TodoListEffects {
         ofType(TodoListActions.DELETE_TODO),
         switchMap((todoListData: TodoListActions.DeleteTodo) => {
           return this.http.delete(
-            'https://api-nodejs-todolist.herokuapp.com/task/' +
-              todoListData.payload.id,
+            environment.postmanAPI + '/task/' + todoListData.payload,
             {
               headers: {
-                Authorization: 'Bearer ' + todoListData.payload.token,
+                Authorization: 'Bearer ' + this.user._token,
               },
             }
           );
@@ -100,9 +83,6 @@ export class TodoListEffects {
       .pipe(
         map((data) => {
           return new TodoListActions.RefreshTodo();
-        }),
-        catchError((errorRes) => {
-          return handleError(errorRes);
         })
       )
   );
@@ -113,15 +93,14 @@ export class TodoListEffects {
         ofType(TodoListActions.EDIT_TODO),
         switchMap((todoListData: TodoListActions.EditTodo) => {
           return this.http.put<TodoListResponseData>(
-            'https://api-nodejs-todolist.herokuapp.com/task/' +
-              todoListData.payload.id,
+            environment.postmanAPI + '/task/' + todoListData.payload.id,
             {
               description: todoListData.payload.description,
               completed: todoListData.payload.completed,
             },
             {
               headers: {
-                Authorization: 'Bearer ' + todoListData.payload.token,
+                Authorization: 'Bearer ' + this.user._token,
               },
             }
           );
@@ -130,13 +109,8 @@ export class TodoListEffects {
       .pipe(
         map((todoList) => {
           const todo = todoList.data;
-          return new TodoListActions.EditTodoAfter(todo);
-        }),
-        catchError((errorRes) => {
-          return handleError(errorRes);
+          return new TodoListActions.EditTodoCompleted(todo);
         })
       )
   );
-
-  constructor(private action$: Actions, private http: HttpClient) {}
 }

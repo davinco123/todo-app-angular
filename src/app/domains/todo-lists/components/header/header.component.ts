@@ -1,8 +1,5 @@
 import { Component, Output, EventEmitter, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Subscription } from 'rxjs';
-import { User } from 'src/app/domains/auth/model/user.model';
-
 import * as fromApp from '../../../../store/app.reducer';
 import * as AuthActions from '../../../auth/store/auth.actions';
 import { TodoListStatus } from '../../models/todo-lists.model';
@@ -12,25 +9,14 @@ import { TodoListStatus } from '../../models/todo-lists.model';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent {
   @Output() statusChange = new EventEmitter<string>();
-  private storeSubscription: Subscription;
-  private userToken: string;
-  today: number = new Date().getDate();
-  month: string = new Date().toLocaleString('default', { month: 'long' });
-  TodoEnum = TodoListStatus;
-  isMenuOpen: boolean = false;
-  currentStatus: string = TodoListStatus.INPROGRESS;
+  public date = new Date();
+  public isMenuOpen = false;
+  public TodoEnum = TodoListStatus;
+  public currentStatus: TodoListStatus = TodoListStatus.INPROGRESS;
 
-  ngOnInit(): void {
-    this.storeSubscription = this.store
-      .select('auth')
-      .subscribe((authState) => {
-        if (authState.user) {
-          this.userToken = authState.user.token;
-        }
-      });
-  }
+  constructor(private store: Store<fromApp.AppState>) {}
 
   menuToggle(): void {
     this.isMenuOpen = true;
@@ -41,10 +27,8 @@ export class HeaderComponent implements OnInit {
   }
 
   onLogout(): void {
-    this.store.dispatch(new AuthActions.Logout(this.userToken));
+    this.store.dispatch(new AuthActions.Logout());
   }
-
-  constructor(private store: Store<fromApp.AppState>) {}
 
   onStatusChange(value: TodoListStatus): void {
     this.currentStatus = value;

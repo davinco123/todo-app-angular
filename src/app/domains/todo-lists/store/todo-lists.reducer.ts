@@ -21,13 +21,13 @@ export function todoListReducer(
         todoList: action.payload,
       };
 
-    case TodoListActions.ADD_TODO_AFTER:
+    case TodoListActions.ADD_TODO_COMPLETED:
       return {
         ...state,
         todoList: [...state.todoList, action.payload],
       };
 
-    case TodoListActions.EDIT_TODO_AFTER:
+    case TodoListActions.EDIT_TODO_COMPLETED:
       const oldTodoList = [...state.todoList];
       const todo = { ...action.payload };
       const index = oldTodoList.findIndex(

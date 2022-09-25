@@ -1,15 +1,18 @@
 export class User {
-  constructor(
-    public name: string,
-    public email: string,
-    public age: number,
-    public id: string,
-    public createdAt: Date,
-    public updatedAt: Date,
-    private _token: string
-  ) {}
+  constructor(public user: IUser, private _token: string) {
+    Object.assign({}, user);
+  }
 
   get token() {
     return this._token;
   }
+}
+
+export interface IUser {
+  name: string;
+  email: string;
+  age: number;
+  _id: string;
+  createdAt: Date;
+  updatedAt: Date;
 }

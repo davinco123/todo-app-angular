@@ -1,34 +1,37 @@
 <div class="calendar">
-    <div class="calendar-icon">
-        <div class="calendar-icon-month">{{month | uppercase | slice:0:3}}</div>
-        <div class="calendar-icon-date">{{today}}</div>
+    <div class="icon">
+        <div class="month">{{date| date : 'MMM' | uppercase}}</div>
+        <div class="date">{{date | date : 'd'}}</div>
     </div>
-    <div class="calendar-label">
+    <div class="label">
         Today
     </div>
 
-    <button class="calendar-button" (click)="onLogout()">Logout</button>
+    <button class="button" (click)="onLogout()">Logout</button>
 </div>
 <div class="list-navigation" clickOutside (clickOutside)="clickedOutside()">
-    <div class="list-navigation-ellipsis" (click)="menuToggle()">
+    <div class="ellipsis" (click)="menuToggle()">
         <svg-icon src="/assets/svg/ellipsis-normal.svg" [svgStyle]="{ 'height.px':19 ,'width.px':18 }">
         </svg-icon>
     </div>
 
-    <div class="list-navigation-ellipsis-after" *ngIf="isMenuOpen">
-        <div class="list-navigation-ellipsis-afters"></div>
-        <svg-icon src="/assets/svg/ellipsis-after.svg" [svgStyle]="{ 'height.px':19 ,'width.px':18 }">
-        </svg-icon>
-    </div>
-
-
-    <div class="list-navigation-items" *ngIf="isMenuOpen">
-        <div class="list-navigation-items-name" (click)="onStatusChange(TodoEnum.COMPLETED)"
-            [ngClass]="currentMode === TodoEnum.COMPLETED ? 'list-navigation-items-name-active': null">Completed</div>
-        <div class="list-navigation-items-name" (click)="onStatusChange(TodoEnum.INPROGRESS)"
-            [ngClass]="currentMode === TodoEnum.INPROGRESS ? 'list-navigation-items-name-active': null">In Progress
+    <ng-container *ngIf="isMenuOpen">
+        <div class="ellipsis-after">
+            <div class="ellipsis-afters"></div>
+            <svg-icon src="/assets/svg/ellipsis-after.svg" [svgStyle]="{ 'height.px':19 ,'width.px':18 }">
+            </svg-icon>
         </div>
-        <div class="list-navigation-items-name" (click)="onStatusChange(TodoEnum.REMOVED)"
-            [ngClass]="currentMode === TodoEnum.REMOVED ? 'list-navigation-items-name-active': null">Removed</div>
-    </div>
+
+
+        <div class="items">
+            <div class="name" (click)="onStatusChange(TodoEnum.COMPLETED)"
+                [class.list-navigation-items-name-active]="currentMode === TodoEnum.COMPLETED">Completed
+            </div>
+            <div class="name" (click)="onStatusChange(TodoEnum.INPROGRESS)"
+                [class.list-navigation-items-name-active]="currentMode === TodoEnum.INPROGRESS">In Progress
+            </div>
+        </div>
+    </ng-container>
+
+
 </div>

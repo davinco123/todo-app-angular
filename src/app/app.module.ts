@@ -9,7 +9,6 @@ import { AppRoutingModule } from './app-routing.module';
 
 import * as fromApp from './store/app.reducer';
 import { AuthEffects } from './domains/auth/store/auth.effects';
-import { CoreModule } from './domains/core/core.module';
 import { TodoListEffects } from './domains/todo-lists/store/todo-lists.effects';
 
 @NgModule({
@@ -20,7 +19,6 @@ import { TodoListEffects } from './domains/todo-lists/store/todo-lists.effects';
     StoreModule.forRoot(fromApp.appReducer),
     EffectsModule.forRoot([AuthEffects, TodoListEffects]),
     ShareModule,
-    CoreModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

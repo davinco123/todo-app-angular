@@ -7,14 +7,14 @@
     border-radius: 20px;
     box-shadow: 0px 5px 10px 5px rgba(0, 0, 0, 0.15);
     @include Responsive(Mobile) {
-        &-label{
+        .label{
             text-align: center;
             h5{
                 margin-top: 5px;
                 font-size: 14px;
             };
         }
-        &-button {
+        .button {
             label{
                 font-size: 13px;
                 display: block;
@@ -28,14 +28,14 @@
 
     @include Responsive(Tablet){
         margin: 30px;
-        &-label{
+        .label{
             text-align: center;
             h5{
                 margin-top: 5px;
                 font-size: 20px;
             };
         }
-        &-button {
+        .button {
             label{
                 font-size: 18px;
                 display: block;
@@ -49,13 +49,13 @@
     
     @include Responsive(Laptop) {
         margin: 40px;
-        &-label{
+        .label{
             h5{
                 margin-top: 5px;
                 font-size: 25px;
             };
         }
-        &-button {
+        .button {
             label{
                 font-size: 21px;
                 display: block;
@@ -67,7 +67,7 @@
         }
     }
 
-    &-button{
+    .button{
         text-align: center;
         button{
             border-radius: 10px;

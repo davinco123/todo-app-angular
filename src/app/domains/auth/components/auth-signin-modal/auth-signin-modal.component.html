@@ -1,6 +1,6 @@
 <div class="backdrop">
     <div class="alert-box">
-        <div class="alert-box-spinner" *ngIf="isLoading">
+        <div class="spinner" *ngIf="isLoading">
             <loading-spinner-app></loading-spinner-app>
         </div>
         <div *ngIf="!isLoading">
@@ -14,9 +14,10 @@
                     <label for="password" class="form-label">Password</label>
                     <input type="password" id="password" class="form-control" formControlName="password">
 
-                    <div class="alert-box-button">
+                    <div class="button">
                         <button class="btn btn-primary" type="submit">Sign In</button>
-                        <button class="btn btn-primary" type="button" (click)="onClick()">Home</button>
+                        <button class="btn btn-primary" type="button"><a class="nav-link"
+                                [routerLink]="['/auth']">Home</a></button>
                     </div>
 
                 </div>

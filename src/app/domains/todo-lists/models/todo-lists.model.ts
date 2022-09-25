@@ -6,20 +6,8 @@ export class TodoListModel {
   public createdAt: Date;
   public updatedAt: Date;
 
-  constructor(
-    description: string,
-    completed: boolean = false,
-    id: string,
-    owner: string,
-    createdAt: Date,
-    updatedAt: Date
-  ) {
-    this.completed = completed;
-    this._id = id;
-    this.description = description;
-    this.owner = owner;
-    this.createdAt = createdAt;
-    this.updatedAt = updatedAt;
+  constructor(todoList: TodoListModel) {
+    Object.assign({}, todoList);
   }
 }
 

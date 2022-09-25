@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { TodoListStatus } from '../../models/todo-lists.model';
 
 @Component({
@@ -6,16 +6,10 @@ import { TodoListStatus } from '../../models/todo-lists.model';
   templateUrl: './todo-lists.component.html',
   styleUrls: ['./todo-lists.component.scss'],
 })
-export class TodoListsComponent implements OnInit {
-  currentStatus: string;
+export class TodoListsComponent {
+  public currentStatus: TodoListStatus = TodoListStatus.INPROGRESS;
 
-  constructor() {
-    this.currentStatus = TodoListStatus.INPROGRESS;
-  }
-
-  ngOnInit(): void {}
-
-  changeCurrentStatus(status: string): void {
+  changeCurrentStatus(status: TodoListStatus): void {
     this.currentStatus = status;
   }
 }

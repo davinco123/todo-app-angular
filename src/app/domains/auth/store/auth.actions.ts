@@ -1,4 +1,5 @@
 import { Action } from '@ngrx/store';
+import { IUser } from '../model/user.model';
 
 export const SIGNUP_START = '[Auth] Signup Start';
 export const SIGNIN_START = '[Auth] Signin Start';
@@ -32,14 +33,7 @@ export class AuthenticationSuccess implements Action {
 
   constructor(
     public payload: {
-      user: {
-        name: string;
-        email: string;
-        id: string;
-        age: number;
-        createdAt: Date;
-        updatedAt: Date;
-      };
+      user: IUser;
       token: string;
       redirect: boolean;
     }
@@ -58,8 +52,6 @@ export class AutoSignin implements Action {
 
 export class Logout implements Action {
   readonly type = LOGOUT;
-
-  constructor(public payload: string) {}
 }
 
 export class ClearError implements Action {

@@ -1,26 +1,23 @@
-import { Component, OnInit, Input, OnDestroy } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { map, Subscription } from 'rxjs';
+import { map } from 'rxjs';
 import { Store } from '@ngrx/store';
 
 import { TodoListModel, TodoListStatus } from '../../models/todo-lists.model';
 import * as fromApp from '../../../../store/app.reducer';
 import * as TodoListActions from '../../store/todo-lists.actions';
-import { User } from 'src/app/domains/auth/model/user.model';
 
 @Component({
   selector: 'app-todo-lists-item',
   templateUrl: './todo-lists-item.component.html',
   styleUrls: ['./todo-lists-item.component.scss'],
 })
-export class TodoListsItemComponent implements OnInit, OnDestroy {
-  @Input() currentStatusChange: string;
-  private storeSubscription: Subscription;
-  todoListForm: FormGroup;
-  todoLists: TodoListModel[] = [];
-  todoEnum = TodoListStatus;
-  addMode: boolean = false;
-  user: User;
+export class TodoListsItemComponent implements OnInit {
+  @Input() public currentStatusChange: string;
+  public todoLists: TodoListModel[] = [];
+  public todoEnum = TodoListStatus;
+  private addMode: boolean = false;
+  private todoListForm: FormGroup;
 
   constructor(private store: Store<fromApp.AppState>) {
     this.currentStatusChange = TodoListStatus.INPROGRESS;
@@ -32,14 +29,7 @@ export class TodoListsItemComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.currentStatusChange = TodoListStatus.INPROGRESS;
 
-    this.storeSubscription = this.store
-      .select('auth')
-      .subscribe((authState) => {
-        if (authState.user) {
-          this.user = authState.user;
-          this.store.dispatch(new TodoListActions.GetTodo(this.user.token));
-        }
-      });
+    this.store.dispatch(new TodoListActions.GetTodo());
 
     this.store
       .select('todoList')
@@ -65,43 +55,29 @@ export class TodoListsItemComponent implements OnInit, OnDestroy {
     this.addMode = true;
   }
   onSubmit(): void {
-    const description = this.todoListForm.get('description').value;
-    const token = this.user.token;
-    this.store.dispatch(new TodoListActions.AddTodo({ description, token }));
+    this.store.dispatch(
+      new TodoListActions.AddTodo(this.todoListForm.get('description').value)
+    );
     this.todoListForm.reset();
     this.addMode = false;
   }
 
   onRemove(todoItem: TodoListModel): void {
-    const token = this.user.token;
-    const id = todoItem._id;
     this.store.dispatch(new TodoListActions.RemoveTodo(todoItem));
-    this.store.dispatch(new TodoListActions.DeleteTodo({ id, token }));
+    this.store.dispatch(new TodoListActions.DeleteTodo(todoItem._id));
   }
 
-  onEdit(todoItem: TodoListModel, inputvalue: string, status: string): void {
-    const id = todoItem._id;
-    const token = this.user.token;
-    const description = inputvalue;
-
-    if (status === 'edit') {
-      if (inputvalue == todoItem.description) {
-        return null;
-      } else {
-        const completed = todoItem.completed;
-        this.store.dispatch(
-          new TodoListActions.EditTodo({ id, description, token, completed })
-        );
-      }
-    } else if (status === 'complete') {
-      const completed = true;
-      this.store.dispatch(
-        new TodoListActions.EditTodo({ id, description, token, completed })
-      );
+  onEdit(todoItem: TodoListModel, inputvalue: string, isEdit: boolean): void {
+    if (isEdit && inputvalue === todoItem.description) {
+      return;
     }
-  }
 
-  ngOnDestroy(): void {
-    this.storeSubscription.unsubscribe();
+    this.store.dispatch(
+      new TodoListActions.EditTodo({
+        id: todoItem._id,
+        description: inputvalue,
+        completed: isEdit ? todoItem.completed : true,
+      })
+    );
   }
 }

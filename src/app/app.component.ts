@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 import * as fromApp from './store/app.reducer';
 import * as AuthActions from './domains/auth/store/auth.actions';
@@ -9,7 +9,7 @@ import { Store } from '@ngrx/store';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   constructor(private store: Store<fromApp.AppState>) {}
 
   ngOnInit(): void {

@@ -6,8 +6,8 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
   styleUrls: ['./alert-modal.component.scss'],
 })
 export class AlertComponent {
-  @Input() message: string;
-  @Output() close = new EventEmitter<void>();
+  @Input() public message: string;
+  @Output() public close = new EventEmitter<void>();
 
   onClose(): void {
     this.close.emit();

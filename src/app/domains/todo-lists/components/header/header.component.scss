@@ -4,7 +4,7 @@
    display: flex;
    flex-direction: row;
 
-   &-button {
+   .button {
       font-size: 16px;
       border-radius: 10px;
       border: none;
@@ -22,11 +22,11 @@
       }
    }
 
-   &-icon {
+   .icon {
       text-align: center;
       text-transform: uppercase;
 
-      &-month {
+      .month {
          background-color: #3d80eb;
          padding: 3px 6px;
          border-radius: 6px 6px 0 0;
@@ -34,7 +34,7 @@
          font-size: 10px;
          color: white;
       }
-      &-date {
+      .date {
          border-bottom: 2px solid #3d80eb;
          border-left: 2px solid #3d80eb;
          border-right: 2px solid #3d80eb;
@@ -45,7 +45,7 @@
          color: #3d80eb;
       }
    }
-   &-label {
+   .label {
       font-size: 28px;
       margin: 0 0 0 20px;
       font-weight: 700;
@@ -73,7 +73,7 @@
       right: 40px;
    }
 
-   &-ellipsis {
+   .ellipsis {
       position: absolute;
       right: 0;
       z-index: 2;
@@ -115,7 +115,7 @@
       }
    }
 
-   &-items {
+   .items {
       position: relative;
       z-index: 1;
       list-style-type: none;
@@ -123,9 +123,9 @@
       padding: 0;
       background: #ffffff;
       box-shadow: 0px 2px 10px 1px rgba(0, 0, 0, 0.15);
-      border-radius: 5px 0 5px;
+      border-radius: 5px 5px 5px 5px;
 
-      &-name {
+      .name {
          display: flex;
          align-items: center;
          justify-content: center;
@@ -139,7 +139,7 @@
          color: #b7b7b7;
          border-bottom: 1px solid #ededed;
 
-         &-active {
+         .active {
             color: #3d82eb;
          }
 
