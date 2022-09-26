@@ -58,9 +58,6 @@ export function todoListReducer(
         todoList: todoLists,
       };
 
-    case TodoListActions.REFRESH_TODO:
-      return state;
-
     default:
       return state;
   }

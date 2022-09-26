@@ -25,10 +25,10 @@
 
         <div class="items">
             <div class="name" (click)="onStatusChange(TodoEnum.COMPLETED)"
-                [class.list-navigation-items-name-active]="currentMode === TodoEnum.COMPLETED">Completed
+                [class.active]="currentMode === TodoEnum.COMPLETED">Completed
             </div>
             <div class="name" (click)="onStatusChange(TodoEnum.INPROGRESS)"
-                [class.list-navigation-items-name-active]="currentMode === TodoEnum.INPROGRESS">In Progress
+                [class.active]="currentMode === TodoEnum.INPROGRESS">In Progress
             </div>
         </div>
     </ng-container>

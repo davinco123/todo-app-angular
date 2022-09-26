@@ -3,14 +3,14 @@ import { RouterModule } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AngularSvgIconModule } from 'angular-svg-icon';
 
-import { HeaderComponent } from './components/header/header.component';
-import { TodoListsItemComponent } from './components/todo-lists-item/todo-lists-item.component';
-import { TodoListsComponent } from './pages/todo-lists/todo-lists.component';
+import { TodoListHeaderComponent } from './components/todo-list-header/todo-list-header.component';
+import { TodoListComponent } from './components/todo-list/todo-list.component';
+import { TodoPageComponent } from './pages/todo-lists/todo-page.component';
 import { TodoListsRoutingModule } from './todo-lists-routing.module';
 import { ShareModule } from '../share/share.module';
 
 @NgModule({
-  declarations: [TodoListsComponent, TodoListsItemComponent, HeaderComponent],
+  declarations: [TodoPageComponent, TodoListComponent, TodoListHeaderComponent],
   imports: [
     RouterModule,
     ReactiveFormsModule,

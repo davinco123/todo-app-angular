@@ -5,11 +5,11 @@ import * as AuthActions from '../../../auth/store/auth.actions';
 import { TodoListStatus } from '../../models/todo-lists.model';
 
 @Component({
-  selector: 'app-todo-lists-header',
-  templateUrl: './header.component.html',
-  styleUrls: ['./header.component.scss'],
+  selector: 'app-todo-list-header',
+  templateUrl: './todo-list-header.component.html',
+  styleUrls: ['./todo-list-header.component.scss'],
 })
-export class HeaderComponent {
+export class TodoListHeaderComponent {
   @Output() statusChange = new EventEmitter<string>();
   public date = new Date();
   public isMenuOpen = false;

@@ -14,5 +14,4 @@ export class TodoListModel {
 export enum TodoListStatus {
   INPROGRESS = 'inprogress',
   COMPLETED = 'completed',
-  REMOVED = 'removed',
 }

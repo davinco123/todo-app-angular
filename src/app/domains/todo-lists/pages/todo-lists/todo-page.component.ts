@@ -2,11 +2,11 @@ import { Component } from '@angular/core';
 import { TodoListStatus } from '../../models/todo-lists.model';
 
 @Component({
-  selector: 'app-todo-lists',
-  templateUrl: './todo-lists.component.html',
-  styleUrls: ['./todo-lists.component.scss'],
+  selector: 'app-todo-page',
+  templateUrl: './todo-page.component.html',
+  styleUrls: ['./todo-page.component.scss'],
 })
-export class TodoListsComponent {
+export class TodoPageComponent {
   public currentStatus: TodoListStatus = TodoListStatus.INPROGRESS;
 
   changeCurrentStatus(status: TodoListStatus): void {

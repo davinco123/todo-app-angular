@@ -82,7 +82,7 @@ export class TodoListEffects {
       )
       .pipe(
         map((data) => {
-          return new TodoListActions.RefreshTodo();
+          return new TodoListActions.GetTodo();
         })
       )
   );

@@ -20,8 +20,8 @@
                     <input type="number" id="age" class="form-control" formControlName="age">
                     <div class="button">
                         <button class="btn btn-primary" type="submit" [disabled]="!signUpForm.valid">Sign Up</button>
-                        <button class="btn btn-primary" type="button"><a class="nav-link"
-                                [routerLink]="['/auth']">Home</a></button>
+                        <a class="nav-link" [routerLink]="['/auth']"><button class="btn btn-primary"
+                                type="button">Home</button></a>
                     </div>
                 </div>
             </form>

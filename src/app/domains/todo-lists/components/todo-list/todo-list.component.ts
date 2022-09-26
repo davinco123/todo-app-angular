@@ -8,11 +8,11 @@ import * as fromApp from '../../../../store/app.reducer';
 import * as TodoListActions from '../../store/todo-lists.actions';
 
 @Component({
-  selector: 'app-todo-lists-item',
-  templateUrl: './todo-lists-item.component.html',
-  styleUrls: ['./todo-lists-item.component.scss'],
+  selector: 'app-todo-list',
+  templateUrl: './todo-list.component.html',
+  styleUrls: ['./todo-list.component.scss'],
 })
-export class TodoListsItemComponent implements OnInit {
+export class TodoListComponent implements OnInit {
   @Input() public currentStatusChange: string;
   public todoLists: TodoListModel[] = [];
   public todoEnum = TodoListStatus;
