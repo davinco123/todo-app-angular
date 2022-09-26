@@ -16,7 +16,7 @@ export class TodoListComponent implements OnInit {
   @Input() public currentStatusChange: string;
   public todoLists: TodoListModel[] = [];
   public todoEnum = TodoListStatus;
-  private addMode: boolean = false;
+  private addMode = false;
   private todoListForm: FormGroup;
 
   constructor(private store: Store<fromApp.AppState>) {

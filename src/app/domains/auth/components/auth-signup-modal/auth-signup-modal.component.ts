@@ -13,7 +13,7 @@ import * as AuthActions from '../../store/auth.actions';
   styleUrls: ['./auth-signup-modal.component.scss'],
 })
 export class AuthSignupComponent implements OnDestroy, OnInit {
-  public isLoading: boolean = false;
+  public isLoading = false;
   private storeSubscription: Subscription;
   private signUpForm: FormGroup;
 

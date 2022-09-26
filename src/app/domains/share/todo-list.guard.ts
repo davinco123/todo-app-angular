@@ -12,7 +12,7 @@ import { Store } from '@ngrx/store';
 import * as fromApp from '../../store/app.reducer';
 
 @Injectable({ providedIn: 'root' })
-export class AuthGuard implements CanActivate {
+export class TodoListGuard implements CanActivate {
   constructor(private router: Router, private store: Store<fromApp.AppState>) {}
 
   canActivate(

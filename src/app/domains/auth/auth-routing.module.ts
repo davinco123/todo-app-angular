@@ -1,7 +1,7 @@
 import { RouterModule, Routes } from '@angular/router';
 import { NgModule } from '@angular/core';
 
-import { AuthPageGuard } from '../share/authenticated.guard';
+import { AuthPageGuard } from '../share/auth.guard';
 import { AuthSigninComponent } from './components/auth-signin-modal/auth-signin-modal.component';
 import { AuthSignupComponent } from './components/auth-signup-modal/auth-signup-modal.component';
 import { AuthHomeComponent } from './components/auth/auth-home.component';

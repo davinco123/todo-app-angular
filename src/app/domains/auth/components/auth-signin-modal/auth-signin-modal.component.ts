@@ -12,7 +12,7 @@ import * as AuthActions from '../../store/auth.actions';
   styleUrls: ['./auth-signin-modal.component.scss'],
 })
 export class AuthSigninComponent implements OnInit, OnDestroy {
-  public isLoading: boolean = false;
+  public isLoading = false;
   private storeSubscription: Subscription;
   private signInForm: FormGroup;
 
