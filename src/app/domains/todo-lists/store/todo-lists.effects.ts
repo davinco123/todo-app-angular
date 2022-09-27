@@ -19,8 +19,6 @@ export interface TodoListsResponseData {
 
 @Injectable()
 export class TodoListEffects {
-  public user = JSON.parse(localStorage.getItem('userData'));
-
   constructor(private action$: Actions, private http: HttpClient) {}
 
   getTodo$ = createEffect(() =>
@@ -28,10 +26,7 @@ export class TodoListEffects {
       ofType(TodoListActions.GET_TODO),
       switchMap(() => {
         return this.http.get<TodoListsResponseData>(
-          environment.postmanAPI + '/task',
-          {
-            headers: { Authorization: 'Bearer ' + this.user._token },
-          }
+          environment.postmanAPI + '/task'
         );
       }),
       map((todoLists) => {
@@ -49,11 +44,6 @@ export class TodoListEffects {
             environment.postmanAPI + '/task',
             {
               description: todoListData.payload,
-            },
-            {
-              headers: {
-                Authorization: 'Bearer ' + this.user._token,
-              },
             }
           );
         })
@@ -71,12 +61,7 @@ export class TodoListEffects {
         ofType(TodoListActions.DELETE_TODO),
         switchMap((todoListData: TodoListActions.DeleteTodo) => {
           return this.http.delete(
-            environment.postmanAPI + '/task/' + todoListData.payload,
-            {
-              headers: {
-                Authorization: 'Bearer ' + this.user._token,
-              },
-            }
+            environment.postmanAPI + '/task/' + todoListData.payload
           );
         })
       )
@@ -97,11 +82,6 @@ export class TodoListEffects {
             {
               description: todoListData.payload.description,
               completed: todoListData.payload.completed,
-            },
-            {
-              headers: {
-                Authorization: 'Bearer ' + this.user._token,
-              },
             }
           );
         })

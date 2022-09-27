@@ -128,14 +128,7 @@ export class AuthEffects {
       this.action$.pipe(
         ofType(AuthActions.LOGOUT),
         switchMap(() => {
-          const loadedUser = JSON.parse(localStorage.getItem('userData'));
-          return this.http.post(
-            environment.postmanAPI + '/user/logout',
-            {},
-            {
-              headers: { Authorization: 'Bearer ' + loadedUser._token },
-            }
-          );
+          return this.http.post(environment.postmanAPI + '/user/logout', {});
         }),
         tap(() => {
           localStorage.removeItem('userData');
