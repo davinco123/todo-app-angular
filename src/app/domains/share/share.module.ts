@@ -6,10 +6,11 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptorService } from './services/auth-interceptor.service';
 import { LoadingSpinnerComponent } from './loading-spinner/loading-spinner.component';
 import { ClickOutSideDirective } from './clickOutside.directive';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [LoadingSpinnerComponent, ClickOutSideDirective],
-  imports: [CommonModule, HttpClientModule],
+  imports: [CommonModule, HttpClientModule, FormsModule, ReactiveFormsModule],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,
@@ -22,6 +23,8 @@ import { ClickOutSideDirective } from './clickOutside.directive';
     CommonModule,
     ClickOutSideDirective,
     HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule,
   ],
 })
 export class ShareModule {}

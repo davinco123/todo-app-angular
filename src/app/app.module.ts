@@ -10,6 +10,7 @@ import { AppRoutingModule } from './app-routing.module';
 import * as fromApp from './store/app.reducer';
 import { AuthEffects } from './domains/auth/store/auth.effects';
 import { TodoListEffects } from './domains/todo-lists/store/todo-lists.effects';
+import { AuthModule } from './domains/auth/auth.module';
 
 @NgModule({
   declarations: [AppComponent],

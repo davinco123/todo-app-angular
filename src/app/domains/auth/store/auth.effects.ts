@@ -127,12 +127,9 @@ export class AuthEffects {
     () =>
       this.action$.pipe(
         ofType(AuthActions.LOGOUT),
-        switchMap(() =>
-          this.http.post(environment.postmanAPI + '/user/logout', {})
-        ),
         tap(() => {
           localStorage.removeItem('userData');
-          this.router.navigate(['/auth']);
+          this.router.navigate(['auth']);
         })
       ),
     { dispatch: false }
