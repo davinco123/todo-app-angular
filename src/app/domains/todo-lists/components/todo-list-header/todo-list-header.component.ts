@@ -18,19 +18,19 @@ export class TodoListHeaderComponent {
 
   constructor(private store: Store<fromApp.AppState>) {}
 
-  menuToggle(): void {
+  public menuToggle(): void {
     this.isMenuOpen = true;
   }
 
-  clickedOutside(): void {
+  public clickedOutside(): void {
     this.isMenuOpen = false;
   }
 
-  onLogout(): void {
+  public onLogout(): void {
     this.store.dispatch(new AuthActions.Logout());
   }
 
-  onStatusChange(value: TodoListStatus): void {
+  public onStatusChange(value: TodoListStatus): void {
     this.currentStatus = value;
     this.statusChange.emit(value);
     this.isMenuOpen = false;

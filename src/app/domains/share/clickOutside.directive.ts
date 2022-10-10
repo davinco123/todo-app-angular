@@ -14,8 +14,9 @@ import { fromEvent, filter, Subscription } from 'rxjs';
   selector: '[clickOutside]',
 })
 export class ClickOutSideDirective implements OnDestroy {
-  @Output() clickOutside = new EventEmitter<void>();
-  clickOutsideSubscription: Subscription;
+  @Output() public clickOutside = new EventEmitter<void>();
+  private clickOutsideSubscription: Subscription;
+
   constructor(
     private element: ElementRef,
     @Inject(DOCUMENT) private document: Document
@@ -31,13 +32,13 @@ export class ClickOutSideDirective implements OnDestroy {
       });
   }
 
-  isInside(elementToCheck: HTMLElement): boolean {
+  public isInside(elementToCheck: HTMLElement): boolean {
     return (
       elementToCheck === this.element.nativeElement ||
       this.element.nativeElement.contains(elementToCheck)
     );
   }
-  ngOnDestroy(): void {
+  public ngOnDestroy(): void {
     this.clickOutsideSubscription?.unsubscribe();
   }
 }

@@ -28,34 +28,13 @@ export function todoListReducer(
       };
 
     case TodoListActions.EDIT_TODO_COMPLETED:
-      const oldTodoList = [...state.todoList];
-      const todo = { ...action.payload };
-      const index = oldTodoList.findIndex(
-        (oldTodo) => oldTodo._id === todo._id
+      const newTodoList = [...state.todoList].filter(
+        (todo) => todo._id !== action.payload._id
       );
 
-      const oldTodo = oldTodoList[index];
-      const newTodo = {
-        ...oldTodo,
-        ...action.payload,
-      };
-
-      oldTodoList[index] = newTodo;
       return {
         ...state,
-        todoList: oldTodoList,
-      };
-
-    case TodoListActions.REMOVE_TODO:
-      const todoLists = [...state.todoList];
-      const todos = { ...action.payload };
-      const ind = todoLists.findIndex((todo) => todo._id === todos._id);
-
-      todoLists.splice(ind, 1);
-
-      return {
-        ...state,
-        todoList: todoLists,
+        todoList: [...newTodoList, action.payload],
       };
 
     default:

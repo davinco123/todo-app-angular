@@ -15,7 +15,7 @@ import * as fromApp from '../../store/app.reducer';
 export class AuthPageGuard implements CanActivate {
   constructor(private router: Router, private store: Store<fromApp.AppState>) {}
 
-  canActivate(
+  public canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ):

@@ -16,7 +16,7 @@ export class AuthComponent implements OnInit, OnDestroy {
 
   constructor(private store: Store<fromApp.AppState>) {}
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.storeSubscription = this.store
       .select('auth')
       .subscribe((authState) => {
@@ -24,11 +24,11 @@ export class AuthComponent implements OnInit, OnDestroy {
       });
   }
 
-  closeAlert(): void {
+  public closeAlert(): void {
     this.store.dispatch(new AuthActions.ClearError());
   }
 
-  ngOnDestroy(): void {
+  public ngOnDestroy(): void {
     this.storeSubscription.unsubscribe();
   }
 }

@@ -21,21 +21,17 @@ export interface TodoListsResponseData {
 export class TodoListEffects {
   constructor(private action$: Actions, private http: HttpClient) {}
 
-  getTodo$ = createEffect(() =>
+  public getTodo$ = createEffect(() =>
     this.action$.pipe(
       ofType(TodoListActions.GET_TODO),
-      switchMap(() => {
-        return this.http.get<TodoListsResponseData>(
-          environment.postmanAPI + '/task'
-        );
-      }),
-      map((todoLists) => {
-        return new TodoListActions.SetTodo(todoLists.data);
-      })
+      switchMap(() =>
+        this.http.get<TodoListsResponseData>(environment.postmanAPI + '/task')
+      ),
+      map((todoLists) => new TodoListActions.SetTodo(todoLists.data))
     )
   );
 
-  addTodo$ = createEffect(() =>
+  public addTodo$ = createEffect(() =>
     this.action$
       .pipe(
         ofType(TodoListActions.ADD_TODO),
@@ -49,30 +45,24 @@ export class TodoListEffects {
         })
       )
       .pipe(
-        map((todoList) => {
-          return new TodoListActions.AddTodoCompleted(todoList.data);
-        })
+        map((todoList) => new TodoListActions.AddTodoCompleted(todoList.data))
       )
   );
 
-  deleteTodo$ = createEffect(() =>
+  public deleteTodo$ = createEffect(() =>
     this.action$
       .pipe(
         ofType(TodoListActions.DELETE_TODO),
-        switchMap((todoListData: TodoListActions.DeleteTodo) => {
-          return this.http.delete(
+        switchMap((todoListData: TodoListActions.DeleteTodo) =>
+          this.http.delete(
             environment.postmanAPI + '/task/' + todoListData.payload
-          );
-        })
+          )
+        )
       )
-      .pipe(
-        map((data) => {
-          return new TodoListActions.GetTodo();
-        })
-      )
+      .pipe(map((data) => new TodoListActions.GetTodo()))
   );
 
-  editTodo$ = createEffect(() =>
+  public editTodo$ = createEffect(() =>
     this.action$
       .pipe(
         ofType(TodoListActions.EDIT_TODO),
@@ -87,10 +77,7 @@ export class TodoListEffects {
         })
       )
       .pipe(
-        map((todoList) => {
-          const todo = todoList.data;
-          return new TodoListActions.EditTodoCompleted(todo);
-        })
+        map((todoList) => new TodoListActions.EditTodoCompleted(todoList.data))
       )
   );
 }

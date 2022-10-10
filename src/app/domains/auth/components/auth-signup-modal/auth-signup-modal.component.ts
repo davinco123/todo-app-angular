@@ -2,7 +2,6 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
-import { Router, ActivatedRoute } from '@angular/router';
 
 import * as fromApp from '../../../../store/app.reducer';
 import * as AuthActions from '../../store/auth.actions';
@@ -32,7 +31,7 @@ export class AuthSignupComponent implements OnDestroy, OnInit {
     });
   }
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.storeSubscription = this.store
       .select('auth')
       .subscribe((authState) => {
@@ -40,7 +39,7 @@ export class AuthSignupComponent implements OnDestroy, OnInit {
       });
   }
 
-  onSubmit() {
+  public onSubmit() {
     this.store.dispatch(
       new AuthActions.SignupStart({
         name: this.signUpForm.get('name').value,
@@ -51,7 +50,7 @@ export class AuthSignupComponent implements OnDestroy, OnInit {
     );
   }
 
-  ngOnDestroy(): void {
+  public ngOnDestroy(): void {
     this.storeSubscription.unsubscribe();
   }
 }

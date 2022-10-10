@@ -1,6 +1,6 @@
 <div class="list">
     <ul class="todo">
-        <ng-container *ngFor="let todoItem of todoLists">
+        <ng-container *ngFor="let todoItem of todoLists$ | async">
 
             <!-- INPROGRESS LIST -->
             <div class="item" *ngIf="currentStatusChange == todoEnum.INPROGRESS && todoItem.completed === false">

@@ -9,7 +9,7 @@ import { TodoListStatus } from '../../models/todo-lists.model';
 export class TodoPageComponent {
   public currentStatus: TodoListStatus = TodoListStatus.INPROGRESS;
 
-  changeCurrentStatus(status: TodoListStatus): void {
+  public changeCurrentStatus(status: TodoListStatus): void {
     this.currentStatus = status;
   }
 }

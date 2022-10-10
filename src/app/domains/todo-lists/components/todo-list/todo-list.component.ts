@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { map } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 
 import { TodoListModel, TodoListStatus } from '../../models/todo-lists.model';
@@ -14,47 +14,32 @@ import * as TodoListActions from '../../store/todo-lists.actions';
 })
 export class TodoListComponent implements OnInit {
   @Input() public currentStatusChange: string;
-  public todoLists: TodoListModel[] = [];
+  public todoLists$: Observable<TodoListModel[]>;
   public todoEnum = TodoListStatus;
   private addMode = false;
   private todoListForm: FormGroup;
 
-  constructor(private store: Store<fromApp.AppState>) {
-    this.currentStatusChange = TodoListStatus.INPROGRESS;
+  constructor(private store: Store<fromApp.AppState>) {}
+
+  public ngOnInit(): void {
     this.todoListForm = new FormGroup({
       description: new FormControl('', Validators.required),
     });
-  }
 
-  ngOnInit(): void {
     this.currentStatusChange = TodoListStatus.INPROGRESS;
 
     this.store.dispatch(new TodoListActions.GetTodo());
 
-    this.store
+    this.todoLists$ = this.store
       .select('todoList')
-      .pipe(
-        map((todoListState) => {
-          return todoListState.todoList;
-        })
-      )
-      .subscribe((todoList: TodoListModel[]) => {
-        this.todoLists = todoList;
-      });
+      .pipe(map((state) => state.todoList));
   }
 
-  getCurrentList(): TodoListModel[] {
-    return this.todoLists.filter(
-      (value) =>
-        value.completed ===
-        (this.currentStatusChange === TodoListStatus.COMPLETED ? true : false)
-    );
-  }
-
-  onAddMode(): void {
+  public onAddMode(): void {
     this.addMode = true;
   }
-  onSubmit(): void {
+
+  public onSubmit(): void {
     this.store.dispatch(
       new TodoListActions.AddTodo(this.todoListForm.get('description').value)
     );
@@ -62,12 +47,15 @@ export class TodoListComponent implements OnInit {
     this.addMode = false;
   }
 
-  onRemove(todoItem: TodoListModel): void {
-    this.store.dispatch(new TodoListActions.RemoveTodo(todoItem));
+  public onRemove(todoItem: TodoListModel): void {
     this.store.dispatch(new TodoListActions.DeleteTodo(todoItem._id));
   }
 
-  onEdit(todoItem: TodoListModel, inputvalue: string, isEdit: boolean): void {
+  public onEdit(
+    todoItem: TodoListModel,
+    inputvalue: string,
+    isEdit: boolean
+  ): void {
     if (isEdit && inputvalue === todoItem.description) {
       return;
     }

@@ -7,7 +7,6 @@ export const SET_TODO = '[Todo List] Set Todo';
 export const ADD_TODO = '[Todo List] Add Todo';
 export const ADD_TODO_COMPLETED = '[Todo List] Add Todo Completed';
 export const DELETE_TODO = '[Todo List] Delete Todo';
-export const REMOVE_TODO = '[Todo List] Remove Todo';
 export const EDIT_TODO = '[Todo List] Edit Todo';
 export const EDIT_TODO_COMPLETED = '[Todo List] Edit Todo Completed';
 
@@ -39,12 +38,6 @@ export class DeleteTodo implements Action {
   constructor(public payload: string) {}
 }
 
-export class RemoveTodo implements Action {
-  readonly type = REMOVE_TODO;
-
-  constructor(public payload: TodoListModel) {}
-}
-
 export class EditTodo implements Action {
   readonly type = EDIT_TODO;
 
@@ -70,5 +63,4 @@ export type TodoListActionsType =
   | AddTodo
   | DeleteTodo
   | EditTodo
-  | EditTodoCompleted
-  | RemoveTodo;
+  | EditTodoCompleted;

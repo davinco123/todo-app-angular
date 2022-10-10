@@ -15,8 +15,8 @@ export interface AuthResponseData {
 }
 
 const handleAuthentication = (user: IUser, _token: string) => {
-  const newUser = new User(user, _token);
-  localStorage.setItem('userData', JSON.stringify(newUser));
+  localStorage.setItem('userData', JSON.stringify(new User(user, _token)));
+
   return new AuthActions.AuthenticationSuccess({
     user: user,
     token: _token,
@@ -39,7 +39,7 @@ const handleError = (errorRes: any) => {
 
 @Injectable()
 export class AuthEffects {
-  signupStart$ = createEffect(() =>
+  public signupStart$ = createEffect(() =>
     this.action$
       .pipe(
         ofType(AuthActions.SIGNUP_START),
@@ -65,7 +65,7 @@ export class AuthEffects {
       )
   );
 
-  signinStart$ = createEffect(() =>
+  public signinStart$ = createEffect(() =>
     this.action$.pipe(
       ofType(AuthActions.SIGNIN_START),
       switchMap((signinData: AuthActions.SigninStart) => {
@@ -86,7 +86,7 @@ export class AuthEffects {
     )
   );
 
-  authenticationSuccess$ = createEffect(
+  public authenticationSuccess$ = createEffect(
     () =>
       this.action$.pipe(
         ofType(AuthActions.AUTHENTICATION_SUCCESS),
@@ -99,7 +99,7 @@ export class AuthEffects {
     { dispatch: false }
   );
 
-  autoSignin$ = createEffect(() =>
+  public autoSignin$ = createEffect(() =>
     this.action$.pipe(
       ofType(AuthActions.AUTO_SIGNIN),
       map(() => {
@@ -110,11 +110,11 @@ export class AuthEffects {
         if (!userData) {
           return { type: 'DUMMY MESSAGE' };
         }
-        const loadedUser = new User(userData.user, userData._token);
-        if (loadedUser.token) {
+
+        if (userData._token) {
           return new AuthActions.AuthenticationSuccess({
-            user: loadedUser.user,
-            token: loadedUser.token,
+            user: userData.user,
+            token: userData._token,
             redirect: false,
           });
         }
@@ -123,13 +123,13 @@ export class AuthEffects {
     )
   );
 
-  logout$ = createEffect(
+  public logout$ = createEffect(
     () =>
       this.action$.pipe(
         ofType(AuthActions.LOGOUT),
-        switchMap(() => {
-          return this.http.post(environment.postmanAPI + '/user/logout', {});
-        }),
+        switchMap(() =>
+          this.http.post(environment.postmanAPI + '/user/logout', {})
+        ),
         tap(() => {
           localStorage.removeItem('userData');
           this.router.navigate(['/auth']);
