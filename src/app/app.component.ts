@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
 import * as fromApp from './store/app.reducer';
-import * as AuthActions from './domains/auth/store/auth.actions';
 import { Store } from '@ngrx/store';
+import { autoSignin } from './domains/auth/store/auth.actions';
 
 @Component({
   selector: 'app-root',
@@ -13,6 +13,6 @@ export class AppComponent implements OnInit {
   constructor(private store: Store<fromApp.AppState>) {}
 
   ngOnInit(): void {
-    this.store.dispatch(new AuthActions.AutoSignin());
+    this.store.dispatch(autoSignin());
   }
 }

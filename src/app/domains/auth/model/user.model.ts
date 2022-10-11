@@ -8,6 +8,11 @@ export class User {
   }
 }
 
+export interface AuthResponseData {
+  user: IUser;
+  token: string;
+}
+
 export interface IUser {
   name: string;
   email: string;

@@ -1,3 +1,4 @@
+import { createReducer, Action, on } from '@ngrx/store';
 import { User } from '../model/user.model';
 
 import * as AuthActions from './auth.actions';
@@ -8,49 +9,36 @@ export interface State {
   loading: boolean;
 }
 
-const initialState: State = {
+export const initialState: State = {
   user: null,
   authError: null,
   loading: false,
 };
 
-export function authReducer(
-  state = initialState,
-  action: AuthActions.AuthActions
-) {
-  switch (action.type) {
-    case AuthActions.SIGNIN_START:
-    case AuthActions.SIGNUP_START:
-      return {
-        ...state,
-        loading: true,
-      };
+export const authReducer = createReducer(
+  initialState,
+  on(AuthActions.signupStart, AuthActions.signinStart, (state) => ({
+    ...state,
+    loading: true,
+  })),
 
-    case AuthActions.AUTHENTICATION_SUCCESS:
-      return {
-        ...state,
-        user: new User(action.payload.user, action.payload.token),
-        loading: false,
-      };
+  on(AuthActions.authenticationSuccess, (state, payload) => ({
+    ...state,
+    user: new User(payload.user, payload.token),
+    loading: false,
+  })),
 
-    case AuthActions.AUTHENTICATION_FAIL:
-      return {
-        ...state,
-        authError: action.payload,
-        loading: false,
-      };
+  on(AuthActions.authenticationFail, (state, payload) => ({
+    ...state,
+    authError: payload.error,
+    loading: false,
+  })),
 
-    case AuthActions.LOGOUT:
-      return {
-        ...state,
-        user: null,
-      };
-    case AuthActions.CLEAR_ERROR:
-      return {
-        ...state,
-        authError: null,
-      };
-    default:
-      return state;
-  }
+  on(AuthActions.logout, (state) => ({ ...state, user: null })),
+
+  on(AuthActions.clearError, (state) => ({ ...state, error: null }))
+);
+
+export function reducer(state: State | undefined, action: Action) {
+  return authReducer(state, action);
 }

@@ -1,7 +1,7 @@
 import { Component, Output, EventEmitter } from '@angular/core';
 import { Store } from '@ngrx/store';
 import * as fromApp from '../../../../store/app.reducer';
-import * as AuthActions from '../../../auth/store/auth.actions';
+import { logout } from '../../../auth/store/auth.actions';
 import { TodoListStatus } from '../../models/todo-lists.model';
 
 @Component({
@@ -27,7 +27,7 @@ export class TodoListHeaderComponent {
   }
 
   public onLogout(): void {
-    this.store.dispatch(new AuthActions.Logout());
+    this.store.dispatch(logout());
   }
 
   public onStatusChange(value: TodoListStatus): void {

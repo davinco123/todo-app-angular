@@ -8,6 +8,6 @@ export interface AppState {
 }
 
 export const appReducer: ActionReducerMap<AppState> = {
-  todoList: fromTodoList.todoListReducer,
+  todoList: fromTodoList.todoReducer,
   auth: fromAuth.authReducer,
 };

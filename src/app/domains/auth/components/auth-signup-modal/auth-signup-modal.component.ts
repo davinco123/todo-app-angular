@@ -4,7 +4,7 @@ import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 
 import * as fromApp from '../../../../store/app.reducer';
-import * as AuthActions from '../../store/auth.actions';
+import { signupStart } from '../../store/auth.actions';
 
 @Component({
   selector: 'app-auth-signup-modal',
@@ -41,7 +41,7 @@ export class AuthSignupComponent implements OnDestroy, OnInit {
 
   public onSubmit() {
     this.store.dispatch(
-      new AuthActions.SignupStart({
+      signupStart({
         name: this.signUpForm.get('name').value,
         email: this.signUpForm.get('email').value,
         password: this.signUpForm.get('password').value,

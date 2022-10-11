@@ -1,9 +1,9 @@
 <div class="list">
     <ul class="todo">
-        <ng-container *ngFor="let todoItem of todoLists$ | async">
 
-            <!-- INPROGRESS LIST -->
-            <div class="item" *ngIf="currentStatusChange == todoEnum.INPROGRESS && todoItem.completed === false">
+        <!-- INPROGRESS LIST -->
+        <ng-container *ngFor="let todoItem of todoInprogressList$ | async">
+            <div class="item" *ngIf="currentStatusChange == todoEnum.INPROGRESS">
                 <div class="inprogress">
                     <div class="complete" (clickOutside)="onEdit(todoItem, inputtext.value, true)">
                         <div class="complete-button" (click)="onEdit(todoItem, inputtext.value, false)">
@@ -24,8 +24,11 @@
                 </div>
             </div>
 
-            <!-- COMPLETE LIST -->
-            <div class="items" *ngIf="currentStatusChange == todoEnum.COMPLETED && todoItem.completed === true">
+        </ng-container>
+
+        <!-- COMPLETE LIST -->
+        <ng-container *ngFor="let todoItem of todoCompletedList$ | async">
+            <div class="items" *ngIf="currentStatusChange == todoEnum.COMPLETED">
                 <div class="completed">
                     <div class="complete">
                         <svg-icon src="/assets/svg/completed-todo.svg" [svgStyle]="{ 'height.px':25 ,'width.px':25 }">
@@ -37,6 +40,7 @@
                 </div>
             </div>
         </ng-container>
+
     </ul>
 
     <!-- ADD FORM -->

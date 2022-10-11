@@ -5,17 +5,10 @@ import { switchMap, map } from 'rxjs';
 
 import { environment } from 'src/environments/environment';
 import * as TodoListActions from './todo-lists.actions';
-import { TodoListModel } from '../models/todo-lists.model';
-
-export interface TodoListResponseData {
-  success: string;
-  data: TodoListModel;
-}
-
-export interface TodoListsResponseData {
-  count: number;
-  data: TodoListModel[];
-}
+import {
+  TodoItemArrayResponseData,
+  TodoItemResponseData,
+} from '../models/todo-lists.model';
 
 @Injectable()
 export class TodoListEffects {
@@ -23,61 +16,65 @@ export class TodoListEffects {
 
   public getTodo$ = createEffect(() =>
     this.action$.pipe(
-      ofType(TodoListActions.GET_TODO),
+      ofType(TodoListActions.getTodo),
       switchMap(() =>
-        this.http.get<TodoListsResponseData>(environment.postmanAPI + '/task')
+        this.http.get<TodoItemArrayResponseData>(
+          environment.postmanAPI + '/task'
+        )
       ),
-      map((todoLists) => new TodoListActions.SetTodo(todoLists.data))
+      map((todoLists) => TodoListActions.setTodo({ list: todoLists.data }))
     )
   );
 
   public addTodo$ = createEffect(() =>
     this.action$
       .pipe(
-        ofType(TodoListActions.ADD_TODO),
-        switchMap((todoListData: TodoListActions.AddTodo) => {
-          return this.http.post<TodoListResponseData>(
+        ofType(TodoListActions.addTodo),
+        switchMap((action) => {
+          return this.http.post<TodoItemResponseData>(
             environment.postmanAPI + '/task',
             {
-              description: todoListData.payload,
+              description: action.description,
             }
           );
         })
       )
       .pipe(
-        map((todoList) => new TodoListActions.AddTodoCompleted(todoList.data))
+        map((todoList) =>
+          TodoListActions.addTodoCompleted({ todo: todoList.data })
+        )
       )
   );
 
   public deleteTodo$ = createEffect(() =>
     this.action$
       .pipe(
-        ofType(TodoListActions.DELETE_TODO),
-        switchMap((todoListData: TodoListActions.DeleteTodo) =>
-          this.http.delete(
-            environment.postmanAPI + '/task/' + todoListData.payload
-          )
+        ofType(TodoListActions.deleteTodo),
+        switchMap((action) =>
+          this.http.delete(environment.postmanAPI + '/task/' + action.id)
         )
       )
-      .pipe(map((data) => new TodoListActions.GetTodo()))
+      .pipe(map((data) => TodoListActions.getTodo()))
   );
 
   public editTodo$ = createEffect(() =>
     this.action$
       .pipe(
-        ofType(TodoListActions.EDIT_TODO),
-        switchMap((todoListData: TodoListActions.EditTodo) => {
-          return this.http.put<TodoListResponseData>(
-            environment.postmanAPI + '/task/' + todoListData.payload.id,
+        ofType(TodoListActions.editTodo),
+        switchMap((action) => {
+          return this.http.put<TodoItemResponseData>(
+            environment.postmanAPI + '/task/' + action.id,
             {
-              description: todoListData.payload.description,
-              completed: todoListData.payload.completed,
+              description: action.description,
+              completed: action.completed,
             }
           );
         })
       )
       .pipe(
-        map((todoList) => new TodoListActions.EditTodoCompleted(todoList.data))
+        map((todoList) =>
+          TodoListActions.editTodoCompleted({ todo: todoList.data })
+        )
       )
   );
 }

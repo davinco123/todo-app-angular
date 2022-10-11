@@ -4,7 +4,7 @@ import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 
 import * as fromApp from '../../../../store/app.reducer';
-import * as AuthActions from '../../store/auth.actions';
+import { signinStart } from '../../store/auth.actions';
 
 @Component({
   selector: 'app-auth-signin-modal',
@@ -33,7 +33,7 @@ export class AuthSigninComponent implements OnInit, OnDestroy {
 
   public onSubmit() {
     this.store.dispatch(
-      new AuthActions.SigninStart({
+      signinStart({
         email: this.signInForm.get('email').value,
         password: this.signInForm.get('password').value,
       })

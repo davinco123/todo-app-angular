@@ -15,3 +15,13 @@ export enum TodoListStatus {
   INPROGRESS = 'inprogress',
   COMPLETED = 'completed',
 }
+
+export interface TodoItemResponseData {
+  success: boolean;
+  data: TodoListModel;
+}
+
+export interface TodoItemArrayResponseData {
+  count: number;
+  data: TodoListModel[];
+}

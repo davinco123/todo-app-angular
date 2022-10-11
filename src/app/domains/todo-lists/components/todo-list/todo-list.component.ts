@@ -6,6 +6,10 @@ import { Store } from '@ngrx/store';
 import { TodoListModel, TodoListStatus } from '../../models/todo-lists.model';
 import * as fromApp from '../../../../store/app.reducer';
 import * as TodoListActions from '../../store/todo-lists.actions';
+import {
+  selectCompletedTodo,
+  selectInprogressTodo,
+} from '../../store/todo-lists.selectors';
 
 @Component({
   selector: 'app-todo-list',
@@ -14,12 +18,13 @@ import * as TodoListActions from '../../store/todo-lists.actions';
 })
 export class TodoListComponent implements OnInit {
   @Input() public currentStatusChange: string;
-  public todoLists$: Observable<TodoListModel[]>;
+  public todoCompletedList$: Observable<TodoListModel[]>;
+  public todoInprogressList$: Observable<TodoListModel[]>;
   public todoEnum = TodoListStatus;
   private addMode = false;
   private todoListForm: FormGroup;
 
-  constructor(private store: Store<fromApp.AppState>) {}
+  constructor(private store: Store) {}
 
   public ngOnInit(): void {
     this.todoListForm = new FormGroup({
@@ -28,11 +33,10 @@ export class TodoListComponent implements OnInit {
 
     this.currentStatusChange = TodoListStatus.INPROGRESS;
 
-    this.store.dispatch(new TodoListActions.GetTodo());
+    this.store.dispatch(TodoListActions.getTodo());
 
-    this.todoLists$ = this.store
-      .select('todoList')
-      .pipe(map((state) => state.todoList));
+    this.todoCompletedList$ = this.store.select(selectCompletedTodo);
+    this.todoInprogressList$ = this.store.select(selectInprogressTodo);
   }
 
   public onAddMode(): void {
@@ -41,14 +45,16 @@ export class TodoListComponent implements OnInit {
 
   public onSubmit(): void {
     this.store.dispatch(
-      new TodoListActions.AddTodo(this.todoListForm.get('description').value)
+      TodoListActions.addTodo({
+        description: this.todoListForm.get('description').value,
+      })
     );
     this.todoListForm.reset();
     this.addMode = false;
   }
 
   public onRemove(todoItem: TodoListModel): void {
-    this.store.dispatch(new TodoListActions.DeleteTodo(todoItem._id));
+    this.store.dispatch(TodoListActions.deleteTodo({ id: todoItem._id }));
   }
 
   public onEdit(
@@ -61,7 +67,7 @@ export class TodoListComponent implements OnInit {
     }
 
     this.store.dispatch(
-      new TodoListActions.EditTodo({
+      TodoListActions.editTodo({
         id: todoItem._id,
         description: inputvalue,
         completed: isEdit ? todoItem.completed : true,

@@ -3,7 +3,7 @@ import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 
 import * as fromApp from '../../../../store/app.reducer';
-import * as AuthActions from '../../store/auth.actions';
+import { clearError } from '../../store/auth.actions';
 
 @Component({
   selector: 'app-auth',
@@ -25,7 +25,7 @@ export class AuthComponent implements OnInit, OnDestroy {
   }
 
   public closeAlert(): void {
-    this.store.dispatch(new AuthActions.ClearError());
+    this.store.dispatch(clearError());
   }
 
   public ngOnDestroy(): void {

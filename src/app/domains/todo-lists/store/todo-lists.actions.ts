@@ -1,66 +1,34 @@
-import { Action } from '@ngrx/store';
-
+import { createAction, props } from '@ngrx/store';
 import { TodoListModel } from '../models/todo-lists.model';
 
-export const GET_TODO = '[Todo List] Get Todo';
-export const SET_TODO = '[Todo List] Set Todo';
-export const ADD_TODO = '[Todo List] Add Todo';
-export const ADD_TODO_COMPLETED = '[Todo List] Add Todo Completed';
-export const DELETE_TODO = '[Todo List] Delete Todo';
-export const EDIT_TODO = '[Todo List] Edit Todo';
-export const EDIT_TODO_COMPLETED = '[Todo List] Edit Todo Completed';
+export const getTodo = createAction('[Todo List] Get Todo');
 
-export class GetTodo implements Action {
-  readonly type = GET_TODO;
-}
+export const setTodo = createAction(
+  '[Todo List] Set Todo',
+  props<{ list: TodoListModel[] }>()
+);
 
-export class SetTodo implements Action {
-  readonly type = SET_TODO;
+export const addTodo = createAction(
+  '[Todo List] Add Todo',
+  props<{ description: string }>()
+);
 
-  constructor(public payload: TodoListModel[]) {}
-}
+export const addTodoCompleted = createAction(
+  '[Todo List] Add Todo Completed',
+  props<{ todo: TodoListModel }>()
+);
 
-export class AddTodo implements Action {
-  readonly type = ADD_TODO;
+export const deleteTodo = createAction(
+  '[Todo List] Delete Todo',
+  props<{ id: string }>()
+);
 
-  constructor(public payload: string) {}
-}
+export const editTodo = createAction(
+  '[Todo List] Edit Todo',
+  props<{ id: string; description: string; completed: boolean }>()
+);
 
-export class AddTodoCompleted implements Action {
-  readonly type = ADD_TODO_COMPLETED;
-
-  constructor(public payload: TodoListModel) {}
-}
-
-export class DeleteTodo implements Action {
-  readonly type = DELETE_TODO;
-
-  constructor(public payload: string) {}
-}
-
-export class EditTodo implements Action {
-  readonly type = EDIT_TODO;
-
-  constructor(
-    public payload: {
-      id: string;
-      description: string;
-      completed: boolean;
-    }
-  ) {}
-}
-
-export class EditTodoCompleted implements Action {
-  readonly type = EDIT_TODO_COMPLETED;
-
-  constructor(public payload: TodoListModel) {}
-}
-
-export type TodoListActionsType =
-  | AddTodoCompleted
-  | GetTodo
-  | SetTodo
-  | AddTodo
-  | DeleteTodo
-  | EditTodo
-  | EditTodoCompleted;
+export const editTodoCompleted = createAction(
+  '[Todo List] Edit Todo Completed',
+  props<{ todo: TodoListModel }>()
+);

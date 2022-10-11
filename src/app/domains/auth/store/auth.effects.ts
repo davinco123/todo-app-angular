@@ -3,21 +3,16 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { switchMap, map, tap, catchError } from 'rxjs/operators';
-import { IUser, User } from '../model/user.model';
+import { AuthResponseData, IUser, User } from '../model/user.model';
 import { of } from 'rxjs';
 
 import { environment } from 'src/environments/environment';
 import * as AuthActions from './auth.actions';
 
-export interface AuthResponseData {
-  user: IUser;
-  token: string;
-}
-
 const handleAuthentication = (user: IUser, _token: string) => {
   localStorage.setItem('userData', JSON.stringify(new User(user, _token)));
 
-  return new AuthActions.AuthenticationSuccess({
+  return AuthActions.authenticationSuccess({
     user: user,
     token: _token,
     redirect: true,
@@ -27,30 +22,36 @@ const handleAuthentication = (user: IUser, _token: string) => {
 const handleError = (errorRes: any) => {
   let errorMessage = 'An unknown error has occured!!';
   if (!errorRes.error || !errorRes.message) {
-    return of(new AuthActions.AuthenticationFail(errorMessage));
+    return of(AuthActions.authenticationFail({ error: errorMessage }));
   }
   switch (errorRes.error) {
     case 'Unable to login':
       errorMessage = 'Email or password was incorrect.';
       break;
   }
-  return of(new AuthActions.AuthenticationFail(errorMessage));
+  return of(AuthActions.authenticationFail({ error: errorMessage }));
 };
 
 @Injectable()
 export class AuthEffects {
+  constructor(
+    private action$: Actions,
+    private http: HttpClient,
+    private router: Router
+  ) {}
+
   public signupStart$ = createEffect(() =>
     this.action$
       .pipe(
-        ofType(AuthActions.SIGNUP_START),
-        switchMap((signupData: AuthActions.SignupStart) => {
+        ofType(AuthActions.signupStart),
+        switchMap((action) => {
           return this.http.post<AuthResponseData>(
             environment.postmanAPI + '/user/register',
             {
-              name: signupData.payload.name,
-              email: signupData.payload.email,
-              password: signupData.payload.password,
-              age: signupData.payload.age,
+              name: action.name,
+              email: action.email,
+              password: action.password,
+              age: action.age,
             }
           );
         })
@@ -67,12 +68,12 @@ export class AuthEffects {
 
   public signinStart$ = createEffect(() =>
     this.action$.pipe(
-      ofType(AuthActions.SIGNIN_START),
-      switchMap((signinData: AuthActions.SigninStart) => {
+      ofType(AuthActions.signinStart),
+      switchMap((action) => {
         return this.http
           .post<AuthResponseData>(environment.postmanAPI + '/user/login', {
-            email: signinData.payload.email,
-            password: signinData.payload.password,
+            email: action.email,
+            password: action.password,
           })
           .pipe(
             map((resData) => {
@@ -89,9 +90,9 @@ export class AuthEffects {
   public authenticationSuccess$ = createEffect(
     () =>
       this.action$.pipe(
-        ofType(AuthActions.AUTHENTICATION_SUCCESS),
-        tap((signupSuccessAction: AuthActions.AuthenticationSuccess) => {
-          if (signupSuccessAction.payload.redirect) {
+        ofType(AuthActions.authenticationSuccess),
+        tap((action) => {
+          if (action.redirect) {
             this.router.navigate(['/todoLists']);
           }
         })
@@ -101,7 +102,7 @@ export class AuthEffects {
 
   public autoSignin$ = createEffect(() =>
     this.action$.pipe(
-      ofType(AuthActions.AUTO_SIGNIN),
+      ofType(AuthActions.autoSignin),
       map(() => {
         const userData: {
           user: IUser;
@@ -112,7 +113,7 @@ export class AuthEffects {
         }
 
         if (userData._token) {
-          return new AuthActions.AuthenticationSuccess({
+          return AuthActions.authenticationSuccess({
             user: userData.user,
             token: userData._token,
             redirect: false,
@@ -126,7 +127,7 @@ export class AuthEffects {
   public logout$ = createEffect(
     () =>
       this.action$.pipe(
-        ofType(AuthActions.LOGOUT),
+        ofType(AuthActions.logout),
         tap(() => {
           localStorage.removeItem('userData');
           this.router.navigate(['auth']);
@@ -134,10 +135,4 @@ export class AuthEffects {
       ),
     { dispatch: false }
   );
-
-  constructor(
-    private action$: Actions,
-    private http: HttpClient,
-    private router: Router
-  ) {}
 }
